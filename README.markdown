@@ -1,5 +1,19 @@
 # Emacs Starter Kit
 
+From Phil Hagelberg's emacs-starter-kit.
+
+## Current or planned customizations by Geoffrey Grosenbach (topfunky)
+
+* Intended for use with Emacs built for Mac OS X from git://git.sv.gnu.org/emacs.git
+
+### Planned
+
+* Implement Mac-friendly keyboard shortcuts. Liberal usage of the Apple command key to make shortcuts even shorter.
+* Add other plugins that I use, such as Textile, Haml, Sass, etc.
+* Add TextMate-style snippets with yasnippet
+
+# Description
+
 This should provide a saner set of defaults than you get normally with
 Emacs. It's intended for beginners, but it should provide a reasonable
 working environment for anyone using Emacs.
