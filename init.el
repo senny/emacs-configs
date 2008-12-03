@@ -22,6 +22,7 @@
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path (concat dotfiles-dir "/elpa"))
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
+(add-to-list 'load-path (concat dotfiles-dir "/vendor"))
 
 ;; Autoloads can be regenerated for you automatically if the file is
 ;; too old:
@@ -75,5 +76,12 @@
       (concat dotfiles-dir system-name ".el"))
 (if (file-exists-p system-specific-config)
     (load system-specific-config))
+
+(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
+(require 'textmate)
+(textmate-mode)
+
+(require 'textile-mode)
+(add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
 ;;; init.el ends here

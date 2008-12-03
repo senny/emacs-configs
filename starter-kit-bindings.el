@@ -44,6 +44,11 @@
 (windmove-default-keybindings) ;; Shift+direction
 (global-set-key "\C-xO" (lambda () (interactive) (other-window -1))) ;; back one
 (global-set-key "\C-x\C-o" (lambda () (interactive) (other-window 2))) ;; forward two
+(global-set-key [(super meta right)] 'other-window)
+; TODO Previous window
+(global-set-key [(super control right)] 'next-buffer)
+(global-set-key [(super control left)] 'previous-buffer)
+
 
 ;; Lisp
 (define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
@@ -78,6 +83,7 @@
 (global-set-key (kbd "C-c J") 'jabber-send-presence)
 (global-set-key (kbd "C-c M-j") 'jabber-disconnect)
 (global-set-key (kbd "C-x g") 'magit-status)
+
 
 ;; This is a little hacky since VC doesn't support git add internally
 (eval-after-load 'vc
