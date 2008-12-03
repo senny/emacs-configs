@@ -22,7 +22,6 @@
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path (concat dotfiles-dir "/elpa"))
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
-(add-to-list 'load-path (concat dotfiles-dir "/vendor"))
 
 ;; Autoloads can be regenerated for you automatically if the file is
 ;; too old:
@@ -77,16 +76,6 @@
 (if (file-exists-p system-specific-config)
     (load system-specific-config))
 
-;; TODO Put in separate topfunky enhancements file
-(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
-(require 'textmate)
-(textmate-mode)
-
-(require 'textile-mode)
-(add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
-
-(require 'mac-bindings)
-
-(server-start)
+(require 'topfunky-misc)
 
 ;;; init.el ends here
