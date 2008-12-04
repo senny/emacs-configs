@@ -9,6 +9,9 @@
 ;; Created: 22 Nov 2008
 ;; Author: Chris Wanstrath <chris@ozmm.org>
 
+;; Modified: Geoffrey Grosenbach http://topfunky.com
+;; Notes:    Key bindings changed to work with official emacs and my machine.
+
 ;; This file is NOT part of GNU Emacs.
 
 ;; Licensed under the same terms as Emacs.
@@ -20,7 +23,7 @@
 
 ;;    ⌘T - Go to File
 ;;  ⇧⌘T - Go to Symbol
-;;    ⌘L - Go to Line
+;;;    ⌘L - Go to Line
 ;;    ⌘/ - Comment Line (or Selection/Region)
 ;;    ⌘] - Shift Right (currently indents region)
 ;;    ⌘[ - Shift Left  (not yet implemented)
@@ -80,21 +83,21 @@
   "/\\.|vendor|fixtures|tmp|log|build|\\.xcodeproj|\\.nib|\\.framework|\\.app|\\.pbproj|\\.pbxproj|\\.xcode|\\.xcodeproj|\\.bundle")
 
 (defvar *textmate-keybindings-list* `((textmate-next-line 
-                                     [A-return]    [M-return])
+                                      ,[M-return]  [(super return)])
                                      (textmate-clear-cache 
                                       ,(kbd "A-M-t") [(control c)(control t)])
                                      (align 
-                                      ,(kbd "A-M-]") [(control c)(control a)])
+                                      ,(kbd "A-M-]") [(super meta \])])
                                      (indent-according-to-mode 
                                       ,(kbd "A-M-[") nil)
                                      (indent-region 
-                                      ,(kbd "A-]")   [(control tab)])
+                                      ,(kbd "A-]")   [(super \])])
                                      (comment-or-uncomment-region-or-line 
-                                      ,(kbd "A-/")   [(control c)(control k)])
+                                      ,(kbd "A-/")   [(super /)])
                                      (textmate-goto-file 
-                                      ,(kbd "A-t")   [(meta t)])
+                                      ,(kbd "A-t")   [(super t)])
                                      (textmate-goto-symbol 
-                                      ,(kbd "A-T")   [(meta T)])))
+                                      ,(kbd "A-T")   [(super T)])))
 
 ;;; Bindings
 
@@ -180,6 +183,28 @@
   (message "textmate-mode cache cleared."))
 
 ;;; Utilities
+
+;; TextMate-like commenting
+;; http://paste.lisp.org/display/42657
+(defun comment-or-uncomment-line (&optional lines)
+  "Comment current line. Argument gives the number of lines
+forward to comment"
+  (interactive "P")
+  (comment-or-uncomment-region
+   (line-beginning-position)
+   (line-end-position lines)))
+
+(defun comment-or-uncomment-region-or-line (&optional lines)
+  "If the line or region is not a comment, comments region
+if mark is active, line otherwise. If the line or region
+is a comment, uncomment."
+  (interactive "P")
+  (if mark-active
+      (if (< (mark) (point))
+          (comment-or-uncomment-region (mark) (point))
+	(comment-or-uncomment-region (point) (mark)))
+    (comment-or-uncomment-line lines)))
+
 
 (defun textmate-project-files (root)
   (split-string 
