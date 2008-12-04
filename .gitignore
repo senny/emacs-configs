@@ -1,1 +1,3 @@
-loaddefs.el*
+.DS_Store
+places
+loaddefs.el

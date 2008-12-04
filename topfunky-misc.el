@@ -2,6 +2,12 @@
 
 (add-to-list 'load-path (concat dotfiles-dir "/vendor"))
 
+;; Snippets
+(add-to-list 'load-path "~/.emacs.d/vendor/yasnippet.el")
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory "~/.emacs.d/vendor/yasnippet.el/snippets")
+
 ;; Commands
 (require 'unbound)
 
