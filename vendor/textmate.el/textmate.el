@@ -85,7 +85,7 @@
 (defvar *textmate-keybindings-list* `((textmate-next-line 
                                       ,[M-return]  [(super return)])
                                      (textmate-clear-cache 
-                                      ,(kbd "A-M-t") [(control c)(control t)])
+                                      ,(kbd "C-c C-t") [(super meta t)])
                                      (align 
                                       ,(kbd "A-M-]") [(super meta \])])
                                      (indent-according-to-mode 

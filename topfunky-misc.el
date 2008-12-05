@@ -35,8 +35,9 @@
 ;; Color Themes
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
 (require 'color-theme)
-;(setq color-theme-is-global t)
-;(color-theme-gtk-ide)
+(color-theme-initialize)
+;; (color-theme-gtk-ide)
+(color-theme-gray30)
 
 (prefer-coding-system 'utf-8)
 
