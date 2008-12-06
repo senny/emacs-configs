@@ -20,6 +20,9 @@
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
+(autoload 'markdown-mode "markdown-mode.el"
+   "Major mode for editing Markdown files" t)
+
 (require 'haml-mode)
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 
@@ -30,7 +33,7 @@
 (require 'mac-bindings)
 
 ;; Font
-(set-face-font 'default "-apple-inconsolata-medium-r-normal--14-0-72-72-m-0-iso10646-1")
+(set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
 
 ;; Color Themes
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
