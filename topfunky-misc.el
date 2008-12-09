@@ -29,8 +29,10 @@
 (require 'sass-mode)
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
 
+(add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
+
 ;; Keyboard
-(require 'mac-bindings)
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
@@ -50,7 +52,18 @@
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen) 
                                            nil 
                                          'fullboth)))
-;; (global-set-key [(meta return)] 'toggle-fullscreen)
+(global-set-key (kbd "M-n") 'toggle-fullscreen)
+
+;; Keyboard
+
+;; Split Windows
+(global-set-key [f5] 'split-window-horizontally)
+(global-set-key [f6] 'split-window-vertically)
+(global-set-key [f7] 'delete-window)
+
+;; Some Mac-friendly key counterparts
+(global-set-key (kbd "M-s") 'save-buffer)
+(global-set-key (kbd "M-z") 'undo)
 
 ;; Other
 
