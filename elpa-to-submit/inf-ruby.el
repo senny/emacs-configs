@@ -7,7 +7,7 @@
 ;; Created: 8 April 1998
 ;; Keywords: languages ruby
 ;; Version: 2.0
-;; Package-Requires: (("ruby-mode"))
+;; Package-Requires: ((ruby-mode "1.0"))
 
 ;;; Commentary:
 ;;
@@ -23,11 +23,11 @@
 
 ;;; TODO:
 ;;
-;; Can you autoload an eval-after-load?
-;; What's the meaning of an asterisk at the start of a docstring?
 ;; inferior-ruby-error-regexp-alist doesn't match this example
 ;;   SyntaxError: /home/eschulte/united/org/work/arf/arf/lib/cluster.rb:35: syntax error, unexpected '~', expecting kEND
 ;;               similarity = comparison_cache[m][n] ||= clusters[m] ~ clusters[n]
+;;
+;; M-p skips the first entry in the input ring.
 ;;
 
 (require 'comint)
@@ -179,19 +179,31 @@ run)."
                          (completing-read "Ruby Implementation: "
                                           (mapc #'car inf-ruby-implementations))
                        inf-ruby-default-implementation)))
+  (setq impl (or impl "ruby"))
 
-  (let ((buffer-name (format "*%s*" impl))
-        (cmd (cdr (assoc impl inf-ruby-implementations))))
-    (if (not (comint-check-proc buffer-name))
-        (let ((cmdlist (split-string cmd)))
-          (set-buffer (apply 'make-comint impl (car cmdlist)
-                             nil (cdr cmdlist)))
-          (inf-ruby-mode)))
-    (setq inf-ruby-buffer buffer-name)
-    (pop-to-buffer buffer-name)))
+  (let ((command (cdr (assoc impl inf-ruby-implementations))))
+    (run-ruby command impl)))
 
-(defalias 'run-ruby 'inf-ruby
-  "An alias for backwards-compatibility.")
+;;;###autoload
+(defun run-ruby (command &optional name)
+  "Run an inferior Ruby process, input and output via buffer *ruby*.
+If there is a process already running in `*ruby*', switch to that buffer.
+With argument, allows you to edit the command line (default is value
+of `ruby-program-name').  Runs the hooks `inferior-ruby-mode-hook'
+\(after the `comint-mode-hook' is run).
+\(Type \\[describe-mode] in the process buffer for a list of commands.)"
+
+  (interactive)
+  (setq command (or command (cdr (assoc inf-ruby-default-implementation
+                                        inf-ruby-implementations))))
+  (setq name (or name "ruby"))
+
+  (if (not (comint-check-proc inf-ruby-buffer))
+      (let ((commandlist (split-string command)))
+        (set-buffer (apply 'make-comint name (car commandlist)
+                           nil (cdr commandlist)))
+        (inf-ruby-mode)))
+  (pop-to-buffer (setq inf-ruby-buffer (format "*%s*" name))))
 
 (defun inf-ruby-proc ()
   "Returns the current IRB process. See variable inf-ruby-buffer."

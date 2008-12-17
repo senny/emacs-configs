@@ -9,40 +9,15 @@
 ;; and brighter; it simply makes everything else vanish."
 ;; -Neal Stephenson, "In the Beginning was the Command Line"
 
-;; Temporary debugging stuff:
+;; Load path etc:
 
-(toggle-debug-on-error)
-;;; Fix for a bug in CVS Emacs 2 April 08; remove when fixed upstream:
-(require 'cl)
-(defun handle-shift-selection (&rest args))
-
-;; Load path
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
 (add-to-list 'load-path dotfiles-dir)
-(add-to-list 'load-path (concat dotfiles-dir "/elpa"))
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
-
-;; Autoloads can be regenerated for you automatically if the file is
-;; too old:
-
-(let ((autoload-file (concat dotfiles-dir "loaddefs.el")))
-  (if (or (not (file-exists-p autoload-file))
-          ;; TODO: make this more readable
-          (< (+ (car (nth 5 (file-attributes autoload-file))) 20)
-             (car (current-time))))
-      (let ((generated-autoload-file autoload-file))
-        (message "Updating autoloads...")
-        (update-directory-autoloads dotfiles-dir
-                                    (concat dotfiles-dir "/elpa-to-submit"))))
-  (load autoload-file))
-
-;; Some libraries don't have the necessary autoloads set up.
-
-(autoload 'lisppaste-paste-region "lisppaste" "" t)
-(autoload 'jabber-connect "jabber" "" t)
-(autoload 'cheat "cheat" "" t)
-(autoload 'magit-status "magit" "" t)
+(setq autoload-file (concat dotfiles-dir "loaddefs.el"))
+(setq package-user-dir (concat dotfiles-dir "elpa"))
+(setq custom-file (concat dotfiles-dir "custom.el"))
 
 ;; These should be loaded on startup rather than autoloaded on demand
 ;; since they are likely to be used in every session:
@@ -54,27 +29,33 @@
 (require 'ansi-color)
 (require 'recentf)
 
-;; Load up ELPA:
+;; Load up ELPA, the package manager:
 
 (require 'package)
 (package-initialize)
+(require 'starter-kit-elpa)
 
 ;; Load up starter kit customizations:
 
-(require 'starter-kit-lisp)
 (require 'starter-kit-defuns)
 (require 'starter-kit-bindings)
 (require 'starter-kit-misc)
 (require 'starter-kit-registers)
 (require 'starter-kit-eshell)
+(require 'starter-kit-lisp)
 (require 'starter-kit-ruby)
+(require 'starter-kit-js)
 
-;; You can keep system-specific customizations here:
+(regen-autoloads)
+(load custom-file 'noerror)
 
-(setq system-specific-config
-      (concat dotfiles-dir system-name ".el"))
-(if (file-exists-p system-specific-config)
-    (load system-specific-config))
+;; You can keep system- or user-specific customizations here:
+
+(setq system-specific-config (concat dotfiles-dir system-name ".el")
+      user-specific-config (concat dotfiles-dir user-login-name ".el"))
+
+(if (file-exists-p system-specific-config) (load system-specific-config))
+(if (file-exists-p user-specific-config) (load user-specific-config))
 
 (provide 'init)
 ;;; init.el ends here

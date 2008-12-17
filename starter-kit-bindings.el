@@ -14,10 +14,7 @@
 (global-set-key (kbd "C-`") 'hippie-expand)
 
 ;; Perform general cleanup.
-(global-set-key (kbd "C-c n") (lambda () (interactive)
-                                (indent-buffer)
-                                (delete-trailing-whitespace)
-                                (untabify-buffer)))
+(global-set-key (kbd "C-c n") 'cleanup-buffer)
 
 ;; Turn on the menu bar for exploring new modes
 (global-set-key [f1] 'menu-bar-mode)
@@ -29,7 +26,7 @@
 (global-set-key "\C-\M-r" 'isearch-backward)
 
 ;; Jump to a definition in the current file. (This is awesome.)
-(global-set-key "\C-x\C-i" 'ido-goto-symbol)
+(global-set-key "\C-x\C-i" 'ido-imenu)
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
@@ -39,18 +36,12 @@
 (global-set-key (kbd "C-c y") 'bury-buffer)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; Window switching. (C-x o goes to the next window)
 (windmove-default-keybindings) ;; Shift+direction
 (global-set-key "\C-xO" (lambda () (interactive) (other-window -1))) ;; back one
 (global-set-key "\C-x\C-o" (lambda () (interactive) (other-window 2))) ;; forward two
-
-;; Lisp
-(define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
-(define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
-(define-key lisp-mode-shared-map (kbd "C-\\") 'lisp-complete-symbol)
-(define-key lisp-mode-shared-map (kbd "C-c s") 'my-eval-and-replace)
-(define-key lisp-mode-shared-map (kbd "C-c v") 'eval-buffer)
 
 ;; Start eshell or switch to it if it's active.
 (global-set-key (kbd "C-x m") 'eshell)
@@ -64,16 +55,18 @@
 ;; Fetch the contents at a URL, display it raw.
 (global-set-key (kbd "C-x h") 'view-url)
 
-;; Help
-
+;; Help should search more than just commands
 (global-set-key (kbd "C-h a") 'apropos)
-(global-set-key (kbd "C-h c") 'cheat)
+
+;; Should be able to eval-and-replace anywhere.
+(global-set-key (kbd "C-c e") 'eval-and-replace)
 
 ;; Applications
 
 (global-set-key (kbd "C-c j") (lambda () (interactive) (switch-or-start 'jabber-connect "*-jabber-*")))
 (global-set-key (kbd "C-c g") (lambda () (interactive) (switch-or-start 'gnus "*Group*")))
-(global-set-key (kbd "C-c i") (lambda () (interactive) (switch-or-start (lambda () (rcirc-connect "irc.freenode.net"))
+(global-set-key (kbd "C-c i") (lambda () (interactive) (switch-or-start (lambda ()
+                                                                          (rcirc-connect "irc.freenode.net"))
                                                                    "*irc.freenode.net*")))
 (global-set-key (kbd "C-c J") 'jabber-send-presence)
 (global-set-key (kbd "C-c M-j") 'jabber-disconnect)

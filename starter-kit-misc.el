@@ -9,20 +9,21 @@
   (tool-bar-mode -1)
   (blink-cursor-mode -1))
 
-;; Sometimes backspace gets messed up in terminals; try to fix it.
-(when (not window-system) (keyboard-translate ?\C-h ?\C-?))
-
 (setq visible-bell t
       font-lock-maximum-decoration t
       inhibit-startup-message t
       transient-mark-mode t
       color-theme-is-global t
-      save-place t
-      imenu-auto-rescan t
+      delete-by-moving-to-trash t
+      shift-select-mode nil
       truncate-partial-width-windows nil
       uniquify-buffer-name-style 'forward
+      whitespace-style '(trailing lines space-before-tab
+                                  indentation space-after-tab)
+      whitespace-line-column 100
       ediff-window-setup-function 'ediff-setup-windows-plain
-      save-place-file (convert-standard-filename "~/.emacs.d/places"))
+      oddmuse-directory (concat dotfiles-dir "oddmuse")
+      save-place-file (concat dotfiles-dir "places"))
 
 ;; Set this to whatever browser you use:
 (setq browse-url-browser-function 'browse-url-firefox)
@@ -60,6 +61,7 @@
 
 (set-default 'indent-tabs-mode nil)
 (set-default 'indicate-empty-lines t)
+(set-default 'imenu-auto-rescan t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (random t) ;; Seed the random-number generator
@@ -69,8 +71,8 @@
 (delete 'try-expand-list hippie-expand-try-functions-list)
 
 ;; Don't clutter up directories with files~
-(setq backup-directory-alist `(("." . ,(expand-file-name "~/.emacs.d/backups")))
-      auto-save-default nil)
+(setq backup-directory-alist `(("." . ,(expand-file-name
+                                        (concat dotfiles-dir "backups")))))
 
 ;; nxhtml stuff
 (setq mumamo-chunk-coloring 'submode-colored
@@ -88,8 +90,8 @@
 (add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 
 (add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
-(add-to-list 'auto-mode-alist '("\\.html$" . nxhtml-mode))
-(add-to-list 'auto-mode-alist '("\\.rhtml$" . nxhtml-mode))
+(add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 
 ;; Cosmetics
 

@@ -1,43 +1,16 @@
 TODO:
 
-Start custom ELPA server
-Add bleeding-edge package support to elpa?
+Submit the packages in starter-kit-elpa.el to ELPA.
 
-look up http://www.emacswiki.org/cgi-bin/emacs-en/CommandLogMode
-
-to add to elpa:
-* ruby-mode (sent)
-* inf-ruby (sent)%
-* ruby-electric
-* ruby-compilation
-
-* color-theme (zenburn + vivid chalk)
-* htmlize
-
-* cheat
-* gist
-* lisppaste
-* scpaste
-* magit
-* yaml (make rinari require it)
-
-* nxhtml (remove bundled deps)
-* rinari
-* jabber (need to contact maintainers)
-* pg
-
-Check the list of elpa packages periodically to make sure they're all
-up to date:
-* idle-highlight
-* js2-mode
-* css
-* ert
+Greg Newman is working on Python helpers.
 
 maybe include:
-* pcmpl-rake (or put it in another file; it's only 2 functions)
 * should yasnippet be included in rinari?
 
 to write/finish:
-* mublog
 * ri
 * submit ruby fixes to flymake
+
+Bug fixes:
+get jabber.el to automatically disconnect when suspending/hibernating (via dbus)
+ruby-compilation.el should auto-kill the buffer on successful test runs; only leave it open on error/fail

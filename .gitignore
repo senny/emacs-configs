@@ -1,5 +1,6 @@
-.DS_Store
+loaddefs.el*
+backups/*
+*elc
 places
-loaddefs.el
-elpa/archive-contents
-elpa/builtin-packages
+.DS_Store
+
