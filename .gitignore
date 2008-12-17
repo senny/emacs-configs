@@ -1,3 +1,5 @@
 .DS_Store
 places
 loaddefs.el
+elpa/archive-contents
+elpa/builtin-packages
