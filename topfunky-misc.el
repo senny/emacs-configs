@@ -46,6 +46,8 @@
 
 ;; Functions
 
+(require 'line-num)
+
 ;; Full screen toggle
 (defun toggle-fullscreen () 
   (interactive) 
