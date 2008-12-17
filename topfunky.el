@@ -32,8 +32,6 @@
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
-;; Keyboard
-
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
 
@@ -59,9 +57,9 @@
 ;; Keyboard
 
 ;; Split Windows
-(global-set-key [f5] 'split-window-horizontally)
-(global-set-key [f6] 'split-window-vertically)
-(global-set-key [f7] 'delete-window)
+(global-set-key [f6] 'split-window-horizontally)
+(global-set-key [f7] 'split-window-vertically)
+(global-set-key [f8] 'delete-window)
 
 ;; Some Mac-friendly key counterparts
 (global-set-key (kbd "M-s") 'save-buffer)

@@ -4,13 +4,22 @@ From Phil Hagelberg's emacs-starter-kit.
 
 ## Current or planned customizations by Geoffrey Grosenbach (topfunky)
 
-* Intended for use with Emacs built for Mac OS X from git://git.sv.gnu.org/emacs.git
+* Intended for use with [Carbon Emacs](http://www.google.com/search?hl=en-US&q=carbon+emacs&rls=0.4&client=stainless&ie=UTF-8)
+* May have partially functional or half-implemented features. Try forking [the original from Phil](http://github.com/technomancy/emacs-starter-kit/tree/master) if you experience problems or want a fresh start.
+
+### Some current additions
+
+* defunkt's [TextMate](http://github.com/defunkt/textmate.el/tree/master) minor-mode.
+* Some Mac key equivalents (Command-S, Command-Z).
+* Textile, Haml, Sass, etc.
+* Color themes.
+* yasnippet for TextMate-style snippets.
+* Useful functions such as toggle-fullscreen
 
 ### Planned
 
-* Implement Mac-friendly keyboard shortcuts. Liberal usage of the Apple command key to make shortcuts even shorter.
-* Add other plugins that I use, such as Textile, Haml, Sass, etc.
-* Add TextMate-style snippets with yasnippet
+* More snippets
+* Better color theme
 
 # Description
 
