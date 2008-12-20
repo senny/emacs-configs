@@ -8,6 +8,9 @@
 (yas/initialize)
 (yas/load-directory "~/.emacs.d/vendor/yasnippet.el/snippets")
 
+;; (add-hook 'ruby-mode-hook 'yas/minor-mode-on)
+
+
 ;; Commands
 (require 'unbound)
 
@@ -41,7 +44,9 @@
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-charcoal-black)
-;; (color-theme-gray30)
+
+
+
 
 ;; Functions
 
