@@ -15,6 +15,7 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
 (require 'textmate)
 (textmate-mode)
+(require 'whitespace)
 
 ;; Major Modes
 (require 'textile-mode)
@@ -31,7 +32,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
-(add-hook 'ruby-mode-hook 'whitespace-mode)
+;; (add-hook 'ruby-mode-hook 'whitespace-mode) 
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
