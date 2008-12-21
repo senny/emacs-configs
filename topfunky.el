@@ -32,7 +32,8 @@
 
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
-;; (add-hook 'ruby-mode-hook 'whitespace-mode) 
+(require 'whitespace)
+;; (add-hook 'ruby-mode-hook 'whitespace-mode)
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
@@ -42,7 +43,9 @@
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-charcoal-black)
-;; (color-theme-gray30)
+
+
+
 
 ;; Functions
 
@@ -365,6 +368,3 @@
      (zmacs-region ((t (:background "dark cyan" :foreground "cyan")))))))
 
 ;;; theme-end
-
-(provide 'topfunky-misc)
-
