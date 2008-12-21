@@ -8,9 +8,6 @@
 (yas/initialize)
 (yas/load-directory "~/.emacs.d/vendor/yasnippet.el/snippets")
 
-;; (add-hook 'ruby-mode-hook 'yas/minor-mode-on)
-
-
 ;; Commands
 (require 'unbound)
 
@@ -34,7 +31,8 @@
 
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
-(add-hook 'ruby-mode-hook 'whitespace-mode)
+(require 'whitespace)
+;; (add-hook 'ruby-mode-hook 'whitespace-mode)
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
