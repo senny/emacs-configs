@@ -3,16 +3,16 @@
 (add-to-list 'load-path (concat dotfiles-dir "/vendor"))
 
 ;; Snippets
-(add-to-list 'load-path "~/.emacs.d/vendor/yasnippet.el")
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/yasnippet.el"))
 (require 'yasnippet)
 (yas/initialize)
-(yas/load-directory "~/.emacs.d/vendor/yasnippet.el/snippets")
+(yas/load-directory (concat dotfiles-dir "/vendor/yasnippet.el/snippets"))
 
 ;; Commands
 (require 'unbound)
 
 ;; Minor Modes
-(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
 (require 'textmate)
 (textmate-mode)
 (require 'whitespace)
@@ -22,7 +22,7 @@
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
 (autoload 'markdown-mode "markdown-mode.el"
-   "Major mode for editing Markdown files" t)
+  "Major mode for editing Markdown files" t)
 
 (require 'haml-mode)
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
@@ -31,9 +31,6 @@
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
 
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
-
-(require 'whitespace)
-;; (add-hook 'ruby-mode-hook 'whitespace-mode)
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
@@ -45,17 +42,15 @@
 (color-theme-charcoal-black)
 
 
-
-
 ;; Functions
 
 (require 'line-num)
 
 ;; Full screen toggle
-(defun toggle-fullscreen () 
-  (interactive) 
-  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen) 
-                                           nil 
+(defun toggle-fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
+                                           nil
                                          'fullboth)))
 (global-set-key (kbd "M-n") 'toggle-fullscreen)
 
@@ -229,7 +224,7 @@
      (fg:erc-color-face9 ((t (:foreground "khaki"))))
      (fixed-pitch ((t (:family "Inconsolata"))))
      (font-lock-builtin-face ((t (:bold t :foreground "#c2cff1" :weight bold))))
-     (font-lock-comment-face ((t (:foreground "#666"))))
+     (font-lock-comment-face ((t (:foreground "#777"))))
      (font-lock-constant-face ((t (:bold t :foreground "#52c62b" :weight bold))))
      (font-lock-doc-face ((t (:italic t :slant italic :foreground "#6688ee"))))
      (font-lock-doc-string-face ((t (:foreground "#6688ee"))))
@@ -241,7 +236,7 @@
      (font-lock-type-face ((t (:bold t :foreground "#c2cff1" :weight bold))))
      (font-lock-variable-name-face ((t (:italic t :bold t :foreground "#f3f3f3" :slant italic :weight bold))))
      (font-lock-warning-face ((t (:bold t :foreground "IndianRed" :weight bold))))
-     (fringe ((t (:background "darkslategrey"))))
+     (fringe ((t (:background "#444444"))))
      (gnus-cite-attribution-face ((t (:family "Helvetica Neue"))))
      (gnus-cite-face-1 ((t (:foreground "DarkGoldenrod3"))))
      (gnus-cite-face-10 ((t (nil))))
@@ -309,7 +304,7 @@
      (gui-button-face ((t (:foreground "red" :background "black"))))
      (gui-element ((t (:bold t :background "#ffffff" :foreground "#000000" :weight bold))))
      (header-line ((t (:box (:line-width -1 :style released-button) :background "grey20" :foreground "grey90" :box nil))))
-     (highlight ((t (:background "White" :foreground "Black"))))
+     (highlight ((t (:background "#3c3c3c"))))
      (highline-face ((t (:background "SeaGreen"))))
      (holiday-face ((t (:background "DimGray"))))
      (info-menu-5 ((t (:underline t))))
@@ -329,13 +324,16 @@
      (message-header-xheader-face ((t (:foreground "DodgerBlue3"))))
      (message-mml-face ((t (:foreground "ForestGreen"))))
      (message-separator-face ((t (:background "cornflower blue" :foreground "chocolate"))))
-     (modeline ((t (:background "#d1d1d1" :foreground "#444444" ))))
-     (modeline-buffer-id ((t (:bold t :foreground "#d90000" :weight bold :family "Helvetica Neue"))))
+
+     (modeline ((t (:background "#444444" :foreground "#777777" ))))
+     (modeline-buffer-id ((t (:bold t :foreground "White" :weight bold :family "Helvetica Neue"))))
+     (modeline-inactive ((t (:background "#444444" :foreground "#505050"))))
      (modeline-mousable ((t (:bold t :background "dark olive green" :foreground "yellow green" :weight bold :family "Helvetica Neue"))))
      (modeline-mousable-minor-mode ((t (:bold t :background "dark olive green" :foreground "wheat" :weight bold :family "Helvetica Neue"))))
+     
      (mouse ((t (:background "Grey"))))
      (paren-blink-off ((t (:foreground "brown"))))
-     (region ((t (:background "White" :foreground "Black"))))
+     (region ((t (:background "#222222"))))
      (ruler-mode-column-number-face ((t (:box (:color "grey76" :line-width 1 :style released-button) :background "grey76" :stipple nil :inverse-video nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal :family "Inconsolata" :foreground "black"))))
      (ruler-mode-current-column-face ((t (:bold t :box (:color "grey76" :line-width 1 :style released-button) :background "grey76" :stipple nil :inverse-video nil :strike-through nil :overline nil :underline nil :slant normal :width normal :family "Inconsolata" :foreground "yellow" :weight bold))))
      (ruler-mode-default-face ((t (:family "Inconsolata" :width normal :weight normal :slant normal :underline nil :overline nil :strike-through nil :inverse-video nil :stipple nil :background "grey76" :foreground "grey64" :box (:color "grey76" :line-width 1 :style released-button)))))
@@ -344,10 +342,10 @@
      (ruler-mode-tab-stop-face ((t (:box (:color "grey76" :line-width 1 :style released-button) :background "grey76" :stipple nil :inverse-video nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal :family "Inconsolata" :foreground "steelblue"))))
      (scroll-bar ((t (nil))))
      (secondary-selection ((t (:background "Aquamarine" :foreground "SlateBlue"))))
-     (show-paren-match-face ((t (:bold t :background "Aquamarine" :foreground "steel blue" :weight bold))))
-     (show-paren-mismatch-face ((t (:background "Red" :foreground "White"))))
+     (show-paren-match-face ((t (:bold t :background "#333333" :foreground "#666666" :weight bold))))
+     (show-paren-mismatch-face ((t (:foreground "Red"))))
      (swbuff-current-buffer-face ((t (:bold t :foreground "red" :weight bold))))
-     (text-cursor ((t (:background "Red" :foreground "white"))))
+     (text-cursor ((t (:background "Red" :foreground "white"))))  
      (tool-bar ((t (:background "grey75" :foreground "black" :box (:line-width 1 :style released-button)))))
      (trailing-whitespace ((t (:background "red"))))
      (underline ((t (:underline t))))
