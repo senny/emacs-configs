@@ -247,5 +247,17 @@ is a comment, uncomment."
              (cadr (assoc (car mode) textmate-completing-function-alist)))
         (funcall (cadr mode) -1)))))
 
+;; Topfunky enhancements. Maybe move to passenger.el file?
+
+(defun passenger-restart (&optional starting)
+  (interactive)
+  (when (null (textmate-set-project-root)) 
+    (error "Can't find any .git directory"))
+  (shell-command-to-string 
+    (concat 
+     "touch " 
+     *textmate-project-root* 
+     "/tmp/restart.txt")) "\n" t)
+
 (provide 'textmate)
 ;;; textmate.el ends here

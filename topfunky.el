@@ -39,7 +39,7 @@
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-charcoal-black)
+;; (color-theme-charcoal-black)
 
 
 ;; Functions
@@ -72,6 +72,7 @@
 (server-start)
 
 ;; Experimentation
+;; TODO Move to separate theme file.
 
 ;;; theme-start
 (defun topfunky-reload-theme ()
@@ -325,7 +326,7 @@
      (message-mml-face ((t (:foreground "ForestGreen"))))
      (message-separator-face ((t (:background "cornflower blue" :foreground "chocolate"))))
 
-     (modeline ((t (:background "#444444" :foreground "#777777" ))))
+     (modeline ((t (:background "#404040" :foreground "#777777" ))))
      (modeline-buffer-id ((t (:bold t :foreground "White" :weight bold :family "Helvetica Neue"))))
      (modeline-inactive ((t (:background "#444444" :foreground "#505050"))))
      (modeline-mousable ((t (:bold t :background "dark olive green" :foreground "yellow green" :weight bold :family "Helvetica Neue"))))
@@ -342,7 +343,7 @@
      (ruler-mode-tab-stop-face ((t (:box (:color "grey76" :line-width 1 :style released-button) :background "grey76" :stipple nil :inverse-video nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal :family "Inconsolata" :foreground "steelblue"))))
      (scroll-bar ((t (nil))))
      (secondary-selection ((t (:background "Aquamarine" :foreground "SlateBlue"))))
-     (show-paren-match-face ((t (:bold t :background "#333333" :foreground "#666666" :weight bold))))
+     (show-paren-match-face ((t (:bold t :background "#333333" :foreground "White" :weight bold))))
      (show-paren-mismatch-face ((t (:foreground "Red"))))
      (swbuff-current-buffer-face ((t (:bold t :foreground "red" :weight bold))))
      (text-cursor ((t (:background "Red" :foreground "white"))))  
@@ -366,3 +367,6 @@
      (zmacs-region ((t (:background "dark cyan" :foreground "cyan")))))))
 
 ;;; theme-end
+
+;; Activate theme
+(color-theme-helvetica)
