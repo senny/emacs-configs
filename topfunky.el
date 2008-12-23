@@ -20,6 +20,7 @@
 ;; Major Modes
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
+(define-key textile-mode-map (kbd "M-s") 'save-buffer)
 
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
