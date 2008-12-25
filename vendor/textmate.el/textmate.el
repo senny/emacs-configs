@@ -16,7 +16,7 @@
 ;;; Commentary:
 
 ;; This minor mode exists to mimick TextMate's awesome
-;; features. 
+;; features.
 
 ;;    ⌘T - Go to File
 ;;  ⇧⌘T - Go to Symbol
@@ -35,7 +35,7 @@
 ;; is found. The directory housing the .git directory is presumed
 ;; to be the project's root.
 
-;; In other words, calling Go to File from 
+;; In other words, calling Go to File from
 ;; ~/Projects/fieldrunners/app/views/towers/show.html.erb will use
 ;; ~/Projects/fieldrunners/ as the root if ~/Projects/fieldrunners/.git
 ;; exists.
@@ -56,24 +56,24 @@
 (defvar textmate-use-file-cache t
   "* Should `textmate-goto-file' keep a local cache of files?")
 
-(defvar textmate-completing-library 'ido 
+(defvar textmate-completing-library 'ido
   "The library `textmade-goto-symbol' and `textmate-goto-file' should use for completing filenames and symbols (`ido' by default)")
 
-(defvar textmate-completing-function-alist '((ido ido-completing-read) 
-                                             (icicles  icicle-completing-read) 
-                                             (none completing-read)) 
+(defvar textmate-completing-function-alist '((ido ido-completing-read)
+                                             (icicles  icicle-completing-read)
+                                             (none completing-read))
   "The function to call to read file names and symbols from the user")
 
-(defvar textmate-completing-minor-mode-alist 
-  `((ido ,(lambda (a) (progn (ido-mode a) (setq ido-enable-flex-matching t)))) 
-    (icicles ,(lambda (a) (icy-mode a))) 
+(defvar textmate-completing-minor-mode-alist
+  `((ido ,(lambda (a) (progn (ido-mode a) (setq ido-enable-flex-matching t))))
+    (icicles ,(lambda (a) (icy-mode a)))
     (none ,(lambda (a) ())))
   "The list of functions to enable and disable completing minor modes")
 
 (defvar textmate-mode-map (make-sparse-keymap))
 (defvar *textmate-project-root* nil)
 (defvar *textmate-project-files* '())
-(defvar *textmate-gf-exclude* 
+(defvar *textmate-gf-exclude*
   "/\\.|vendor|fixtures|tmp|log|build|\\.xcodeproj|\\.nib|\\.framework|\\.app|\\.pbproj|\\.pbxproj|\\.xcode|\\.xcodeproj|\\.bundle")
 
 ;;; Bindings
@@ -85,7 +85,7 @@
 
 (defun textmate-bind-keys ()
   (add-hook 'ido-setup-hook 'textmate-ido-fix)
-  (if (boundp 'aquamacs-version) 
+  (if (boundp 'aquamacs-version)
       (textmate-bind-aquamacs-keys)
     (textmate-bind-carbon-keys)))
 
@@ -96,23 +96,23 @@
   (define-key textmate-mode-map (kbd "A-M-[") 'indent-according-to-mode)
   (define-key textmate-mode-map (kbd "A-]") 'indent-region)
   (define-key textmate-mode-map (kbd "A-/") 'comment-or-uncomment-region-or-line)
-  (define-key osx-key-mode-map (kbd "A-t") 'textmate-goto-file)     ;; Need `osx-key-mode-map' to override 
-  (define-key osx-key-mode-map (kbd "A-T") 'textmate-goto-symbol))  ;; Aquamacs menu item key bindings.
+  (define-key osx-key-mode-map (kbd "A-t") 'textmate-goto-file) ;; Need `osx-key-mode-map' to override
+  (define-key osx-key-mode-map (kbd "A-T") 'textmate-goto-symbol)) ;; Aquamacs menu item key bindings.
 
 (defun textmate-bind-carbon-keys ()
   ;; Are these any good? Anyone have good Carbon defaults?
   (define-key textmate-mode-map [M-return] 'textmate-next-line)
-;  (define-key textmate-mode-map (kbd "A-M-t") 'textmate-clear-cache)  
+                                        ;  (define-key textmate-mode-map (kbd "A-M-t") 'textmate-clear-cache)
   (define-key textmate-mode-map (kbd "M-[") 'align)
-;  (define-key textmate-mode-map (kbd "A-M-[") 'indent-according-to-mode)
-  (define-key textmate-mode-map (kbd "M-/") 'comment-or-uncomment-region-or-line)  
+                                        ;  (define-key textmate-mode-map (kbd "A-M-[") 'indent-according-to-mode)
+  (define-key textmate-mode-map (kbd "M-/") 'comment-or-uncomment-region-or-line)
   (define-key textmate-mode-map [(control tab)] 'indent-region)
   (define-key textmate-mode-map [(meta t)] 'textmate-goto-file)
   (define-key textmate-mode-map [(meta T)] 'textmate-goto-symbol))
 
 (defun textmate-completing-read (&rest args)
   (let ((reading-fn (cadr (assoc textmate-completing-library textmate-completing-function-alist))))
-  (apply (symbol-function reading-fn) args)))
+    (apply (symbol-function reading-fn) args)))
 
 ;;; Commands
 
@@ -134,7 +134,7 @@ is a comment, uncomment."
   (if mark-active
       (if (< (mark) (point))
           (comment-or-uncomment-region (mark) (point))
-	(comment-or-uncomment-region (point) (mark)))
+        (comment-or-uncomment-region (point) (mark)))
     (comment-or-uncomment-line lines)))
 
 
@@ -157,15 +157,15 @@ is a comment, uncomment."
                              (cond
                               ((and (listp symbol) (imenu--subalist-p symbol))
                                (addsymbols symbol))
-                              
+
                               ((listp symbol)
                                (setq name (car symbol))
                                (setq position (cdr symbol)))
-                              
+
                               ((stringp symbol)
                                (setq name symbol)
                                (setq position (get-text-property 1 'org-imenu-marker symbol))))
-                             
+
                              (unless (or (null position) (null name))
                                (add-to-list 'symbol-names name)
                                (add-to-list 'name-and-pos (cons name position))))))))
@@ -176,12 +176,12 @@ is a comment, uncomment."
 
 (defun textmate-goto-file (&optional starting)
   (interactive)
-  (when (null (textmate-set-project-root)) 
+  (when (null (textmate-set-project-root))
     (error "Can't find any .git directory"))
   (find-file (concat (expand-file-name *textmate-project-root*) "/"
-                     (textmate-completing-read "Find file: " 
-                                          (or (textmate-cached-project-files) 
-                                              (textmate-cache-project-files *textmate-project-root*))))))
+                     (textmate-completing-read "Find file: "
+                                               (or (textmate-cached-project-files)
+                                                   (textmate-cache-project-files *textmate-project-root*))))))
 
 (defun textmate-clear-cache ()
   (interactive)
@@ -192,15 +192,15 @@ is a comment, uncomment."
 ;;; Utilities
 
 (defun textmate-project-files (root)
-  (split-string 
-   (shell-command-to-string 
-    (concat 
-     "find " 
+  (split-string
+   (shell-command-to-string
+    (concat
+     "find "
      root
      " -type f  | grep -vE '"
      *textmate-gf-exclude*
      "' | sed 's:"
-     *textmate-project-root* 
+     *textmate-project-root*
      "/::'")) "\n" t))
 
 (defun textmate-cache-project-files (root)
@@ -209,7 +209,7 @@ is a comment, uncomment."
     files))
 
 (defun textmate-cached-project-files ()
-  (when (and 
+  (when (and
          textmate-use-file-cache
          (not (null *textmate-project-files*))
          (equal *textmate-project-root* (car *textmate-project-files*)))
@@ -219,8 +219,8 @@ is a comment, uncomment."
   (or (textmate-set-project-root) *textmate-project-root*))
 
 (defun textmate-set-project-root ()
-  (when (or 
-         (null *textmate-project-root*) 
+  (when (or
+         (null *textmate-project-root*)
          (not (string-match *textmate-project-root* default-directory)))
     (let ((root (textmate-find-project-root)))
       (if root
@@ -239,11 +239,11 @@ is a comment, uncomment."
 (define-minor-mode textmate-mode "TextMate Emulation Minor Mode"
   :lighter " mate" :global t :keymap textmate-mode-map
   (textmate-bind-keys)
-  ; activate preferred completion library
+                                        ; activate preferred completion library
   (dolist (mode textmate-completing-minor-mode-alist)
     (if (eq (car mode) textmate-completing-library)
         (funcall (cadr mode) t)
-      (when (fboundp 
+      (when (fboundp
              (cadr (assoc (car mode) textmate-completing-function-alist)))
         (funcall (cadr mode) -1)))))
 
@@ -251,13 +251,23 @@ is a comment, uncomment."
 
 (defun passenger-restart (&optional starting)
   (interactive)
-  (when (null (textmate-set-project-root)) 
+  (when (null (textmate-set-project-root))
     (error "Can't find any .git directory"))
-  (shell-command-to-string 
-    (concat 
-     "touch " 
-     *textmate-project-root* 
-     "/tmp/restart.txt")) "\n" t)
+  (shell-command-to-string
+   (concat
+    "touch "
+    *textmate-project-root*
+    "/tmp/restart.txt")) "\n" t)
+
+(defun regen-ctags (&optional starting)
+  (interactive)
+  (when (null (textmate-set-project-root))
+    (error "Can't find any .git directory"))
+  (shell-command-to-string
+   (concat
+    "rm -f " *textmate-project-root* "/TAGS && "
+    "cd " *textmate-project-root* " && "
+    "ctags -R -e -a -f " *textmate-project-root* "TAGS")) "\n" t)
 
 (provide 'textmate)
 ;;; textmate.el ends here
