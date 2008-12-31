@@ -344,7 +344,7 @@
      (message-mml-face ((t (:foreground "ForestGreen"))))
      (message-separator-face ((t (:background "cornflower blue" :foreground "chocolate"))))
 
-     (modeline ((t (:background "#404040" :foreground "#777777" ))))
+     (modeline ((t (:background "#3c3c3c" :foreground "#777777" ))))
      (modeline-buffer-id ((t (:bold t :foreground "White" :weight bold :family "Helvetica Neue"))))
      (modeline-inactive ((t (:background "#444444" :foreground "#505050"))))
      (modeline-mousable ((t (:bold t :background "dark olive green" :foreground "yellow green" :weight bold :family "Helvetica Neue"))))

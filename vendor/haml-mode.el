@@ -75,6 +75,7 @@ text nested beneath them.")
     ("@[a-z0-9_]+"               0 font-lock-variable-name-face append)
     ("| *$"                      0 font-lock-string-face)
     ("^[ \t]*\\(/.*\\)$"         1 font-lock-comment-face append)
+    ("^[ \t]*\\(-#.*\\)$"         1 font-lock-comment-face prepend)
     ("^ *\\(#[a-z0-9_]+\/?\\)"   1 font-lock-keyword-face)
     ("^ *\\(\\.[a-z0-9_]+\/?\\)" 1 font-lock-type-face)
     ("^ *\\(%[a-z0-9_]+\/?\\)"   1 font-lock-function-name-face)
@@ -165,7 +166,7 @@ lines nested beneath it."
                          (not (bobp))
                          (> (current-indentation) indent)))
         (back-to-indentation)
-      (setq arg (+ arg (if (> arg 0) -1 1)))))))
+        (setq arg (+ arg (if (> arg 0) -1 1)))))))
 
 (defun haml-backward-sexp (&optional arg)
   "Move backward across one nested expression.
@@ -248,10 +249,10 @@ between possible indentations."
     (setq end (point-marker))
     (goto-char start)
     (let (this-line-column current-column
-          (next-line-column
-           (if (and (equal last-command this-command) (/= (current-indentation) 0))
-               (* (/ (- (current-indentation) 1) haml-indent-offset) haml-indent-offset)
-             (haml-compute-indentation))))
+                           (next-line-column
+                            (if (and (equal last-command this-command) (/= (current-indentation) 0))
+                                (* (/ (- (current-indentation) 1) haml-indent-offset) haml-indent-offset)
+                              (haml-compute-indentation))))
       (while (< (point) end)
         (setq this-line-column next-line-column
               current-column (current-indentation))
@@ -284,8 +285,8 @@ back-dent the line by `haml-indent-offset' spaces.  On reaching column
       (if (and (equal last-command this-command) (/= ci 0))
           (indent-to (* (/ (- ci 1) haml-indent-offset) haml-indent-offset))
         (indent-to need)))
-      (if (< (current-column) (current-indentation))
-          (forward-to-indentation 0))))
+    (if (< (current-column) (current-indentation))
+        (forward-to-indentation 0))))
 
 (defun haml-reindent-region-by (n)
   "Add N spaces to the beginning of each line in the region.
