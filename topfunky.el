@@ -18,6 +18,11 @@
 (require 'whitespace)
 
 ;; Major Modes
+
+;; Rinari
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
+(require 'rinari)
+
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
@@ -68,6 +73,20 @@
 ;; Keyboard Overrides
 (define-key textile-mode-map (kbd "M-s") 'save-buffer)
 (define-key text-mode-map (kbd "M-s") 'save-buffer)
+
+(global-set-key [(meta up)] 'beginning-of-buffer)
+(global-set-key [(meta down)] 'end-of-buffer)
+
+(global-set-key [(meta shift right)] 'ido-switch-buffer)
+(global-set-key [(meta shift up)] 'recentf-ido-find-file)
+(global-set-key [(meta shift down)] 'ido-find-file)
+(global-set-key [(meta shift left)] 'magit-status)
+
+(global-set-key [(meta H)] 'delete-other-windows)
+
+(global-set-key [(meta D)] 'backward-kill-word) ;; (meta d) is opposite
+
+(global-set-key [(meta N)] 'cleanup-buffer)
 
 ;; Other
 
@@ -335,7 +354,7 @@
      (modeline-inactive ((t (:background "#444444" :foreground "#505050"))))
      (modeline-mousable ((t (:bold t :background "dark olive green" :foreground "yellow green" :weight bold :family "Helvetica Neue"))))
      (modeline-mousable-minor-mode ((t (:bold t :background "dark olive green" :foreground "wheat" :weight bold :family "Helvetica Neue"))))
-     
+
      (mouse ((t (:background "Grey"))))
      (paren-blink-off ((t (:foreground "brown"))))
      (region ((t (:background "#222222"))))
@@ -350,7 +369,7 @@
      (show-paren-match-face ((t (:bold t :background "#333333" :foreground "White" :weight bold))))
      (show-paren-mismatch-face ((t (:foreground "Red"))))
      (swbuff-current-buffer-face ((t (:bold t :foreground "red" :weight bold))))
-     (text-cursor ((t (:background "Red" :foreground "white"))))  
+     (text-cursor ((t (:background "Red" :foreground "white"))))
      (tool-bar ((t (:background "grey75" :foreground "black" :box (:line-width 1 :style released-button)))))
      (trailing-whitespace ((t (:background "red"))))
      (underline ((t (:underline t))))
