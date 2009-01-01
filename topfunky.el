@@ -83,6 +83,9 @@
 
 (global-set-key [(meta D)] 'backward-kill-word) ;; (meta d) is opposite
 
+(global-set-key [(meta N)] 'cleanup-buffer)
+
+
 ;; Other
 
 (prefer-coding-system 'utf-8)
