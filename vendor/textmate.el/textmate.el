@@ -267,7 +267,7 @@ is a comment, uncomment."
    (concat
     "rm -f " *textmate-project-root* "/TAGS && "
     "cd " *textmate-project-root* " && "
-    "ctags -R -e -a -f " *textmate-project-root* "TAGS")) "\n" t)
+    "ctags -R -e -f " *textmate-project-root* "TAGS app config lib vendor")) "\n" t)
 
 (provide 'textmate)
 ;;; textmate.el ends here

@@ -20,7 +20,6 @@
 ;; Major Modes
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
-(define-key textile-mode-map (kbd "M-s") 'save-buffer)
 
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
@@ -65,6 +64,10 @@
 ;; Some Mac-friendly key counterparts
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-z") 'undo)
+
+;; Keyboard Overrides
+(define-key textile-mode-map (kbd "M-s") 'save-buffer)
+(define-key text-mode-map (kbd "M-s") 'save-buffer)
 
 ;; Other
 
