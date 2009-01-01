@@ -20,8 +20,8 @@
 ;; Major Modes
 
 ;; Rinari
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
-(require 'rinari)
+;; (add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
+;; (require 'rinari)
 
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
