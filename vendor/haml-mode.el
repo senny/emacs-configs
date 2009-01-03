@@ -51,6 +51,7 @@ line itself."
   "This function should look at the current line and return true
 if the next line could be nested within this line.")
 
+;; TODO Allow "=\sThen some code" instead of no space.
 (defvar haml-block-openers
   `("^ *\\([%\\.#][^ \t]*\\)\\(\\[.*\\]\\)?\\({.*}\\)?\\(\\[.*\\]\\)?[ \t]*$"
     "^ *[-=].*do[ \t]*\\(|.*|[ \t]*\\)?$"
