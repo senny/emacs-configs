@@ -19,6 +19,9 @@
 
 ;; Major Modes
 
+;; Javascript
+; TODO javascript-indent-level 2
+
 ;; Rinari
 ;; (add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
 ;; (require 'rinari)
@@ -90,7 +93,7 @@
 
 (global-set-key [(meta N)] 'cleanup-buffer)
 
-(global-set-key [(meta \])] 'indent-rigidly)
+(global-set-key [(control \])] 'indent-rigidly)
 
 ;; Other
 
