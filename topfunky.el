@@ -37,6 +37,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
+
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
 
@@ -51,7 +52,7 @@
 
 (require 'line-num)
 
-;; Full screen toggle
+; Full screen toggle
 (defun toggle-fullscreen ()
   (interactive)
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
@@ -59,18 +60,19 @@
                                          'fullboth)))
 (global-set-key (kbd "M-n") 'toggle-fullscreen)
 
+
 ;; Keyboard
 
-;; Split Windows
+; Split Windows
 (global-set-key [f6] 'split-window-horizontally)
 (global-set-key [f7] 'split-window-vertically)
 (global-set-key [f8] 'delete-window)
 
-;; Some Mac-friendly key counterparts
+; Some Mac-friendly key counterparts
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-z") 'undo)
 
-;; Keyboard Overrides
+; Keyboard Overrides
 (define-key textile-mode-map (kbd "M-s") 'save-buffer)
 (define-key text-mode-map (kbd "M-s") 'save-buffer)
 
