@@ -102,6 +102,7 @@
 (defun textmate-bind-carbon-keys ()
   ;; Are these any good? Anyone have good Carbon defaults?
   (define-key textmate-mode-map [M-return] 'textmate-next-line)
+  (define-key textmate-mode-map [C-return] 'textmate-previous-line)
                                         ;  (define-key textmate-mode-map (kbd "A-M-t") 'textmate-clear-cache)
   (define-key textmate-mode-map (kbd "M-[") 'align)
                                         ;  (define-key textmate-mode-map (kbd "A-M-[") 'indent-according-to-mode)
@@ -142,6 +143,13 @@ is a comment, uncomment."
   (interactive)
   (end-of-line)
   (newline-and-indent))
+
+(defun textmate-previous-line ()
+  (interactive)
+  (beginning-of-line)
+  (newline-and-indent)
+  (previous-line)
+  (indent-according-to-mode))
 
 ;; http://chopmo.blogspot.com/2008/09/quickly-jumping-to-symbols.html
 (defun textmate-goto-symbol ()
