@@ -45,9 +45,9 @@
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
 ;; XCODE
+(require 'cc-mode)
 (require 'xcode)
 (define-key objc-mode-map [(meta r)] 'xcode-compile)
-
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
