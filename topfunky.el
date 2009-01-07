@@ -48,6 +48,7 @@
 (require 'cc-mode)
 (require 'xcode)
 (define-key objc-mode-map [(meta r)] 'xcode-compile)
+(define-key objc-mode-map [(meta K)] 'xcode-clean)
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
