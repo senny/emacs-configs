@@ -106,7 +106,7 @@
                                         ;  (define-key textmate-mode-map (kbd "A-M-t") 'textmate-clear-cache)
   (define-key textmate-mode-map (kbd "M-[") 'align)
                                         ;  (define-key textmate-mode-map (kbd "A-M-[") 'indent-according-to-mode)
-  (define-key textmate-mode-map (kbd "M-/") 'comment-or-uncomment-region-or-line)
+  (define-key textmate-mode-map (kbd "M-=") 'comment-or-uncomment-region-or-line)
   (define-key textmate-mode-map [(control tab)] 'indent-region)
   (define-key textmate-mode-map [(meta t)] 'textmate-goto-file)
   (define-key textmate-mode-map [(meta T)] 'textmate-goto-symbol))
