@@ -58,8 +58,7 @@
             (local-set-key (kbd "C-c <left>")  'hs-hide-block)
             (local-set-key (kbd "C-c <up>")    'hs-hide-all)
             (local-set-key (kbd "C-c <down>")  'hs-show-all)
-            (hs-minor-mode t)
-            (hs-hide-all)))             ; Hide and show blocks
+            (hs-minor-mode t)))             ; Hide and show blocks
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
