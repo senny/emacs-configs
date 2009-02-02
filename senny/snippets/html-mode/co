@@ -1,0 +1,3 @@
+#name : <c:out value="" />
+# --
+<c:out value="\${$0}" />

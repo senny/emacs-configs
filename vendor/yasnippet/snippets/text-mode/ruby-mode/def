@@ -1,0 +1,3 @@
+def ${method}
+  $0
+end
