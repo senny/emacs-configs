@@ -68,10 +68,10 @@
 (set-default 'indicate-empty-lines t)
 (set-default 'imenu-auto-rescan t)
 
-(add-hook 'text-mode-hook 'auto-fill-mode)
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'textile-mode-hook 'auto-fill-mode)
-(add-hook 'textile-mode-hook 'flyspell-mode)
+;; (add-hook 'text-mode-hook 'auto-fill-mode)
+;; (add-hook 'text-mode-hook 'flyspell-mode)
+;; (add-hook 'textile-mode-hook 'auto-fill-mode)
+;; (add-hook 'textile-mode-hook 'flyspell-mode)
 
 
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -102,12 +102,6 @@
 (add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
 
 ;; Cosmetics
-
-(eval-after-load 'diff-mode
-  '(progn
-     (set-face-foreground 'diff-added "green4")
-     (set-face-foreground 'diff-removed "red3")))
-
 (eval-after-load 'magit
   '(progn
      (set-face-foreground 'magit-diff-add "green3")
