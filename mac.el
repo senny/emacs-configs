@@ -1,4 +1,4 @@
-(setq custom-file (concat dotfiles-dir "senny/custom/carbon-emacs-custom.el"))
+(setq custom-file (concat private-config-dir "/custom/carbon-emacs-custom.el"))
 (load custom-file)
 
 ; custom place to save customizations

@@ -33,8 +33,8 @@
 ;; Yasnippet
 (vendor 'yasnippet)
 (yas/initialize)
-(yas/load-directory (concat dotfiles-dir "/vendor/yasnippet/snippets"))
-(yas/load-directory (concat dotfiles-dir "/senny/snippets"))
+(yas/load-directory (concat dotfiles-dir "vendor/yasnippet/snippets"))
+(yas/load-directory (concat private-config-dir "/snippets"))
 
 ;; ido
 (ido-mode t)

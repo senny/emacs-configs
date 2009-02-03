@@ -19,18 +19,14 @@
 (defun senny-ido-find-config ()
   (interactive)
   (find-file
-   (concat "~/.emacs.d/senny/" (ido-completing-read "Config file: "
-                                   (directory-files "~/.emacs.d/senny/" nil "^[^.]")))))
+   (concat private-config-dir "/" (ido-completing-read "Config file: "
+                                   (directory-files private-config-dir nil "^[^.]")))))
 
 (defun defunkt-ido-find-project ()
   (interactive)
   (find-file
    (concat "~/Projects/" (ido-completing-read "Project: "
                            (directory-files "~/Projects/" nil "^[^.]")))))
-
-(defun senny-goto-config ()
-  (interactive)
-  (find-file "~/.emacs.d/senny.el"))
 
 ;; fix kill-word
 (defun defunkt-kill-word (arg)

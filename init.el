@@ -70,12 +70,14 @@
 ;; You can keep system- or user-specific customizations here
 (setq system-specific-config (concat dotfiles-dir system-name ".el")
       user-specific-config (concat dotfiles-dir user-login-name ".el")
-      user-specific-dir (concat dotfiles-dir user-login-name))
-(add-to-list 'load-path user-specific-dir)
+      private-config-dir (concat dotfiles-dir "private")
+      private-config (concat private-config-dir ".el"))
+(add-to-list 'load-path private-config-dir)
 
+(if (file-exists-p private-config) (load private-config))
 (if (file-exists-p system-specific-config) (load system-specific-config))
 (if (file-exists-p user-specific-config) (load user-specific-config))
-(if (file-exists-p user-specific-dir)
-  (mapc #'load (directory-files user-specific-dir nil ".*el$")))
+(if (file-exists-p private-config-dir)
+  (mapc #'load (directory-files private-config-dir nil ".*el$")))
 
 ;;; init.el ends here

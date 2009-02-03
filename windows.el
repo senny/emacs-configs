@@ -1,5 +1,5 @@
 ; custom place to save customizations
-(setq custom-file (concat dotfiles-dir "senny/custom/w32-custom.el"))
+(setq custom-file (concat private-config-dir "/custom/w32-custom.el"))
 (load custom-file)
 
 ; use dos-encoding in windows environments
