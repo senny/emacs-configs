@@ -33,7 +33,7 @@
 
 (require 'package)
 (package-initialize)
-(require 'starter-kit-elpa)
+;;(require 'starter-kit-elpa)
 
 ;; Load up starter kit customizations:
 
