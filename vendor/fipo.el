@@ -10,6 +10,27 @@
 (defvar *fipo-contentbus-gf-exclude*
   "/\\.|\\.jar|\\.class")
 
+(defvar *fipo-java-classpath*
+  (list "lib/dns.jar"
+        "lib/providerutil.jar"
+        "lib/wls-addons.jar"
+        "lib/xalan.jar"
+        "lib/xercesImpl.jar"
+        "lib/xml-apis.jar"
+        "config"
+        "fipo-ear/APP-INF/lib"
+        "fipo-ear/APP-INF/classes"
+        "fipo-ear/fipo-web/WEB-INF/lib"
+        "fipo-ear/fipo-web/WEB-INF/classes"
+        "admin-ear/APP-INF/lib"
+        "admin-ear/APP-INF/classes"
+        "admin-ear/fipo-admin/WEB-INF/lib"
+        "admin-ear/fipo-admin/WEB-INF/classes"
+        "C:/Program Files/Java/jdk1.6.0_06/lib/tools.jar"
+        "C:/bea815/weblogic81/server/lib/weblogic.jar"
+        "C:/bea815/weblogic81/server/lib/webservices.jar"))
+
+
 (defvar *fipo-java-sourcepath*
   (list "admin-ear/admin-ejb/src"
         "admin-ear/fipo-admin/WEB-INF/src"
@@ -167,6 +188,7 @@
 (defvar *fipo-project-root* nil)
 (defvar *fipo-project-view* nil)
 (defvar *fipo-project-path* nil)
+(defvar *fipo-project-share-path* nil)
 (defvar *fipo-project-files* nil)
 (defvar *fipo-contentbus-files* nil)
 (defvar *fipo-contentbus-cache-file* (expand-file-name (substitute-in-file-name "$TMP\\contentbus-files.lst")))
@@ -185,9 +207,11 @@
   (interactive)
   (let* ((view (ido-completing-read "View: "
                                     (directory-files *fipo-view-path* nil "^[^.]")))
-         (path-to-view (concat *fipo-view-path* view)))
+         (path-to-view (concat *fipo-view-path* view))
+         (path-to-share (concat "C:/share/FIPODomain-" view "/")))
     (setq *fipo-project-view* view)
     (setq *fipo-project-root* path-to-view)
+    (setq *fipo-project-share-path* path-to-share)
     (setq *fipo-project-path* (concat *fipo-project-root* "\\fipo\\se"))
     (message (concat *fipo-project-view* " selected"))))
 
@@ -213,17 +237,19 @@
   (interactive)
   (when (not (file-exists-p *fipo-contentbus-cache-file*))
     (let ((contentbus-files (shell-command-to-string (concat
-                    "dir /B /S /a-d " *fipo-contentbus-location*))))
+                                                      "dir /B /S /a-d " *fipo-contentbus-location*))))
       (save-excursion
-        (kill-buffer "*contentbus-cache*")
         (set-buffer (get-buffer-create "*contentbus-cache*"))
+        (delete-region (point-min) (point-max))
         (insert contentbus-files)
         (replace-regexp "A:\\\\" "" nil (point-min) (point-max))
-        (write-file *fipo-contentbus-cache-file*))))
-  (save-excursion
-    (set-buffer (get-buffer-create "*contentbus-cache*"))
-    (insert-file *fipo-contentbus-cache-file*)
-    (setq *fipo-contentbus-files* (split-string (buffer-substring-no-properties (point-min) (point-max)))))
+        (write-file *fipo-contentbus-cache-file*)
+        (kill-buffer "contentbus-files.lst"))))
+  (when (not (get-buffer "*contentbus-cache*"))
+    (save-excursion
+      (set-buffer (get-buffer-create "*contentbus-cache*"))
+      (insert-file *fipo-contentbus-cache-file*)
+      (setq *fipo-contentbus-files* (split-string (buffer-substring-no-properties (point-min) (point-max))))))
   (find-file (concat *fipo-contentbus-location*
                      (ido-completing-read (concat *fipo-contentbus-location* ": ")
                                           *fipo-contentbus-files*))))

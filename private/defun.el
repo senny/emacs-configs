@@ -26,7 +26,11 @@
   (interactive)
   (find-file
    (concat "~/Projects/" (ido-completing-read "Project: "
-                           (directory-files "~/Projects/" nil "^[^.]")))))
+                                              (directory-files "~/Projects/" nil "^[^.]")))))
+
+(defun senny-open-task-file ()
+  (interactive)
+  (ido-open-find-directory-files "~/tasks"))
 
 ;; fix kill-word
 (defun defunkt-kill-word (arg)
@@ -57,6 +61,13 @@
     (beginning-of-line)
     (indent-according-to-mode))
 
+(defun ido-open-find-directory-files (directory)
+  (ido-completing-read (concat directory ":")
+                       (split-string
+                        (shell-command-to-string
+                         (concat
+                          "find \"" (expand-file-name directory)
+                          "\" -type f \"\\\\%P\\n\"")))))
 
 
 (defun url-fetch-into-buffer (url)
@@ -119,3 +130,23 @@
 (let ((current-completion (assoc major-mode *alternate-completion-functions-alist*)))
   (when (consp current-completion)
     (funcall (cdr current-completion)))))
+
+(defun comment-or-uncomment-line (&optional lines)
+  "Comment current line. Argument gives the number of lines
+forward to comment"
+  (interactive "P")
+  (comment-or-uncomment-region
+   (line-beginning-position)
+   (line-end-position lines)))
+
+(defun comment-or-uncomment-region-or-line (&optional lines)
+  "If the line or region is not a comment, comments region
+if mark is active, line otherwise. If the line or region
+is a comment, uncomment."
+  (interactive "P")
+  (if mark-active
+      (if (< (mark) (point))
+          (comment-or-uncomment-region (mark) (point))
+        (comment-or-uncomment-region (point) (mark))
+        )
+    (comment-or-uncomment-line lines)))

@@ -11,7 +11,8 @@
                                       (fundamental-mode . ispell-word)
                                       (lisp-interaction-mode . lisp-complete-symbol)
                                       (emacs-lisp-mode . lisp-complete-symbol)
-                                      (text-mode . ispell-word)))
+                                      (text-mode . ispell-word)
+                                      (nxml-mode . nxml-complete)))
 
 (setq hippie-expand-try-functions-list
       '(yas/hippie-try-expand try-expand-dabbrev
