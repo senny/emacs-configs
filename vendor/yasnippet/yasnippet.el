@@ -3,7 +3,7 @@
 ;; Copyright 2008 pluskid
 ;;
 ;; Author: pluskid <pluskid@gmail.com>
-;; Version: 0.5.7
+;; Version: 0.5.9
 ;; X-URL: http://code.google.com/p/yasnippet/
 
 ;; This file is free software; you can redistribute it and/or modify
@@ -134,10 +134,10 @@ proper values:
 
 (defvar yas/buffer-local-condition
   '(if (and (not (bobp))
-            (or (equal "font-lock-comment-face"
+            (or (equal 'font-lock-comment-face
                        (get-char-property (1- (point))
                                           'face))
-                (equal "font-lock-string-face"
+                (equal 'font-lock-string-face
                        (get-char-property (1- (point))
                                           'face))))
        '(require-snippet-condition . force-in-comment)
@@ -185,10 +185,24 @@ to expand.
     YASnippet and call other command bound to `yas/trigger-key'.
  * 'return-nil means return nil.")
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Utility functions for transformations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun yas/substr (str pattern &optional group)
+  "Search PATTERN in STR. If found, the content of group
+  GROUP (default 0) is returned, or else the original STR will be
+  returned."
+  (let ((grp (or group 0)))
+    (save-match-data
+      (if (string-match pattern str)
+          (match-string-no-properties grp str)
+        str))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Internal variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar yas/version "0.5.7")
+(defvar yas/version "0.5.9")
 
 (defvar yas/snippet-tables (make-hash-table)
   "A hash table of snippet tables corresponding to each major-mode.")
@@ -260,9 +274,8 @@ You can customize the key through `yas/trigger-key'."
   ;; The indicator for the mode line.
   " yas"
   :group 'editing
-  (define-key yas/minor-mode-map yas/trigger-key 'yas/expand)
+  (define-key yas/minor-mode-map yas/trigger-key 'yas/expand))
 
-  (set 'yas/registered-snippets (make-hash-table :test 'eq)))
 
 (defun yas/minor-mode-auto-on ()
   "Turn on YASnippet minor mode unless `yas/dont-activate' is
@@ -636,6 +649,8 @@ for each field."
            (length (- end start)))
       (goto-char start)
       (insert (yas/calculate-field-value field text))
+      (if (eq length 0)
+	  (move-overlay overlay start (point)))
       (delete-char length))))
 
 (defun yas/expand-snippet (start end template)
@@ -786,11 +801,22 @@ will be deleted before inserting template."
         (widen)
         (delete-char length)
 
-        ;; Step 14: Restore undo information, and also save it for future use.
+        ;; Step 14: Do necessary indenting
+        (save-excursion
+          (let ((ovst (overlay-start (yas/snippet-overlay snippet)))
+                (oven (copy-marker
+                       (1+ (overlay-end (yas/snippet-overlay snippet))))))
+            (when (and ovst oven)
+              (goto-char ovst)
+              (while (re-search-forward "$>" oven t)
+                (replace-match "")
+                (indent-according-to-mode)))))
+
+        ;; Step 15: Restore undo information, and also save it for future use.
         (setf (yas/snippet-saved-buffer-undo-list snippet) original-undo-list)
         (setq buffer-undo-list original-undo-list)
 
-        ;; Step 15: place the cursor at a proper place
+        ;; Step 16: place the cursor at a proper place
         (let ((groups (yas/snippet-groups snippet))
               (exit-marker (yas/snippet-exit-marker snippet)))
           (if groups
@@ -801,14 +827,7 @@ will be deleted before inserting template."
             ;; no need to call exit-snippet, since no overlay created.
             (yas/exit-snippet snippet)))
 
-        ;; Step 16: Do necessary indenting
-        (save-excursion
-          (let ((ovst (overlay-start (yas/snippet-overlay snippet))))
-            (when ovst
-              (goto-char ovst)
-              (while (re-search-forward "$>" nil t)
-                (replace-match "")
-                (indent-according-to-mode)))))))))
+        ))))
 
 (defun yas/current-snippet-overlay (&optional point)
   "Get the most proper overlay which is belongs to a snippet."
@@ -886,7 +905,7 @@ Here's a list of currently recognized variables:
 # --
 #include \"$1\""
   (goto-char (point-min))
-  (let ((name file-name) template bound condition)
+  (let ((name file-name) template bound condition key)
     (if (re-search-forward "^# --\n" nil t)
         (progn (setq template
                      (buffer-substring-no-properties (point)
@@ -897,10 +916,12 @@ Here's a list of currently recognized variables:
                  (when (string= "name" (match-string-no-properties 1))
                    (setq name (match-string-no-properties 2)))
                  (when (string= "condition" (match-string-no-properties 1))
-                   (setq condition (read (match-string-no-properties 2))))))
+                   (setq condition (read (match-string-no-properties 2))))
+                 (when (string= "key" (match-string-no-properties 1))
+                   (setq key (match-string-no-properties 2)))))
       (setq template
             (buffer-substring-no-properties (point-min) (point-max))))
-    (list template name condition)))
+    (list key template name condition)))
 
 (defun yas/directory-files (directory file?)
   "Return directory files or subdirectories in full path."
@@ -989,10 +1010,11 @@ hierarchy."
       (dolist (file (yas/directory-files directory t))
         (when (file-readable-p file)
           (insert-file-contents file nil nil nil t)
-          (let ((snippet-file-name (file-name-nondirectory file)))
-            (push (cons snippet-file-name
-                        (yas/parse-template snippet-file-name))
-                  snippets)))))
+          (let* ((snip (yas/parse-template))
+                 (key (or (car snip)
+                          (file-name-nondirectory file)))
+                 (snip (cdr snip)))
+            (push (cons key snip) snippets)))))
     (yas/define-snippets mode-sym
                          snippets
                          parent)
@@ -1325,16 +1347,21 @@ up the snippet does not delete it!"
   "A hash table holding all active snippets")
 (eval-when-compile
   (make-variable-buffer-local 'yas/registered-snippets))
+(defun yas/get-registered-snippets ()
+  (when (null yas/registered-snippets)
+    (setq yas/registered-snippets
+	  (make-hash-table :test 'eq)))
+  yas/registered-snippets)
 
 (defun yas/register-snippet (snippet)
   "Register SNIPPET in the `yas/registered-snippets' table.  Add a
 `yas/check-cleanup-snippet' function to the buffer-local
 `post-command-hook' that should exist while at least one
 registered snippet exists in the current buffer.  Return snippet"
-  (puthash (yas/snippet-id snippet) snippet yas/registered-snippets)
-  (add-hook 'pre-command-hook  'yas/field-undo-before-hook            'append 'local)
-  (add-hook 'post-command-hook 'yas/check-cleanup-snippet        'append 'local)
-  (add-hook 'post-command-hook 'yas/field-undo-after-hook             'append 'local)
+  (puthash (yas/snippet-id snippet) snippet (yas/get-registered-snippets))
+  (add-hook 'pre-command-hook  'yas/field-undo-before-hook 'append 'local)
+  (add-hook 'post-command-hook 'yas/check-cleanup-snippet 'append 'local)
+  (add-hook 'post-command-hook 'yas/field-undo-after-hook 'append 'local)
   snippet)
 
 (defun yas/unregister-snippet (snippet)
@@ -1342,11 +1369,11 @@ registered snippet exists in the current buffer.  Return snippet"
 table.  Remove `yas/check-cleanup-snippet' from the buffer-local
 `post-command-hook' if no more snippets registered in the
 current buffer."
-  (remhash (yas/snippet-id snippet) yas/registered-snippets)
+  (remhash (yas/snippet-id snippet) (yas/get-registered-snippets))
   (when (eq 0
-            (hash-table-count yas/registered-snippets))
-    (remove-hook 'pre-command-hook  'yas/field-undo-before-hook     'local)
-    (remove-hook 'post-command-hook 'yas/field-undo-after-hook      'local)
+            (hash-table-count (yas/get-registered-snippets)))
+    (remove-hook 'pre-command-hook  'yas/field-undo-before-hook 'local)
+    (remove-hook 'post-command-hook 'yas/field-undo-after-hook 'local)
     (remove-hook 'post-command-hook 'yas/check-cleanup-snippet 'local)))
 
 (defun yas/exterminate-snippets ()
@@ -1354,7 +1381,7 @@ current buffer."
   `yas/check-cleanup-snippet' from the `post-command-hook'"
   (interactive)
   (maphash #'(lambda (key snippet) (yas/cleanup-snippet snippet))
-           yas/registered-snippets))
+           (yas/get-registered-snippets)))
 
 (defun yas/cleanup-snippet (snippet)
   "Cleanup SNIPPET, but leave point as it is.  This renders the
@@ -1520,8 +1547,8 @@ be a part of that list while registered snippets last."
   (interactive)
   (with-output-to-temp-buffer "*YASnippet trace*"
     (princ "Interesting YASnippet vars: \n\n")
-    (princ (format "Register hash-table: %s\n\n" yas/registered-snippets))
-    (cond ((eq (hash-table-count yas/registered-snippets) 0)
+    (princ (format "Register hash-table: %s\n\n" (yas/get-registered-snippets)))
+    (cond ((eq (hash-table-count (yas/get-registered-snippets)) 0)
            (princ "  No registered snippets\n"))
           (t
            (maphash #'(lambda (key snippet)
@@ -1533,7 +1560,7 @@ be a part of that list while registered snippets last."
                           (princ (format "\t   group with %s fields.  Primary field is value is \"%s\"\n"
                                          (length (yas/group-fields group))
                                          (yas/field-value (yas/group-primary-field group))))))
-                    yas/registered-snippets)))
+                    (yas/get-registered-snippets))))
 
     (princ (format "\nPost command hook: %s\n" post-command-hook))
     (princ (format "\nPre  command hook: %s\n" pre-command-hook))
@@ -1567,6 +1594,13 @@ handle the end-of-buffer error fired in it by calling
       ad-do-it
     (error (message (error-message-string err)))))
 
+;; disable c-electric-* serial command in YAS fields
+(add-hook 'c-mode-common-hook
+          '(lambda ()
+	     (make-variable-buffer-local 'yas/keymap)
+             (dolist (k '(":" ">" ";" "<" "{" "}"))
+               (define-key yas/keymap
+                 k 'self-insert-command))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Contents of dropdown-list.el

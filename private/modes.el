@@ -59,6 +59,7 @@
 (vendor 'whitespace)
 
 ;; org mode
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (setq org-log-done t)
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -69,7 +70,12 @@
 
 ;; nxml
 (add-hook 'nxml-completion-hook 'rng-complete nil t)
+(setq rng-nxml-auto-validate-flag t)
+(add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
 
 ;; nXhtml
 (add-hook 'html-mode-hook '(lambda ()
                              (setq font-lock-function-name-face '((t (:inherit keyword))))))
+
+;;js2-mode
+(setq js2-mirror-mode nil)

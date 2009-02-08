@@ -7,7 +7,7 @@
                                    'inf-ruby
                                    'js2-mode
                                    'css-mode
-                                   'nxml
+                                   'nxml-mode
                                    'gist
                                ;; To submit
 ;;;                                "magit"

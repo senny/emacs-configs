@@ -26,9 +26,9 @@
      (define-key js2-mode-map "\C-\M-h" 'backward-kill-word)
 
      ;; Fix js2's crazy indentation
-     (define-key js2-mode-map (kbd "TAB") (lambda () (interactive)
-                                            (indent-for-tab-command)
-                                            (back-to-indentation)))
+     ;; (define-key js2-mode-map (kbd "TAB") (lambda () (interactive)
+;;                                             (indent-for-tab-command)
+;;                                             (back-to-indentation)))
 
      (setq js2-bounce-indent-flag nil
            js2-indent-on-enter-key t)
