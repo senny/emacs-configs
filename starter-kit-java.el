@@ -53,6 +53,25 @@
              ;; Don't use JDE's builtin abbrevs.
              (setq jde-enable-abbrev-mode nil)))
 
+(defun jde-complete-ido ()
+  "Custom method completion for JDE using ido-mode and yasnippet."
+  (interactive)
+  (let ((completion-list '()))
+    (dolist (element (jde-complete-find-completion-for-pair (jde-complete-get-pair (jde-parse-java-variable-at-point) nil) nil))
+      (add-to-list 'completion-list (cdr element)))
+    (if completion-list
+        (let ((choise (ido-completing-read "> " completion-list)) (method))
+          (unless (string-match "^.*()$" choise)
+            (setq method (replace-regexp-in-string ")" "})"(replace-regexp-in-string ", " "}, ${" (replace-regexp-in-string "(" "(${" choise)))))
+          (delete-region (point) (re-search-backward "\\." (line-beginning-position)))
+          (insert ".")
+          (if method
+              (yas/expand-snippet (point) (point) method)
+            (insert choise)))
+      (message "No completions at this point"))))
+
+(setq jde-complete-function 'jde-complete-ido)
+
 (defun jde-eclipse-flymake-mode ()
   (interactive)
   (setq *jde-eclipse-flymake-mode* (not *jde-eclipse-flymake-mode*))
@@ -73,5 +92,6 @@
               (remove-hook 'jde-mode-hook flymake-hook)
               (flymake-mode 0)
               (message "Eclipse-Flymake-Mode deactivated")))))))
+
 
 (provide 'starter-kit-java)
