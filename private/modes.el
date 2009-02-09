@@ -72,6 +72,7 @@
 (add-hook 'nxml-completion-hook 'rng-complete nil t)
 (setq rng-nxml-auto-validate-flag t)
 (add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
+(add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
 
 ;; nXhtml
 (add-hook 'html-mode-hook '(lambda ()
@@ -79,3 +80,8 @@
 
 ;;js2-mode
 (setq js2-mirror-mode nil)
+
+;; fix-bindings
+(add-hook 'comint-mode-hook '(lambda ()
+                               (local-set-key (kbd "M-s") 'move-cursor-next-pane)
+                               (local-set-key (kbd "M-S") 'move-cursor-previous-pane)))

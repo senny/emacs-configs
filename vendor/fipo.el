@@ -7,6 +7,9 @@
 (defvar *fipo-gf-exclude*
   "/\\.|bomdef|\\.jar|\\.class")
 
+(defvar *fipo-view-name-prefix*
+  "fipo_senny_")
+
 (defvar *fipo-contentbus-gf-exclude*
   "/\\.|\\.jar|\\.class")
 
@@ -26,6 +29,10 @@
         "admin-ear/APP-INF/classes"
         "admin-ear/fipo-admin/WEB-INF/lib"
         "admin-ear/fipo-admin/WEB-INF/classes"
+        "day-ear/APP-INF/lib"
+        "day-ear/APP-INF/classes"
+        "day-ear/day-web/WEB-INF/lib"
+        "day-ear/day-web/WEB-INF/classes"
         "C:/Program Files/Java/jdk1.6.0_06/lib/tools.jar"
         "C:/bea815/weblogic81/server/lib/weblogic.jar"
         "C:/bea815/weblogic81/server/lib/webservices.jar"))
@@ -199,9 +206,12 @@
   (define-key *fipo-mode-map* (kbd "C-S-f a") 'fipo-ido-open-admin-ear-file)
   (define-key *fipo-mode-map* (kbd "C-S-f f") 'fipo-ido-open-fipo-ear-file)
   (define-key *fipo-mode-map* (kbd "C-S-f d") 'fipo-ido-open-day-ear-file)
+  (define-key *fipo-mode-map* (kbd "C-S-f o") 'fipo-ido-open-view-file)
   (define-key *fipo-mode-map* (kbd "C-S-s") 'fipo-find-in-project)
   (define-key *fipo-mode-map* (kbd "C-S-b o") 'fipo-ido-contentbus-dir)
-  (define-key *fipo-mode-map* (kbd "C-S-b b") 'fipo-ido-open-contentbus-file))
+  (define-key *fipo-mode-map* (kbd "C-S-b b") 'fipo-ido-open-contentbus-file)
+  (define-key *fipo-mode-map* (kbd "C-S-a d") 'fipo-debug-view)
+  (define-key *fipo-mode-map* (kbd "C-S-a a") 'fipo-run-ant-target))
 
 (defun fipo-ido-find-view ()
   (interactive)
@@ -282,6 +292,8 @@
   (cdr *fipo-project-files*))
 
 (defun fipo-find-in-project (&optional pattern)
+  "Recursivly grep through the selected view and search for the given
+pattern. Matches will be displayed in a compilation buffer"
   (interactive)
   (let ((root *fipo-project-path*)
         (default *fipo-find-in-project-default*))
@@ -299,19 +311,37 @@
              (concat "grep -nr \"" re "\" \"" (expand-file-name root) "\"")))
         (compilation-start command 'grep-mode)))))
 
+(defun fipo-run-ant-target (target &optional buffer-name)
+  "This functions allows you to run your prefered ant target within
+the current view. If the function is called interactively you will be
+prompted for a target. (You need to have the scripts to change into a
+view in your path)"
+  (interactive
+   (list (read-string "ANT-Target [compile.fipo-ear]: " nil nil "compile.fipo-ear")))
+  (let ((command  (concat "cdv " (replace-in-string *fipo-project-view* *fipo-view-name-prefix* "")
+                          " & go build"
+                          " & ant " target)))
+    (compile command)
+    (set-buffer "*compilation*")
+    (rename-buffer buffer-name)))
+
 (defun fipo-debug-view ()
+  "Run the current view in debug mode. If there is already a running
+server instance, it gets killed and a new one starts up instead. The
+server-log will be available in the *fipo-server* buffer."
   (interactive)
-  (when (get-buffer "*fipo-server*")
-    (save-excursion
+  (fipo-stop-server)
+  (fipo-run-ant-target "debug.fipo.dev" "*fipo-server*"))
+
+(defun fipo-stop-server ()
+  "When a *fipo-server* process is running, kill it. Otherwise do nothing"
+  (interactive)
+  (save-excursion
+    (when (get-buffer "*fipo-server*")
       (set-buffer "*fipo-server*")
-      (kill-process)
-      (kill-buffer))
-    (let ((server-buf (get-buffer-create "*fipo-server*")))
-      (save-excursion
-        (shell)
-        (rename-buffer "*fipo-server*")))))
-
-
+      (when (processp (get-process "*fipo-server*"))
+        (kill-compilation))
+      (kill-buffer))))
 
 ;;;###autoload
 (define-minor-mode fipo-mode "Fipo Minor Mode"
