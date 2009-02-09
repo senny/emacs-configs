@@ -210,6 +210,8 @@
   (define-key *fipo-mode-map* (kbd "C-S-s") 'fipo-find-in-project)
   (define-key *fipo-mode-map* (kbd "C-S-b o") 'fipo-ido-contentbus-dir)
   (define-key *fipo-mode-map* (kbd "C-S-b b") 'fipo-ido-open-contentbus-file)
+  (define-key *fipo-mode-map* (kbd "C-S-c s") 'fipo-clearcase-status)
+  (define-key *fipo-mode-map* (kbd "C-S-c d") 'fipo-clearcase-diff-checkouts)
   (define-key *fipo-mode-map* (kbd "C-S-a d") 'fipo-debug-view)
   (define-key *fipo-mode-map* (kbd "C-S-a a") 'fipo-run-ant-target))
 
@@ -342,6 +344,36 @@ server-log will be available in the *fipo-server* buffer."
       (when (processp (get-process "*fipo-server*"))
         (kill-compilation))
       (kill-buffer))))
+
+(defun execute-view-command (command)
+  (shell-command-to-string (concat "cdv " (replace-in-string *fipo-project-view* *fipo-view-name-prefix* "")
+                                   " & " command)))
+
+(defun fipo-clearcase-buffer()
+  (pop-to-buffer (get-buffer-create "*fipo-clearcase*"))
+  (delete-region (point-min) (point-max))
+  (fundamental-mode))
+
+(defun fipo-clearcase-status ()
+  (interactive)
+  (save-excursion
+    (fipo-clearcase-buffer)
+    (insert (execute-view-command "cc-info"))
+    (insert (execute-view-command "cc-st"))))
+
+(defun fipo-clearcase-diff-checkouts ()
+  (interactive)
+  (save-excursion
+    (fipo-clearcase-buffer)
+    (insert (execute-view-command "cc-diff"))
+    (beginning-of-buffer)
+    (diff-mode)))
+
+(defun fipo-clearcase-bulk-checkin ()
+  (interactive)
+  (save-excursion
+    (fipo-clearcase-buffer)
+    (insert (execute-view-command "cc-ci -a"))))
 
 ;;;###autoload
 (define-minor-mode fipo-mode "Fipo Minor Mode"

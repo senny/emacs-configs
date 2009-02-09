@@ -85,3 +85,6 @@
 (add-hook 'comint-mode-hook '(lambda ()
                                (local-set-key (kbd "M-s") 'move-cursor-next-pane)
                                (local-set-key (kbd "M-S") 'move-cursor-previous-pane)))
+;;;; Flymake
+;; Display error-messages when the curosr moves over the line
+(require 'flymake-cursor)

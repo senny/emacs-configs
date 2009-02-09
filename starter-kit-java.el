@@ -17,29 +17,11 @@
 
 (add-hook 'java-mode-hook
           '(lambda()
-             (vendor 'ecb)
-             (setq c-basic-offset 2)))
-
-(add-hook 'jde-mode-hook
-          '(lambda()
-             (vendor 'decompile)
-             (vendor 'jdibug)
-             ;activate linum-mode for java-files
-             (linum-mode 1)
-
-             (setq jde-complete-insert-method-signature nil)
-
-             ;; Indent width is two spaces.
-             (setq c-comment-continuation-stars "* ")
+             (vendor 'ecb) ; Require the Emacs-Code-Browser
+             (vendor 'decompile) ; Require major-mode for java class files
              
-             ;; No "final" when auto creating methods and variables.
-             (setq jde-gen-final-arguments nil)
-             (setq jde-gen-final-methods nil)
-
-             ;; Don't use JDE's builtin abbrevs.
-             (setq jde-enable-abbrev-mode nil)
-                          
-             ;; Generate getter and setter methods to variables.
+             (linum-mode 1) ;activate linum-mode for java-files
+                          ;; Generate getter and setter methods to variables.
              (define-key jde-mode-map (kbd "C-c C-v w") 'jde-wiz-get-set-methods)
 
              ;; Generate variables and getter and setter methods to them.
@@ -53,7 +35,24 @@
                    (jde-import-all)
                    (jde-import-organize)
                    (jde-import-kill-extra-imports))))
-             ))
+             
+             (setq c-basic-offset 2)))
+
+(add-hook 'jde-mode-hook
+          '(lambda()
+
+             (setq jde-complete-insert-method-signature nil)
+
+             ;; Indent width is two spaces.
+             (setq c-comment-continuation-stars "* ")
+             
+             ;; No "final" when auto creating methods and variables.
+             (setq jde-gen-final-arguments nil)
+             (setq jde-gen-final-methods nil)
+
+             ;; Don't use JDE's builtin abbrevs.
+             (setq jde-enable-abbrev-mode nil)))
+
 (defun jde-eclipse-flymake-mode ()
   (interactive)
   (setq *jde-eclipse-flymake-mode* (not *jde-eclipse-flymake-mode*))
@@ -70,9 +69,9 @@
                 (add-hook 'jde-mode-hook flymake-hook)
                 (flymake-mode 1)
                 (message "Eclipse-Flymake-Mode activated"))
-                (progn
-                  (remove-hook 'jde-mode-hook flymake-hook)
-                  (flymake-mode 0)
-                  (message "Eclipse-Flymake-Mode deactivated")))))))
+            (progn
+              (remove-hook 'jde-mode-hook flymake-hook)
+              (flymake-mode 0)
+              (message "Eclipse-Flymake-Mode deactivated")))))))
 
 (provide 'starter-kit-java)

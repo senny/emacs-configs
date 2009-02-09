@@ -1,4 +1,4 @@
-;Adopting the ergonomic keybindings
+;; Adopting the ergonomic keybindings
 ;; (load (concat dotfiles-dir "vendor/ergonomic_keybinding_qwerty"))
 (global-unset-key (kbd "C-b")) ; backward-char
 (global-unset-key (kbd "C-f")) ; forward-char
@@ -79,14 +79,14 @@
 (global-set-key (kbd "M-V") 'yank-pop)
 
 (global-unset-key (kbd "C-x C-f")) ; find-file
-;(global-unset-key (kbd "C-x h")) ; mark-whole-buffer
-;(global-unset-key (kbd "C-x C-w")) ; write-file
+;; (global-unset-key (kbd "C-x h")) ; mark-whole-buffer
+;; (global-unset-key (kbd "C-x C-w")) ; write-file
 (global-set-key (kbd "C-o") 'find-file)
 (global-set-key (kbd "C-w") 'close-current-buffer)
 (global-set-key (kbd "C-S-n") 'write-file)
 (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
 
-; general
+;; general
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
 (global-set-key (kbd "C-c C-m") 'execute-extended-command)
@@ -98,27 +98,27 @@
 (global-set-key "\C-x\C-g" 'github-ido-find-file)
 (global-set-key "\C-R" 'replace-string)
 (global-set-key (kbd "C-$") 'senny-kill-buffer)
+(global-set-key (kbd "C-c i") 'indent-buffer)
 
-; Window management
+;; Window management
 (global-set-key [f1] 'resize-windows)
 
-; Buffer cycling
+;; Buffer cycling
 (global-set-key (kbd "C-ä") 'forward-buffer)
 (global-set-key (kbd "C-ö") 'backward-buffer)
 
-; Completion
+;; Completion
 (global-set-key (kbd "C-SPC") 'alternate-completion)
 
-; vim emulation
+;; vim emulation
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)
 
-
-; no printing!
+;; no printing!
 (when (boundp 'osx-key-mode-map)
- (define-key osx-key-mode-map (kbd "A-p") 
-   '(lambda () (interactive) (message "noop"))))
+  (define-key osx-key-mode-map (kbd "A-p") 
+    '(lambda () (interactive) (message "noop"))))
 
-; no mailing!
+;; no mailing!
 (global-unset-key (kbd "C-x m"))
 (global-unset-key "\C-z")
 
