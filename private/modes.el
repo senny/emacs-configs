@@ -76,15 +76,22 @@
 
 ;; nXhtml
 (add-hook 'html-mode-hook '(lambda ()
+                             (make-variable-buffer-local font-lock-function-name-face)
                              (setq font-lock-function-name-face '((t (:inherit keyword))))))
 
 ;;js2-mode
 (setq js2-mirror-mode nil)
 
+
+(defun rebind-window-switch-commands ()
+  (local-set-key (kbd "M-s") 'move-cursor-next-pane)
+  (local-set-key (kbd "M-S") 'move-cursor-previous-pane))
+
 ;; fix-bindings
-(add-hook 'comint-mode-hook '(lambda ()
-                               (local-set-key (kbd "M-s") 'move-cursor-next-pane)
-                               (local-set-key (kbd "M-S") 'move-cursor-previous-pane)))
+(add-hook 'comint-mode-hook 'rebind-window-switch-commands)
+(add-hook 'inf-ruby-mode-hook 'rebind-window-switch-commands)
+
+
 ;;;; Flymake
 ;; Display error-messages when the curosr moves over the line
 (require 'flymake-cursor)
