@@ -320,7 +320,7 @@ prompted for a target. (You need to have the scripts to change into a
 view in your path)"
   (interactive
    (list (read-string "ANT-Target [compile.fipo-ear]: " nil nil "compile.fipo-ear")))
-  (let ((command  (concat "cdv " (replace-in-string *fipo-project-view* *fipo-view-name-prefix* "")
+  (let ((command  (concat "cdv " (fipo-current-view-name)
                           " & go build"
                           " & ant " target)))
     (compile command)
@@ -346,7 +346,8 @@ server-log will be available in the *fipo-server* buffer."
       (kill-buffer))))
 
 (defun execute-view-command (command)
-  (shell-command-to-string (concat "cdv " (replace-in-string *fipo-project-view* *fipo-view-name-prefix* "")
+  (shell-command-to-string (concat "cdv "
+                                   (fipo-current-view-name)
                                    " & " command)))
 
 (defun fipo-clearcase-buffer()
@@ -374,6 +375,9 @@ server-log will be available in the *fipo-server* buffer."
   (save-excursion
     (fipo-clearcase-buffer)
     (insert (execute-view-command "cc-ci -a"))))
+
+(defun fipo-current-view-name ()
+  (replace-regexp-in-string *fipo-view-name-prefix* "" *fipo-project-view*))
 
 ;;;###autoload
 (define-minor-mode fipo-mode "Fipo Minor Mode"
