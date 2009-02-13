@@ -93,7 +93,7 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x p") 'defunkt-ido-find-project)
 (global-set-key (kbd "C-c p") 'senny-ido-find-config)
-(global-set-key (kbd "C-f p") 'senny-ido-find-tasks-file)
+(global-set-key (kbd "C-f p") 'senny-open-task-file)
 (global-set-key [C-return] 'defunkt-duplicate-line)
 (global-set-key "\C-x\C-g" 'github-ido-find-file)
 (global-set-key "\C-R" 'replace-string)

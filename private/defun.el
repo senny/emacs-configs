@@ -30,7 +30,7 @@
 
 (defun senny-open-task-file ()
   (interactive)
-  (ido-open-find-directory-files "~/tasks"))
+  (find-file (ido-open-find-directory-files "~/tasks")))
 
 ;; fix kill-word
 (defun defunkt-kill-word (arg)
@@ -62,12 +62,12 @@
     (indent-according-to-mode))
 
 (defun ido-open-find-directory-files (directory)
-  (ido-completing-read (concat directory ":")
+  (concat directory (ido-completing-read (concat directory ":")
                        (split-string
                         (shell-command-to-string
                          (concat
                           "find \"" (expand-file-name directory)
-                          "\" -type f \"\\\\%P\\n\"")))))
+                          "\" -type f -printf \"\\\\%P\\n\""))))))
 
 
 (defun url-fetch-into-buffer (url)
