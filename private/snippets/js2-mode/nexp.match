@@ -1,0 +1,3 @@
+#name : expect - not match (RegEx)
+# --
+expect(${1:actual}).to_not(match, ${2:regex});

@@ -1,0 +1,5 @@
+#name : describe('<context>',function(){...})
+# --
+describe('${1:Context}', function() {
+  $0
+});

@@ -1,0 +1,3 @@
+#name : expect - not match_selector
+# --
+expect(${1:actual}).to_not(match_selector, ${2:css-selector});

@@ -1,0 +1,3 @@
+#name : expect - not have_length
+# --
+expect(${1:actual}).to_not(have_length, ${2:length});

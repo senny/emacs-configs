@@ -1,0 +1,5 @@
+#name: Screw.Unit(function(){...});
+# --
+Screw.Unit(function() {
+  $0
+});

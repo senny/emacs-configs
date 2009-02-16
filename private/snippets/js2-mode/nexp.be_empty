@@ -1,0 +1,3 @@
+#name : expect - not be_empty
+# --
+expect(${1:actual}).to_not(be_empty);

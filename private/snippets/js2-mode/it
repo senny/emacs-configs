@@ -1,0 +1,5 @@
+#name: it('<spec description>', function(){...})
+# --
+it('${1:should be valid}', function(){
+  $0
+});
