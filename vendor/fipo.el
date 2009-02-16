@@ -213,6 +213,7 @@
   (define-key *fipo-mode-map* (kbd "C-S-c s") 'fipo-clearcase-status)
   (define-key *fipo-mode-map* (kbd "C-S-c d") 'fipo-clearcase-diff-checkouts)
   (define-key *fipo-mode-map* (kbd "C-S-a d") 'fipo-debug-view)
+  (define-key *fipo-mode-map* (kbd "C-S-a k") 'fipo-stop-server)
   (define-key *fipo-mode-map* (kbd "C-S-a a") 'fipo-run-ant-target))
 
 (defun fipo-ido-find-view ()
@@ -341,9 +342,8 @@ server-log will be available in the *fipo-server* buffer."
   (save-excursion
     (when (get-buffer "*fipo-server*")
       (set-buffer "*fipo-server*")
-      (when (processp (get-process "*fipo-server*"))
-        (kill-compilation))
-      (kill-buffer))))
+      (kill-compilation))
+      (kill-buffer)))
 
 (defun execute-view-command (command)
   (shell-command-to-string (concat "cdv "
