@@ -82,7 +82,7 @@
 ;;js2-mode
 (setq js2-mirror-mode nil)
 
-
+;; this function rebinds M-s and M-S to switch between the different windows
 (defun rebind-window-switch-commands ()
   (local-set-key (kbd "M-s") 'move-cursor-next-pane)
   (local-set-key (kbd "M-S") 'move-cursor-previous-pane))
@@ -93,5 +93,4 @@
 
 
 ;;;; Flymake
-;; Display error-messages when the curosr moves over the line
-(require 'flymake-cursor)
+(require 'flymake-cursor) ;display error-messages when the curosr moves over the line
