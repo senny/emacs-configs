@@ -9,7 +9,10 @@
 
 (defun xcode-compile ()
   (interactive)
-  (let ((df (directory-files "."))
+  (when (null (textmate-set-project-root))
+    (error "Can't find any .git directory"))
+
+  (let ((df (directory-files *textmate-project-root*))
         (has-proj-file nil)
         )
     (while (and df (not has-proj-file))
@@ -23,7 +26,7 @@
       (setq df (cdr df))
       )
     (if has-proj-file
-        (compile "xcodebuild -activetarget -activeconfiguration")
+        (compile (concat "cd " *textmate-project-root* "&& xcodebuild -activetarget -activeconfiguration"))
       (compile "make")
       )
     )

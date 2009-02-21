@@ -69,7 +69,7 @@
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
 ;; XCODE
-(require 'cc-mode)
+(require 'objc-c-mode)
 (require 'xcode)
 (define-key objc-mode-map [(meta r)] 'xcode-compile)
 (define-key objc-mode-map [(meta K)] 'xcode-clean)
