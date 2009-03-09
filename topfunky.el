@@ -6,7 +6,7 @@
 ;; Put autosave files (ie #foo#) in one place, *not*
 ;; scattered all over the file system!
 (defvar autosave-dir
- (concat "/tmp/emacs_autosaves/" (user-login-name) "/"))
+  (concat "/tmp/emacs_autosaves/" (user-login-name) "/"))
 
 (make-directory autosave-dir t)
 
@@ -15,10 +15,10 @@
 
 (defun make-auto-save-file-name ()
   (concat autosave-dir
-   (if buffer-file-name
-      (concat "#" (file-name-nondirectory buffer-file-name) "#")
-    (expand-file-name
-     (concat "#%" (buffer-name) "#")))))
+          (if buffer-file-name
+              (concat "#" (file-name-nondirectory buffer-file-name) "#")
+            (expand-file-name
+             (concat "#%" (buffer-name) "#")))))
 
 ;; Put backup files (ie foo~) in one place too. (The backup-directory-alist
 ;; list contains regexp=>directory mappings; filenames matching a regexp are
@@ -49,6 +49,11 @@
 ;; Rinari
 ;; (add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
 ;; (require 'rinari)
+
+(autoload 'applescript-mode "applescript-mode" "major mode for editing AppleScript source." t)
+(setq auto-mode-alist
+      (cons '("\\.applescript$" . applescript-mode) auto-mode-alist))
+
 
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
@@ -82,7 +87,7 @@
             (local-set-key (kbd "C-c <left>")  'hs-hide-block)
             (local-set-key (kbd "C-c <up>")    'hs-hide-all)
             (local-set-key (kbd "C-c <down>")  'hs-show-all)
-            (hs-minor-mode t)))             ; Hide and show blocks
+            (hs-minor-mode t)))         ; Hide and show blocks
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
