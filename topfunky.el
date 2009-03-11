@@ -304,7 +304,7 @@
      (font-lock-keyword-face ((t (:foreground "#888"))))
      (font-lock-preprocessor-face ((t (:foreground "#6688ee"))))
      (font-lock-reference-face ((t (:foreground "#c2cff1"))))
-     (font-lock-string-face ((t (:italic t :foreground "#ffffcc" :slant italic))))
+     (font-lock-string-face ((t (:foreground "#ffffcc"))))
      (font-lock-type-face ((t (:bold t :foreground "#c2cff1" :weight bold))))
      (font-lock-variable-name-face ((t (:italic t :bold t :foreground "#f3f3f3" :slant italic :weight bold))))
      (font-lock-warning-face ((t (:bold t :foreground "IndianRed" :weight bold))))
