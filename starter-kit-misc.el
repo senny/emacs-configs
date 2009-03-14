@@ -68,12 +68,11 @@
 (set-default 'indicate-empty-lines t)
 (set-default 'imenu-auto-rescan t)
 
-;; (add-hook 'text-mode-hook 'auto-fill-mode)
-;; (add-hook 'text-mode-hook 'flyspell-mode)
-;; (add-hook 'textile-mode-hook 'auto-fill-mode)
-;; (add-hook 'textile-mode-hook 'flyspell-mode)
-;; (add-hook 'markdown-mode-hook 'auto-fill-mode)
-;; (add-hook 'markdown-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'text-mode-hook 'turn-on-flyspell)
+
+(defvar coding-hook nil
+  "Hook that gets run on activation of any programming mode.")
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (random t) ;; Seed the random-number generator
@@ -101,6 +100,9 @@
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
+
+;; Default to unified diffs
+(setq diff-switches "-u")
 
 ;; Cosmetics
 (eval-after-load 'magit
