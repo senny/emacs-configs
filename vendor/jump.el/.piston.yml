@@ -1,0 +1,8 @@
+--- 
+format: 1
+handler: 
+  commit: 93979037e75fba8d53eb56f2e526ac9d154bbf1b
+  branch: HEAD
+repository_url: git://github.com/eschulte/jump.el.git
+lock: 
+repository_class: Piston::Git::Repository
