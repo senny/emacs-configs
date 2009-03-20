@@ -23,7 +23,7 @@ screencast](http://peepcode.com/products/meet-emacs) helpful. The
    Use your package manager if you have one.
    Otherwise, Mac users should get it [from Apple](http://www.apple.com/downloads/macosx/unix_open_source/carbonemacspackage.html).
    Windows users can get it [from GNU](http://ftp.gnu.org/gnu/emacs/windows/emacs-22.3-bin-i386.zip).
-2. Move the directory containing this file to ~/.emacs.d
+2. Move the directory containing this file to ~/.emacs.d [1]
    (If you already have a directory at ~/.emacs.d move it out of the way and put this there instead.)
 3. Launch Emacs!
 
@@ -80,6 +80,12 @@ library is useful enough to be bundled with the starter kit, it should
 be useful enough to submit to ELPA so that everyone can use it, not
 just users of the starter kit.
 
+Sometimes packages are removed from the Starter Kit as they get added
+to ELPA itself. This has occasionally caused problems with certain
+packages. If you run into problems with such a package, try removing
+everything from inside the elpa/ directory and invoking M-x
+starter-kit-elpa-install in a fresh instance.
+
 ## Contributing
 
 If you know your way around Emacs, please try out the starter kit as a
@@ -100,3 +106,6 @@ Files are licensed under the same license as Emacs unless otherwise
 specified. See the file COPYING for details.
 
 The latest version is at http://github.com/technomancy/emacs-starter-kit/
+
+On Unix, /home/$USER/.emacs.d, on windows Documents and Settings/%your
+user name%/Application Data

@@ -1,10 +1,12 @@
 ;;; starter-kit-ruby.el --- Some helpful Ruby code
 ;;
 ;; Part of the Emacs Starter Kit
+(defvar *ruby-flymake-mode* nil)
 
 (eval-after-load 'ruby-mode
   '(progn
-     (require 'ruby-compilation)
+     ;; work around possible elpa bug
+     (ignore-errors (require 'ruby-compilation))
      (setq ruby-use-encoding-map nil)
      (add-hook 'ruby-mode-hook 'inf-ruby-keys)
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
@@ -28,12 +30,12 @@
   (pcomplete-here (pcmpl-rake-tasks)))
 
 (defun pcmpl-rake-tasks ()
-   "Return a list of all the rake tasks defined in the current
+  "Return a list of all the rake tasks defined in the current
 projects.  I know this is a hack to put all the logic in the
 exec-to-string command, but it works and seems fast"
-   (delq nil (mapcar '(lambda(line)
-			(if (string-match "rake \\([^ ]+\\)" line) (match-string 1 line)))
-		     (split-string (shell-command-to-string "rake -T") "[\n]"))))
+  (delq nil (mapcar '(lambda(line)
+                       (if (string-match "rake \\([^ ]+\\)" line) (match-string 1 line)))
+                    (split-string (shell-command-to-string "rake -T") "[\n]"))))
 
 (defun rake (task)
   (interactive (list (completing-read "Rake (default: default): "
@@ -51,7 +53,8 @@ exec-to-string command, but it works and seems fast"
              (delete-region (point-min) (point-max))))))
      (ad-activate 'ruby-do-run-w/compilation)))
 
-(add-hook 'ruby-mode-hook 'coding-hook)
+(add-hook 'ruby-mode-hook 'run-coding-hook)
+(add-hook 'ruby-mode-hook 'idle-highlight)
 
 ;;; Flymake
 
@@ -81,8 +84,23 @@ exec-to-string command, but it works and seems fast"
                              (file-name-directory buffer-file-name))
                             (file-writable-p buffer-file-name))
                    (local-set-key (kbd "C-c d")
-                                  'flymake-display-err-menu-for-current-line)
-                   (flymake-mode t))))))
+                                  'flymake-display-err-menu-for-current-line))))))
+
+(defun ruby-flymake-mode ()
+  (interactive)
+  (setq *ruby-flymake-mode* (not *ruby-flymake-mode*))
+  (let ((flymake-hook '(lambda ()
+                         (flymake-mode 1)
+                         )))
+    (if *ruby-flymake-mode*
+        (progn
+          (add-hook 'ruby-mode-hook flymake-hook)
+          (flymake-mode 1)
+          (message "Ruby-Flymake-Mode activated"))
+      (progn
+        (remove-hook 'ruby-mode-hook flymake-hook)
+        (flymake-mode 0)
+        (message "Ruby-Flymake-Mode deactivated")))))
 
 ;; Rinari (Minor Mode for Ruby On Rails)
 (setq rinari-major-modes
