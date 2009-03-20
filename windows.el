@@ -20,3 +20,9 @@
 
 (load (concat dotfiles-dir "vendor/fipo"))
 (fipo-mode 1)
+
+
+;;;; bindings
+(global-unset-key (kbd "C-w"))
+(global-set-key (kbd "C-w e") 'w32shell-explorer-here) ; open windows explorer
+(global-set-key (kbd "C-w c") 'w32shell-cmd-here) ; open cmd
