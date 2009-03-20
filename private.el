@@ -19,3 +19,5 @@
   ))
 
 (if (file-exists-p (concat dotfiles-dir "local.el")) (load "local") )
+
+(vendor 'sunrise-commander)

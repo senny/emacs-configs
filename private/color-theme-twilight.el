@@ -148,6 +148,8 @@
      (nxml-element-local-name-face ((t (:inherit keyword))))
      (nxml-element-local-name ((t (:inherit keyword))))
 
+
+     (sgml-namespace ((t (:inherit type))))
      (css-selector ((t (:inherit keyword))))
      
      (yas/mirror-highlight-face ((t (:background "#4E404F"))))

@@ -7,6 +7,7 @@
  '(clearcase-diff-on-checkin t)
  '(clearcase-suppress-checkout-comments t)
  '(compilation-scroll-output t)
+ '(css-indent-offset 2)
  '(ecb-compile-window-height 6)
  '(ecb-options-version "2.32")
  '(ecb-tip-of-the-day nil)

@@ -214,6 +214,7 @@
   (define-key *fipo-mode-map* (kbd "C-S-c d") 'fipo-clearcase-diff-checkouts)
   (define-key *fipo-mode-map* (kbd "C-S-a d") 'fipo-debug-view)
   (define-key *fipo-mode-map* (kbd "C-S-a k") 'fipo-stop-server)
+  (define-key *fipo-mode-map* (kbd "C-S-a i") 'fipo-run-ant-install-fipo)
   (define-key *fipo-mode-map* (kbd "C-S-a a") 'fipo-run-ant-target))
 
 (defun fipo-ido-find-view ()
@@ -328,6 +329,12 @@ view in your path)"
     (set-buffer "*compilation*")
     (rename-buffer buffer-name)))
 
+(defun fipo-run-ant-install-fipo ()
+  (interactive)
+  (when (get-buffer "*JDEE bsh*")
+    (jde-bsh-exit))
+  (fipo-run-ant-target "install.fipo" "*compilation*"))
+
 (defun fipo-debug-view ()
   "Run the current view in debug mode. If there is already a running
 server instance, it gets killed and a new one starts up instead. The
@@ -342,8 +349,8 @@ server-log will be available in the *fipo-server* buffer."
   (save-excursion
     (when (get-buffer "*fipo-server*")
       (set-buffer "*fipo-server*")
-      (kill-compilation))
-      (kill-buffer)))
+      (kill-compilation)
+      (kill-buffer))))
 
 (defun execute-view-command (command)
   (shell-command-to-string (concat "cdv "

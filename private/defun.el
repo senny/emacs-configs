@@ -150,3 +150,9 @@ is a comment, uncomment."
         (comment-or-uncomment-region (point) (mark))
         )
     (comment-or-uncomment-line lines)))
+
+(defun senny-flyspell-prog-mode ()
+  (interactive)
+  (flyspell-prog-mode)
+  (ispell-change-dictionary "english")
+  (flyspell-buffer))
