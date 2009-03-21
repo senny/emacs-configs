@@ -24,7 +24,7 @@
   (color-theme-install
    '(color-theme-twilight
      ((background-color . "#141414")
-      (background-mode . dark)
+      (background-mode . dark)xb
       (border-color . "black")
       (cursor-color . "#A7A7A7")
       (foreground-color . "#F8F8F8")
@@ -33,7 +33,8 @@
      (buffers-tab ((t (:background "black" :foreground "white"))))
      
      (preprocessor ((t (:foreground "Aquamarine"))))
-     (highlighted ((t (:background "#404040"))))
+     (highlighted ((t (:background "#606060"))))
+     (flashy-highlight ((t (:background "#6C6A41"))))
      (default ((t (:foreground "#F8F8F8"))))
      (variable ((t (:foreground "#7587A6"))))
      (constant ((t (:foreground "#CF6A4C"))))
