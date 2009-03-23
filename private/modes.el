@@ -91,6 +91,8 @@
 (add-hook 'comint-mode-hook 'rebind-window-switch-commands)
 (add-hook 'inf-ruby-mode-hook 'rebind-window-switch-commands)
 
-
 ;;;; Flymake
 (require 'flymake-cursor) ;display error-messages when the curosr moves over the line
+
+;;;; Cucumber
+(vendor 'cucumber)

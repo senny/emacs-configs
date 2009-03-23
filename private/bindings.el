@@ -79,8 +79,8 @@
 (global-set-key (kbd "M-V") 'yank-pop)
 
 (global-unset-key (kbd "C-x C-f")) ; find-file
-;; (global-unset-key (kbd "C-x h")) ; mark-whole-buffer
-;; (global-unset-key (kbd "C-x C-w")) ; write-file
+(global-unset-key (kbd "C-x h")) ; mark-whole-buffer
+(global-unset-key (kbd "C-x C-w")) ; write-file
 (global-set-key (kbd "C-o") 'find-file)
 (global-set-key (kbd "C-w") 'close-current-buffer)
 (global-set-key (kbd "C-S-n") 'write-file)

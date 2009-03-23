@@ -23,6 +23,5 @@
 
 
 ;;;; bindings
-(global-unset-key (kbd "C-w"))
-(global-set-key (kbd "C-w e") 'w32shell-explorer-here) ; open windows explorer
-(global-set-key (kbd "C-w c") 'w32shell-cmd-here) ; open cmd
+;;(global-set-key (kbd "M-w e") 'w32shell-explorer-here) ; open windows explorer
+;;(global-set-key (kbd "M-w c") 'w32shell-cmd-here) ; open cmd
