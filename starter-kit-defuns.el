@@ -80,8 +80,8 @@ Symbols matching the text at point are put first in the completion list."
 
 (add-hook 'coding-hook 'local-column-number-mode)
 ;; (add-hook 'coding-hook 'local-comment-auto-fill)
-(add-hook 'coding-hook 'turn-on-hl-line-mode)
-;;(add-hook 'coding-hook 'pretty-lambdas)
+;; (add-hook 'coding-hook 'turn-on-hl-line-mode)
+;; (add-hook 'coding-hook 'pretty-lambdas)
   
 (defun run-coding-hook ()
   "Enable things that are convenient across all coding buffers."

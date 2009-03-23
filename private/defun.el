@@ -19,8 +19,11 @@
 (defun senny-ido-find-config ()
   (interactive)
   (find-file
-   (concat private-config-dir "/" (ido-completing-read "Config file: "
-                                   (directory-files private-config-dir nil "^[^.]")))))
+   (concat dotfiles-dir "/" (ido-completing-read "Config file: "
+                                                       (append
+                                                        (mapcar (lambda (file)(concat "private/" file))
+                                                                (directory-files private-config-dir nil "^[^.]"))
+                                                        (directory-files dotfiles-dir nil "^[^.]"))))))
 
 (defun defunkt-ido-find-project ()
   (interactive)
