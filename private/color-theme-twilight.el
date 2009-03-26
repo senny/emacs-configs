@@ -74,8 +74,11 @@
      (jde-java-font-lock-modifier-face ((t (:inherit keyword))))
      (jde-java-font-lock-package-face ((t (:inherit keyword))))
      (jde-java-font-lock-number-face ((t (:inherit string))))
-     (jde-java-font-lock-code-face  ((t (:inherit default))))
-
+     (jde-java-font-lock-code-face ((t (:inherit default))))
+     (jde-db-spec-breakpoint-face ((t (:inherit diff-header))))
+     (jde-db-requested-breakpoint-face ((t (:inherit diff-changed))))
+     (jde-db-active-breakpoint-face ((t (:inherit diff-added))))
+     
      (ecb-default-highlight-face ((t (:inherit highlighted))))
      
      (log4j-font-lock-info-face ((t (:inherit variable))))
