@@ -35,6 +35,12 @@
 ;; Commands
 (require 'unbound)
 
+;; Clojure
+
+(setq clojure-src-root "/Users/topfunky/tmp/clojure")
+(eval-after-load 'clojure-mode '(clojure-slime-config))
+
+
 ;; Minor Modes
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
 (require 'textmate)
