@@ -1,20 +1,27 @@
-;;; haml-mode.el -- Major mode for editing Haml files
-;;; Written by Nathan Weizenbaum
+;;; haml-mode.el --- Major mode for editing Haml files
 
-;;; Because Haml's indentation schema is similar
-;;; to that of YAML and Python, many indentation-related
-;;; functions are similar to those in yaml-mode and python-mode.
+;; Copyright (c) 2007, 2008 Nathan Weizenbaum
 
-;;; To install, save this somewhere and add the following to your .emacs file:
-;;;
-;;; (add-to-list 'load-path "/path/to/haml-mode.el")
-;;; (require 'haml-mode nil 't)
-;;; (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
-;;;
+;; Author: Nathan Weizenbaum
+;; URL: http://github.com/nex3/haml/tree/master
+;; Version: 1.0
+;; Keywords: markup, language
+
+;;; Commentary:
+
+;; Because Haml's indentation schema is similar
+;; to that of YAML and Python, many indentation-related
+;; functions are similar to those in yaml-mode and python-mode.
+
+;; To install, save this on your load path and add the following to
+;; your .emacs file:
+;;
+;; (require 'haml-mode)
 
 ;;; Code:
 
 (eval-when-compile (require 'cl))
+(require 'ruby-mode)
 
 ;; User definable variables
 
@@ -48,14 +55,16 @@ line itself."
   :group 'haml)
 
 (defvar haml-indent-function 'haml-indent-p
-  "This function should look at the current line and return true
-if the next line could be nested within this line.")
+  "This function should look at the current line and return t
+if the next line could be nested within this line.
 
-;; TODO Allow "=\sThen some code" instead of no space.
+The function can also return a positive integer to indicate
+a specific level to which the current line could be indented.")
+
 (defvar haml-block-openers
-  `("^ *\\([%\\.#][^ \t]*\\)\\(\\[.*\\]\\)?\\({.*}\\)?\\(\\[.*\\]\\)?[ \t]*$"
-    "^ *[-=].*do[ \t]*\\(|.*|[ \t]*\\)?$"
-    ,(concat "^ *-[ \t]*\\("
+  `("^ *\\([%\\.#][a-z0-9_:\\-]*\\)+\\({.*}\\)?\\(\\[.*\\]\\)?[><]*[ \t]*$"
+    "^ *[&!]?[-=~].*do[ \t]*\\(|.*|[ \t]*\\)?$"
+    ,(concat "^ *[&!][-=~][ \t]*\\("
              (regexp-opt '("if" "unless" "while" "until" "else"
                            "begin" "elsif" "rescue" "ensure" "when"))
              "\\)")
@@ -67,33 +76,176 @@ text nested beneath them.")
 
 ;; Font lock
 
+(defun haml-nested-regexp (re)
+  (concat "^\\( *\\)" re "\\(\n\\(?:\\(?:\\1 .*\\| *\\)\n\\)*\\(?:\\1 .*\\| *\\)?\\)?"))
+
 (defconst haml-font-lock-keywords
-  '(("^ *\\(\t\\)"               1 'haml-tab-face)
-    ("^!!!.*"                    0 font-lock-constant-face)
-    ("\\('[^']*'\\)"             1 font-lock-string-face append)
-    ("\\(\"[^\"]*\"\\)"          1 font-lock-string-face append)
-    ("&?:\\w+"                   0 font-lock-constant-face append)
-    ("@[a-z0-9_]+"               0 font-lock-variable-name-face append)
-    ("| *$"                      0 font-lock-string-face)
-    ("^[ \t]*\\(/.*\\)$"         1 font-lock-comment-face append)
-    ("^[ \t]*\\(-#.*\\)$"         1 font-lock-comment-face prepend)
-    ("^ *\\(#[a-z0-9_]+\/?\\)"   1 font-lock-keyword-face)
-    ("^ *\\(\\.[a-z0-9_]+\/?\\)" 1 font-lock-type-face)
-    ("^ *\\(%[a-z0-9_]+\/?\\)"   1 font-lock-function-name-face)
-    ("^ *\\(#[a-z0-9_]+\/?\\)"   (1 font-lock-keyword-face)
-     ("\\.[a-z0-9_]+" nil nil    (0 font-lock-type-face)))
-    ("^ *\\(\\.[a-z0-9_]+\/?\\)" (1 font-lock-type-face)
-     ("\\.[a-z0-9_]+" nil nil    (0 font-lock-type-face)))
-    ("^ *\\(\\.[a-z0-9_]+\/?\\)" (1 font-lock-type-face)
-     ("\\#[a-z0-9_]+" nil nil    (0 font-lock-keyword-face)))
-    ("^ *\\(%[a-z0-9_]+\/?\\)"   (1 font-lock-function-name-face)
-     ("\\.[a-z0-9_]+" nil nil    (0 font-lock-type-face)))
-    ("^ *\\(%[a-z0-9_]+\/?\\)"   (1 font-lock-function-name-face)
-     ("\\#[a-z0-9_]+" nil nil    (0 font-lock-keyword-face)))
-;;    ("^ *\\([~=-] .*\\)"         1 font-lock-preprocessor-face prepend)
-    ("^ *[\\.#%a-z0-9_]+\\([~=-] .*\\)"     1 font-lock-preprocessor-face prepend)
-    ("^ *[\\.#%a-z0-9_]+\\({[^}]+}\\)"      1 font-lock-preprocessor-face prepend)
-    ("^ *[\\.#%a-z0-9_]+\\(\\[[^]]+\\]\\)"  1 font-lock-preprocessor-face prepend)))
+  `((,(haml-nested-regexp "\\(?:-#\\|/\\).*")  0 font-lock-comment-face)
+    (,(haml-nested-regexp ":\\w+") 0 font-lock-string-face)
+    (haml-highlight-interpolation  1 font-lock-variable-name-face prepend)
+    (haml-highlight-ruby-tag       1 font-lock-preprocessor-face)
+    (haml-highlight-ruby-script    1 font-lock-preprocessor-face)
+    ("^ *\\(\t\\)"                 1 'haml-tab-face)
+    ("^!!!.*"                      0 font-lock-constant-face)
+    ("| *$"                        0 font-lock-string-face)))
+
+(defconst haml-filter-re "^ *:\\w+")
+(defconst haml-comment-re "^ *\\(?:-\\#\\|/\\)")
+
+(defun haml-fontify-region-as-ruby (beg end)
+  "Use Ruby's font-lock variables to fontify the region between BEG and END."
+  (save-excursion
+    (save-match-data
+      (let ((font-lock-keywords ruby-font-lock-keywords)
+            (font-lock-syntactic-keywords ruby-font-lock-syntactic-keywords)
+            font-lock-keywords-only
+            font-lock-extend-region-functions
+            font-lock-keywords-case-fold-search)
+        ;; font-lock-fontify-region apparently isn't inclusive,
+        ;; so we have to move the beginning back one char
+        (font-lock-fontify-region (- beg 1) end)))))
+
+(defun haml-highlight-ruby-script (limit)
+  "Highlight a Ruby script expression (-, =, or ~)."
+  (when (re-search-forward "^ *\\(-\\|[&!]?[=~]\\) \\(.*\\)$" limit t)
+    (haml-fontify-region-as-ruby (match-beginning 2) (match-end 2))))
+
+(defun haml-highlight-ruby-tag (limit)
+  "Highlight Ruby code within a Haml tag.
+
+This highlights the tag attributes and object refs of the tag,
+as well as the script expression (-, =, or ~) following the tag.
+
+For example, this will highlight all of the following:
+  %p{:foo => 'bar'}
+  %p[@bar]
+  %p= 'baz'
+  %p{:foo => 'bar'}[@bar]= 'baz'"
+  (when (re-search-forward "^ *[%.#]" limit t)
+    (let ((eol (save-excursion (end-of-line) (point))))
+      (forward-char -1)
+
+      ;; Highlight tag, classes, and ids
+      (while (looking-at "[.#%][a-z0-9_:\\-]*")
+        (put-text-property (match-beginning 0) (match-end 0) 'face
+                           (case (char-after)
+                             (?% font-lock-function-name-face)
+                             (?# font-lock-keyword-face)
+                             (?. font-lock-type-face)))
+        (goto-char (match-end 0)))
+
+      ;; Highlight obj refs
+      (when (eq (char-after) ?\[)
+        (let ((beg (point)))
+          (haml-limited-forward-sexp eol)
+          (haml-fontify-region-as-ruby beg (point))))
+
+      ;; Highlight attr hashes
+      (when (eq (char-after) ?\{)
+        (let ((beg (+ 1 (point))))
+          (haml-limited-forward-sexp eol)
+
+          ;; Check for multiline
+          (while (and (eolp) (eq (char-before) ?,))
+            (forward-line)
+            (let ((eol (save-excursion (end-of-line) (point))))
+              ;; If no sexps are closed,
+              ;; we're still continuing a  multiline hash
+              (if (>= (car (parse-partial-sexp (point) eol)) 0)
+                  (end-of-line)
+                ;; If sexps have been closed,
+                ;; set the point at the end of the total sexp
+                (goto-char beg)
+                (haml-limited-forward-sexp eol))))
+
+          (haml-fontify-region-as-ruby beg (point))))
+
+      ;; Move past end chars
+      (when (looking-at "[<>&!]+") (goto-char (match-end 0)))
+      ;; Highlight script
+      (if (looking-at "\\([=~]\\) \\(.*\\)$")
+          (haml-fontify-region-as-ruby (match-beginning 2) (match-end 2))
+        ;; Give font-lock something to highlight
+        (forward-char -1)
+        (looking-at "\\(\\)"))
+      t)))
+
+(defun haml-highlight-interpolation (limit)
+  "Highlight Ruby interpolation (#{foo})."
+  (when (re-search-forward "\\(#{\\)" limit t)
+    (save-match-data
+      (forward-char -1)
+      (let ((beg (point)))
+        (haml-limited-forward-sexp limit)
+        (haml-fontify-region-as-ruby (+ 1 beg) (point)))
+
+      (when (eq (char-before) ?})
+        (put-text-property (- (point) 1) (point)
+                           'face font-lock-variable-name-face))
+      t)))
+
+(defun haml-limited-forward-sexp (limit &optional arg)
+  "Move forward using `forward-sexp' or to limit,
+whichever comes first."
+  (let (forward-sexp-function)
+    (condition-case err
+        (save-restriction
+          (narrow-to-region (point) limit)
+          (forward-sexp arg))
+      (scan-error
+       (unless (equal (nth 1 err) "Unbalanced parentheses")
+         (signal 'scan-error (cdr err)))
+       (goto-char limit)))))
+
+(defun* haml-extend-region-filters-comments ()
+  "Extend the font-lock region to encompass filters and comments."
+  (let ((old-beg font-lock-beg)
+        (old-end font-lock-end))
+    (save-excursion
+      (goto-char font-lock-beg)
+      (beginning-of-line)
+      (unless (or (looking-at haml-filter-re)
+                  (looking-at haml-comment-re))
+        (return-from haml-extend-region-filters-comments))
+      (setq font-lock-beg (point))
+      (haml-forward-sexp)
+      (beginning-of-line)
+      (setq font-lock-end (max font-lock-end (point))))
+    (or (/= old-beg font-lock-beg)
+        (/= old-end font-lock-end))))
+
+(defun* haml-extend-region-multiline-hashes ()
+  "Extend the font-lock region to encompass multiline attribute hashes."
+  (let ((old-beg font-lock-beg)
+        (old-end font-lock-end))
+    (save-excursion
+      (goto-char font-lock-beg)
+      (let ((attr-props (haml-parse-multiline-attr-hash))
+            multiline-end)
+        (when attr-props
+          (setq font-lock-beg (cdr (assq 'point attr-props)))
+
+          (end-of-line)
+          ;; Move through multiline attrs
+          (when (eq (char-before) ?,)
+            (save-excursion
+              (while (progn (end-of-line) (eq (char-before) ?,))
+                (forward-line))
+
+              (forward-line -1)
+              (end-of-line)
+              (setq multiline-end (point))))
+
+          (goto-char (+ (cdr (assq 'point attr-props))
+                        (cdr (assq 'hash-indent attr-props))
+                        -1))
+          (haml-limited-forward-sexp
+           (or multiline-end
+               (save-excursion (end-of-line) (point))))
+          (setq font-lock-end (max font-lock-end (point))))))
+    (or (/= old-beg font-lock-beg)
+        (/= old-end font-lock-end))))
+
 
 ;; Mode setup
 
@@ -108,11 +260,13 @@ text nested beneath them.")
   (let ((map (make-sparse-keymap)))
     (define-key map [backspace] 'haml-electric-backspace)
     (define-key map "\C-?" 'haml-electric-backspace)
-    (define-key map "\C-\M-f" 'haml-forward-sexp)
-    (define-key map "\C-\M-b" 'haml-backward-sexp)
-    (define-key map "\C-\M-u" 'haml-up-list)
-    (define-key map "\C-\M-d" 'haml-down-list)
-    (define-key map "\C-C\C-k" 'haml-kill-line-and-indent)
+    (define-key map "\C-c\C-f" 'haml-forward-sexp)
+    (define-key map "\C-c\C-b" 'haml-backward-sexp)
+    (define-key map "\C-c\C-u" 'haml-up-list)
+    (define-key map "\C-c\C-d" 'haml-down-list)
+    (define-key map "\C-c\C-k" 'haml-kill-line-and-indent)
+    (define-key map "\C-c\C-r" 'haml-output-region)
+    (define-key map "\C-c\C-l" 'haml-output-buffer)
     map))
 
 ;;;###autoload
@@ -121,11 +275,68 @@ text nested beneath them.")
 
 \\{haml-mode-map}"
   (set-syntax-table haml-mode-syntax-table)
+  (add-to-list 'font-lock-extend-region-functions 'haml-extend-region-filters-comments)
+  (add-to-list 'font-lock-extend-region-functions 'haml-extend-region-multiline-hashes)
+  (set (make-local-variable 'font-lock-multiline) t)
   (set (make-local-variable 'indent-line-function) 'haml-indent-line)
   (set (make-local-variable 'indent-region-function) 'haml-indent-region)
-  (set (make-local-variable 'forward-sexp-function) 'haml-forward-sexp)
+  (set (make-local-variable 'parse-sexp-lookup-properties) t)
+  (setq comment-start "-#")
   (setq indent-tabs-mode nil)
-  (setq font-lock-defaults '((haml-font-lock-keywords) nil t)))
+  (setq font-lock-defaults '((haml-font-lock-keywords) t t)))
+
+;; Useful functions
+
+(defun haml-comment-block ()
+  "Comment the current block of Haml code."
+  (interactive)
+  (save-excursion
+    (let ((indent (current-indentation)))
+      (back-to-indentation)
+      (insert "-#")
+      (newline)
+      (indent-to indent)
+      (beginning-of-line)
+      (haml-mark-sexp)
+      (haml-reindent-region-by haml-indent-offset))))
+
+(defun haml-uncomment-block ()
+  "Uncomment the current block of Haml code."
+  (interactive)
+  (save-excursion
+    (beginning-of-line)
+    (while (not (looking-at haml-comment-re))
+      (haml-up-list)
+      (beginning-of-line))
+    (haml-mark-sexp)
+    (kill-line 1)
+    (haml-reindent-region-by (- haml-indent-offset))))
+
+(defun haml-replace-region (start end)
+  "Replaces the current block of Haml code with the HTML equivalent."
+  (interactive "r")
+  (save-excursion
+    (goto-char end)
+    (setq end (point-marker))
+    (goto-char start)
+    (let ((ci (current-indentation)))
+      (while (re-search-forward "^ +" end t)
+        (replace-match (make-string (- (current-indentation) ci) ? ))))
+    (shell-command-on-region start end "haml" "haml-output" t)))
+
+(defun haml-output-region (start end)
+  "Displays the HTML output for the current block of Haml code."
+  (interactive "r")
+  (kill-new (buffer-substring start end)) 
+  (with-temp-buffer
+    (yank)
+    (haml-indent-region (point-min) (point-max))
+    (shell-command-on-region (point-min) (point-max) "haml" "haml-output")))
+
+(defun haml-output-buffer ()
+  "Displays the HTML output for entire buffer."
+  (interactive)
+  (haml-output-region (point-min) (point-max)))
 
 ;; Navigation
 
@@ -207,11 +418,16 @@ With ARG, do this that many times."
       (setq arg (- arg 1))))
   (back-to-indentation))
 
+(defun haml-mark-sexp ()
+  "Marks the next Haml block."
+  (let ((forward-sexp-function 'haml-forward-sexp))
+    (mark-sexp)))
+
 (defun haml-mark-sexp-but-not-next-line ()
-  "Marks the next Haml sexp, but puts the mark at the end of the
+  "Marks the next Haml block, but puts the mark at the end of the
 last line of the sexp rather than the first non-whitespace
 character of the next line."
-  (mark-sexp)
+  (haml-mark-sexp)
   (set-mark
    (save-excursion
      (goto-char (mark))
@@ -221,11 +437,47 @@ character of the next line."
 
 ;; Indentation and electric keys
 
-(defun haml-indent-p ()
-  "Returns true if the current line can have lines nested beneath it."
+(defun* haml-indent-p ()
+  "Returns t if the current line can have lines nested beneath it."
+  (let ((attr-props (haml-parse-multiline-attr-hash)))
+    (when attr-props
+      (end-of-line)
+      (return-from haml-indent-p
+        (if (eq (char-before) ?,) (cdr (assq 'hash-indent attr-props))
+          (beginning-of-line)
+          (+ (cdr (assq 'indent attr-props)) haml-indent-offset)))))
   (loop for opener in haml-block-openers
         if (looking-at opener) return t
         finally return nil))
+
+(defun* haml-parse-multiline-attr-hash ()
+  "Parses a multiline attribute hash, and returns
+an alist with the following keys:
+
+INDENT is the indentation of the line beginning the hash.
+
+HASH-INDENT is the indentation of the first character
+within the attribute hash.
+
+POINT is the character position at the beginning of the line
+beginning the hash."
+  (save-excursion
+    (while t
+      (beginning-of-line)
+      (if (looking-at "^ *\\(?:[.#%][a-z0-9_:\\-]+\\)+{")
+          (progn
+            (goto-char (- (match-end 0) 1))
+            (haml-limited-forward-sexp (save-excursion (end-of-line) (point)))
+            (return-from haml-parse-multiline-attr-hash
+              (if (eq (char-before) ?,)
+                  `((indent . ,(current-indentation))
+                    (hash-indent . ,(- (match-end 0) (match-beginning 0)))
+                    (point . ,(match-beginning 0)))
+                nil)))
+        (forward-line -1)
+        (end-of-line)
+        (when (not (eq (char-before) ?,))
+          (return-from haml-parse-multiline-attr-hash nil))))))
 
 (defun haml-compute-indentation ()
   "Calculate the maximum sensible indentation for the current line."
@@ -233,9 +485,11 @@ character of the next line."
     (beginning-of-line)
     (if (bobp) 0
       (haml-forward-through-whitespace t)
-      (+ (current-indentation)
-         (if (funcall haml-indent-function) haml-indent-offset
-           0)))))
+      (let ((indent (funcall haml-indent-function)))
+        (cond
+         ((integerp indent) indent)
+         (indent (+ (current-indentation) haml-indent-offset))
+         (t (current-indentation)))))))
 
 (defun haml-indent-region (start end)
   "Indent each nonblank line in the region.
@@ -250,10 +504,10 @@ between possible indentations."
     (setq end (point-marker))
     (goto-char start)
     (let (this-line-column current-column
-                           (next-line-column
-                            (if (and (equal last-command this-command) (/= (current-indentation) 0))
-                                (* (/ (- (current-indentation) 1) haml-indent-offset) haml-indent-offset)
-                              (haml-compute-indentation))))
+          (next-line-column
+           (if (and (equal last-command this-command) (/= (current-indentation) 0))
+               (* (/ (- (current-indentation) 1) haml-indent-offset) haml-indent-offset)
+             (haml-compute-indentation))))
       (while (< (point) end)
         (setq this-line-column next-line-column
               current-column (current-indentation))
@@ -312,14 +566,15 @@ the current line."
           (bolp)
           (looking-at "^[ \t]+$"))
       (backward-delete-char arg)
-    (let ((ci (current-column)))
-      (beginning-of-line)
-      (if haml-backspace-backdents-nesting
-          (haml-mark-sexp-but-not-next-line)
-        (set-mark (save-excursion (end-of-line) (point))))
-      (haml-reindent-region-by (* (- arg) haml-indent-offset))
-      (back-to-indentation)
-      (pop-mark))))
+    (save-excursion
+      (let ((ci (current-column)))
+        (beginning-of-line)
+        (if haml-backspace-backdents-nesting
+            (haml-mark-sexp-but-not-next-line)
+          (set-mark (save-excursion (end-of-line) (point))))
+        (haml-reindent-region-by (* (- arg) haml-indent-offset))
+        (back-to-indentation)
+        (pop-mark)))))
 
 (defun haml-kill-line-and-indent ()
   "Kill the current line, and re-indent all lines nested beneath it."
@@ -329,6 +584,13 @@ the current line."
   (kill-line 1)
   (haml-reindent-region-by (* -1 haml-indent-offset)))
 
-;; Setup/Activation
+(defun haml-indent-string ()
+  "Return the indentation string for `haml-indent-offset'."
+  (mapconcat 'identity (make-list haml-indent-offset " ") ""))
 
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
+
+;; Setup/Activation
 (provide 'haml-mode)
+;;; haml-mode.el ends here
