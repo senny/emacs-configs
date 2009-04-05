@@ -91,7 +91,7 @@
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
 (global-set-key (kbd "C-c C-m") 'execute-extended-command)
 (global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x p") 'defunkt-ido-find-project)
+(global-set-key (kbd "C-x p") 'senny-ido-find-project)
 (global-set-key (kbd "C-c p") 'senny-ido-find-config)
 (global-set-key (kbd "C-f p") 'senny-open-task-file)
 (global-set-key [C-return] 'defunkt-duplicate-line)
@@ -102,6 +102,8 @@
 
 ;; Window management
 (global-set-key [f1] 'resize-windows)
+(global-set-key (kbd "C-+") 'inc-font-size) ; increase the font-size
+(global-set-key (kbd "C-_") 'dec-font-size) ; decrease the font-size
 
 ;; Buffer cycling
 (global-set-key (kbd "C-ä") 'forward-buffer)

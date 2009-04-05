@@ -6,7 +6,7 @@
   (interactive)
   (insert "  "))
 
-(defun defunkt-indent () 
+(defun defunkt-indent ()
   (interactive)
   (insert "  "))
 
@@ -20,16 +20,16 @@
   (interactive)
   (find-file
    (concat dotfiles-dir "/" (ido-completing-read "Config file: "
-                                                       (append
-                                                        (mapcar (lambda (file)(concat "private/" file))
-                                                                (directory-files private-config-dir nil "^[^.]"))
-                                                        (directory-files dotfiles-dir nil "^[^.]"))))))
+                                                 (append
+                                                  (mapcar (lambda (file)(concat "private/" file))
+                                                          (directory-files private-config-dir nil "^[^.]"))
+                                                  (directory-files dotfiles-dir nil "^[^.]"))))))
 
-(defun defunkt-ido-find-project ()
+(defun senny-ido-find-project ()
   (interactive)
-  (find-file
-   (concat "~/Projects/" (ido-completing-read "Project: "
-                                              (directory-files "~/Projects/" nil "^[^.]")))))
+  (find-file (ido-open-find-directory-files
+              (concat "~/Projects/" (ido-completing-read "Project: "
+                                                         (directory-files "~/Projects/" nil "^[^.]"))))))
 
 (defun senny-open-task-file ()
   (interactive)
@@ -41,8 +41,8 @@
   (interactive "p")
 
   (let ((whitespace-regexp "\\s-+"))
-    (kill-region (point) 
-                 (cond 
+    (kill-region (point)
+                 (cond
                   ((looking-at whitespace-regexp) (re-search-forward whitespace-regexp) (point))
                   ((looking-at "\n") (kill-line) (defunkt-kill-word arg))
                   (t (forward-word arg) (point))))))
@@ -54,23 +54,23 @@
       (kill-region (point) (progn (re-search-backward "\\S-") (forward-char 1) (point)))
     (backward-kill-word arg)))
 
-;duplicate the current line
-(defun defunkt-duplicate-line () 
+                                        ;duplicate the current line
+(defun defunkt-duplicate-line ()
   (interactive)
-    (beginning-of-line)
-    (copy-region-as-kill (point) (progn (end-of-line) (point)))
-    (textmate-next-line)
-    (yank)
-    (beginning-of-line)
-    (indent-according-to-mode))
+  (beginning-of-line)
+  (copy-region-as-kill (point) (progn (end-of-line) (point)))
+  (textmate-next-line)
+  (yank)
+  (beginning-of-line)
+  (indent-according-to-mode))
 
 (defun ido-open-find-directory-files (directory)
-  (concat directory (ido-completing-read (concat directory ":")
-                       (split-string
-                        (shell-command-to-string
-                         (concat
-                          "find \"" (expand-file-name directory)
-                          "\" -type f -printf \"\\\\%P\\n\""))))))
+  (concat directory "/" (ido-completing-read (concat directory ":")
+                                             (split-string
+                                              (shell-command-to-string
+                                               (concat
+                                                "find \"" (expand-file-name directory)
+                                                "\" -type f -printf \"%P\\n\" | grep -v \"^\.git\""))))))
 
 
 (defun url-fetch-into-buffer (url)
@@ -130,9 +130,9 @@
 (defun alternate-completion ()
   "this function is used for secondary completion beside tabkey2"
   (interactive)
-(let ((current-completion (assoc major-mode *alternate-completion-functions-alist*)))
-  (when (consp current-completion)
-    (funcall (cdr current-completion)))))
+  (let ((current-completion (assoc major-mode *alternate-completion-functions-alist*)))
+    (when (consp current-completion)
+      (funcall (cdr current-completion)))))
 
 (defun comment-or-uncomment-line (&optional lines)
   "Comment current line. Argument gives the number of lines
@@ -153,3 +153,49 @@ is a comment, uncomment."
         (comment-or-uncomment-region (point) (mark))
         )
     (comment-or-uncomment-line lines)))
+
+(defun inc-font-size ()
+  (interactive)
+  (let* ((current-font (cdr (assoc 'font (frame-parameters))))
+         (splitted (split-string current-font "-"))
+         (new-size (+ (string-to-number (nth 7 splitted)) 1))
+         (new-font (concat (nth 0 splitted) "-"
+                           (nth 1 splitted) "-"
+                           (nth 2 splitted) "-"
+                           (nth 3 splitted) "-"
+                           (nth 4 splitted) "-"
+                           (nth 5 splitted) "-"
+                           (nth 6 splitted) "-"
+                           (number-to-string new-size) "-*-"
+                           (nth 9 splitted) "-"
+                           (nth 10 splitted) "-"
+                           (nth 11 splitted) "-*-"
+                           (nth 13 splitted))))
+    (if (> (length splitted) 14)
+        (dotimes (n (- (length splitted) 14))
+          (setq new-font (concat new-font "-" (nth (+ n 14) splitted)))))
+    (set-default-font new-font t)
+    (set-frame-font new-font t)))
+
+(defun dec-font-size ()
+  (interactive)
+  (let* ((current-font (cdr (assoc 'font (frame-parameters))))
+         (splitted (split-string current-font "-"))
+         (new-size (- (string-to-number (nth 7 splitted)) 1))
+         (new-font (concat (nth 0 splitted) "-"
+                           (nth 1 splitted) "-"
+                           (nth 2 splitted) "-"
+                           (nth 3 splitted) "-"
+                           (nth 4 splitted) "-"
+                           (nth 5 splitted) "-"
+                           (nth 6 splitted) "-"
+                           (number-to-string new-size) "-*-"
+                           (nth 9 splitted) "-"
+                           (nth 10 splitted) "-"
+                           (nth 11 splitted) "-*-"
+                           (nth 13 splitted))))
+    (if (> (length splitted) 14)
+        (dotimes (n (- (length splitted) 14))
+          (setq new-font (concat new-font "-" (nth (+ n 14) splitted)))))
+    (set-default-font new-font t)
+    (set-frame-font new-font t)))
