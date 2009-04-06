@@ -63,7 +63,7 @@
 (setq org-log-done t)
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
-  (let (org-log-done org-log-states)   ; turn off logging
+  (let (org-log-done org-log-states)    ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
@@ -85,8 +85,15 @@
 ;; this function rebinds M-s and M-S to switch between the different windows
 (defun rebind-commands ()
   (local-set-key (kbd "M-s") 'move-cursor-next-pane)
-  (local-set-key (kbd "M-S") 'move-cursor-previous-pane))
+  (local-set-key (kbd "M-S") 'move-cursor-previous-pane)
+  (global-set-key (kbd "M-0") 'delete-window)
+  (global-set-key (kbd "M-1") 'delete-other-windows)
+  (global-set-key (kbd "M-2") 'split-window-vertically)
+  (global-set-key (kbd "M-3") 'split-window-horizontally))
 (add-hook 'after-change-major-mode-hook 'rebind-commands)
 
 ;;;; Flymake
 (require 'flymake-cursor) ;display error-messages when the curosr moves over the line
+
+;;;; Ediff
+(setq ediff-merge-split-window-function 'split-window-vertically)

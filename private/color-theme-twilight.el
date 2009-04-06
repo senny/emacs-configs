@@ -175,5 +175,3 @@
      (left-margin ((t (nil))))
      (text-cursor ((t (:background "yellow" :foreground "black"))))
      (toolbar ((t (nil)))))))
-     
-(provide 'color-theme-twilight)
