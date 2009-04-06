@@ -82,6 +82,7 @@
 ;; (global-unset-key (kbd "C-x h")) ; mark-whole-buffer
 ;; (global-unset-key (kbd "C-x C-w")) ; write-file
 (global-set-key (kbd "C-o") 'find-file)
+(global-set-key (kbd "C-S-o") 'senny-open-file-at-point)
 (global-set-key (kbd "C-w") 'close-current-buffer)
 (global-set-key (kbd "C-S-n") 'write-file)
 (global-set-key (kbd "C-S-a") 'mark-whole-buffer)

@@ -199,3 +199,8 @@ is a comment, uncomment."
           (setq new-font (concat new-font "-" (nth (+ n 14) splitted)))))
     (set-default-font new-font t)
     (set-frame-font new-font t)))
+
+(defun senny-open-file-at-point ()
+  (interactive)
+  (let ((ido-use-filename-at-point t))
+    (ido-find-file)))

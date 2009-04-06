@@ -78,7 +78,7 @@
   (if (file-exists-p (concat dotfiles-dir "vendor/jde-eclipse-compiler-server.el"))
       (progn
         (load (concat dotfiles-dir "vendor/jde-eclipse-compiler-server"))
-        (setq jde-compiler `(("eclipse java compiler server" ,(concat dotfiles-dir "bin/ecj-3.4.1.jar"))))
+        (setq jde-compiler `(("eclipse java compiler server" ,(concat dotfiles-dir "misc/bin/ecj-3.4.1.jar"))))
         (setq flymake-allowed-file-name-masks (quote (("\\.java\\'" jde-ecj-server-flymake-init jde-ecj-flymake-cleanup))))
         (let ((flymake-hook '(lambda ()
                                (flymake-mode 1)
