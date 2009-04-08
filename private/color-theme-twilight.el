@@ -34,6 +34,7 @@
      
      (preprocessor ((t (:foreground "Aquamarine"))))
      (highlighted ((t (:background "#606060"))))
+     (highlighted-line ((t (:background "#101010"))))
      (flashy-highlight ((t (:background "#6C6A41"))))
      (default ((t (:foreground "#F8F8F8"))))
      (variable ((t (:foreground "#7587A6"))))
@@ -120,11 +121,11 @@
      (js2-private-function-call-face ((t (:inherit default))))
      (js2-private-member-face ((t (:inherit variable))))
      (js2-warning-face ((t (:inherit code-warning))))
-     ;(js2-jsdoc-html-tag-delimiter-face
-     ;(js2-jsdoc-html-tag-name-face       
-     ;(js2-jsdoc-tag-face                 
-     ;(js2-jsdoc-type-face                
-     ;(js2-jsdoc-value-face
+;;                                         (js2-jsdoc-html-tag-delimiter-face
+;;                                         (js2-jsdoc-html-tag-name-face       
+;;                                         (js2-jsdoc-tag-face                 
+;;                                         (js2-jsdoc-type-face                
+;;                                         (js2-jsdoc-value-face
 
      (html-tag-face ((t (:inherit keyword))))
 
@@ -164,14 +165,16 @@
 
      (ido-only-match ((t (:inherit string))))
      (ido-subdir ((t (:inherit constant))))
-
+     
+     (mac-ts-caret-position ((t (:inherit highlighted-line))))
+     
      (gui-element ((t (:background "#D4D0C8" :foreground "black"))))
      (region ((t (:background "#333333"))))
      (minibuffer-prompt ((t (:background "#141414" :foreground "cyan"))))
      (minibuffer-noticeable-prompt ((t (:inherit minibuffer-prompt))))
      (mode-line ((t (:background "#CCCCCC" :foreground "black"))))
      (highlight ((t (:inherit highlighted))))
-     (hl-line ((t (:background "#101010"))))
+     (hl-line ((t (:inherit highlighted-line ))))
      (left-margin ((t (nil))))
      (text-cursor ((t (:background "yellow" :foreground "black"))))
      (toolbar ((t (nil)))))))

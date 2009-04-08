@@ -14,6 +14,7 @@
      ;; TODO: Change the Aquamarine color
      (preprocessor ((t (:foreground "Aquamarine"))))
      (highlighted ((t (:background "#acc3e6"))))
+     (highlighted-line ((t (:background "#DBDBDB"))))
      (flashy-highlight ((t (:background "#F9FF85"))))
      (default ((t (:stipple nil :background "#f8f8ff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal))))
      (variable ((t (:foreground "#108088"))))
@@ -26,7 +27,13 @@
      (function-def ((t (:foreground "#990000"))))
      (code-error ((t (:underline t :inherit diff-removed))))
      (code-warning ((t (:underline t :inherit diff-changed))))
+     (menu ((t (:background "darkgrey"))))
 
+     (ac-menu-face ((t (:inherit menu))))
+     (ac-selection-face ((t (:inherit flashy-highlight))))
+     (ac-dabbrev-menu-face ((t (:inherit menu))))
+     (ac-dabbrev-selection-face ((t (:inherit highlighted))))
+     
      (diff-header ((t (:inherit default :background "#CCCCFF"))))
      (diff-added ((t (:inherit default :background "#CCFFCC"))))
      (diff-removed ((t (:inherit default :background "#FFCCCC"))))
