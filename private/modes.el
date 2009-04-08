@@ -1,7 +1,7 @@
 ;;(load "vendor/nxhtml/util/winsize")
 ;; use tab to indent and complete
-(vendor 'tabkey2)
-(tabkey2-mode 1)
+;; (vendor 'tabkey2)
+;; (tabkey2-mode 1)
 (setq tabkey2-completion-functions
       '(("Hippie expand" hippie-expand t)
         ;;        ("Spell check word" flyspell-correct-word-before-point)
@@ -85,16 +85,30 @@
 
 ;; this function rebinds M-s and M-S to switch between the different windows
 (defun rebind-commands ()
+  (interactive)
+  (local-set-key (kbd "M-a") 'execute-extended-command)
   (local-set-key (kbd "M-s") 'move-cursor-next-pane)
   (local-set-key (kbd "M-S") 'move-cursor-previous-pane)
-  (global-set-key (kbd "M-0") 'delete-window)
-  (global-set-key (kbd "M-1") 'delete-other-windows)
-  (global-set-key (kbd "M-2") 'split-window-vertically)
-  (global-set-key (kbd "M-3") 'split-window-horizontally))
+  (local-set-key (kbd "M-0") 'delete-window)
+  (local-set-key (kbd "M-1") 'delete-other-windows)
+  (local-set-key (kbd "M-2") 'split-window-vertically)
+  (local-set-key (kbd "M-3") 'split-window-horizontally))
 (add-hook 'after-change-major-mode-hook 'rebind-commands)
+(add-hook 'sr-start-hook 'rebind-commands)
 
 ;;;; Flymake
 (require 'flymake-cursor) ;display error-messages when the curosr moves over the line
 
 ;;;; Ediff
 (setq ediff-merge-split-window-function 'split-window-vertically)
+
+;;;; Auto-Complete
+(vendor 'auto-complete)
+(require 'auto-complete-yasnippet)
+(require 'ac-dabbrev)
+(define-key ac-complete-mode-map "\t" 'ac-complete)
+(define-key ac-complete-mode-map "\M-k" 'ac-next)
+(define-key ac-complete-mode-map "\M-i" 'ac-previous)
+(set-default 'ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-dabbrev))
+;;;; Sunrise Commander
+(require 'sunrise-commander)
