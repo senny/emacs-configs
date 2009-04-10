@@ -1,7 +1,7 @@
 ;;(load "vendor/nxhtml/util/winsize")
 ;; use tab to indent and complete
-;; (vendor 'tabkey2)
-;; (tabkey2-mode 1)
+(vendor 'tabkey2)
+(tabkey2-mode 1)
 (setq tabkey2-completion-functions
       '(("Hippie expand" hippie-expand t)
         ;;        ("Spell check word" flyspell-correct-word-before-point)
@@ -109,6 +109,7 @@
 (define-key ac-complete-mode-map "\t" 'ac-complete)
 (define-key ac-complete-mode-map "\M-k" 'ac-next)
 (define-key ac-complete-mode-map "\M-i" 'ac-previous)
-(set-default 'ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-dabbrev))
+;; (set-default 'ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-dabbrev))
+(set-default 'ac-sources '(ac-source-yasnippet ac-source-abbrev))
 ;;;; Sunrise Commander
 (require 'sunrise-commander)
