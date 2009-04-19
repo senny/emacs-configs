@@ -94,7 +94,7 @@
                                      (textmate-shift-left
                                       ,(kbd "A-[")   [(control shift tab)])
                                      (textmate-comment-or-uncomment-region-or-line-or-blank-line
-                                      ,(kbd "A-/")   [?\A-/]) ;; FIXME
+                                      ,(kbd "A-/")   [(control c)(control k)]) ;; FIXME
                                      (textmate-goto-file
                                       ,(kbd "A-t")   [?\A-t])
                                      (textmate-goto-symbol
