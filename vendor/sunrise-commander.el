@@ -1,9 +1,9 @@
 ;;; sunrise-commander.el  ---  Two-pane file manager for Emacs based on Dired and
 ;; inspired by MC.
 
-;; Copyright (C) 2007 2008 JosÃ© Alfredo Romero L. (j0s3l0)
+;; Copyright (C) 2007 2008 José Alfredo Romero L. (j0s3l0)
 
-;; Author: JosÃ© Alfredo Romero L. <joseito@poczta.onet.pl>
+;; Author: José Alfredo Romero L. <joseito@poczta.onet.pl>
 ;; Keywords: Sunrise Commander Emacs File Manager Midnight Norton Orthodox
 
 ;; This program is free software: you can redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 
 ;; A  lot  of  this code has been shamelessly copied from Kevin's mc.el and only
 ;; slightly modified. Another part of it - the code for recursive  file  copying
-;; and  renaming - was adapted from the dired extensions written by Kurt NÃ¸rmark
+;; and  renaming - was adapted from the dired extensions written by Kurt Nørmark
 ;; for LAML (http://www.cs.aau.dk/~normark/scheme/distribution/laml/).
 
 ;; I have added to the mix several useful functions:
@@ -2290,4 +2290,3 @@ or (c)ontents? "))
 (provide 'sunrise-commander)
 
 ;;; sunrise-commander.el ends here
-
