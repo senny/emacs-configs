@@ -264,7 +264,7 @@
       (set-buffer (get-buffer-create "*contentbus-cache*"))
       (insert-file *fipo-contentbus-cache-file*)
       (setq *fipo-contentbus-files* (split-string (buffer-substring-no-properties (point-min) (point-max))))))
-  (find-file (concat *fipo-contentbus-location*
+  (find-file-text (concat *fipo-contentbus-location*
                      (ido-completing-read (concat *fipo-contentbus-location* ": ")
                                           *fipo-contentbus-files*))))
 
