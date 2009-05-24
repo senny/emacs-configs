@@ -7,7 +7,9 @@
 (global-set-key (kbd "M-j") 'backward-char)
 (global-set-key (kbd "M-l") 'forward-char)
 (global-set-key (kbd "M-i") 'previous-line)
+(global-set-key (kbd "M-I") 'scroll-down)
 (global-set-key (kbd "M-k") 'next-line)
+(global-set-key (kbd "M-K") 'scroll-up)
 (global-set-key (kbd "M-L") 'end-of-line)
 (global-set-key (kbd "M-J") 'beginning-of-line)
 
@@ -127,3 +129,7 @@
 
 (add-hook 'css-mode-hook '(lambda ()
                             (define-key css-mode-map [tab] 'defunkt-indent)))
+
+
+;; Textmate
+(global-set-key (kbd "M-t") 'textmate-goto-file)

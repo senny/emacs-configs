@@ -113,3 +113,6 @@
 (set-default 'ac-sources '(ac-source-yasnippet ac-source-abbrev))
 ;;;; Sunrise Commander
 (require 'sunrise-commander)
+
+;;;; RSpec
+(vendor 'rspec-mode)

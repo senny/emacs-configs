@@ -13,8 +13,6 @@
      (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)
      (define-key ruby-mode-map (kbd "C-c l") "lambda")))
 
-(global-set-key (kbd "C-h r") 'ri)
-
 ;; Rake files are ruby, too, as are gemspecs.
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.thor$" . ruby-mode))
@@ -106,10 +104,19 @@ exec-to-string command, but it works and seems fast"
 ;; Rinari (Minor Mode for Ruby On Rails)
 (setq rinari-major-modes
       (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
-	    'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
+            'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
 
 ;; TODO: set up ri
 ;; TODO: electric
+(defun ruby-open-gem ()
+  (interactive)
+  (let ((gem-dir "/Library/Ruby/Gems/1.8/gems/"))
+    (find-file (ido-open-find-directory-files
+                (concat gem-dir (ido-completing-read "Gem: "
+                                                     (directory-files gem-dir nil "^[^.]")))))))
+
+(global-set-key (kbd "C-h r") 'ri)
+(global-set-key (kbd "C-c g") 'ruby-open-gem)
 
 (provide 'starter-kit-ruby)
 ;; starter-kit-ruby.el ends here

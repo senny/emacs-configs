@@ -1,7 +1,7 @@
-#name : class ... end
-#contributor : hitesh <hitesh.jasani@gmail.com>
+#name : module ... end
+#contributor : senny
 # --
-class ${1:$
+module ${1:$
          (let ((fn (capitalize (file-name-nondirectory
                                  (file-name-sans-extension
                                    (buffer-file-name))))))
