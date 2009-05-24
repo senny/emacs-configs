@@ -1,0 +1,3 @@
+#name: $target.should_receive(:$message)
+# --
+${1:target}.should_receive(:${2:message})$0
