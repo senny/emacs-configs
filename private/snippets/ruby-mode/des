@@ -1,0 +1,5 @@
+#name: describe "an object" do ... end
+# --
+describe "${1:an object}" do
+  $0
+end

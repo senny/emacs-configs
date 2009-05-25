@@ -120,3 +120,6 @@
 ;;;; Sunrise Commander
 (require 'sunrise-commander)
 (define-key sr-mode-map (kbd "<backtab>") 'sr-follow-file-other)
+
+;;;; RSpec
+(vendor 'rspec-mode)
