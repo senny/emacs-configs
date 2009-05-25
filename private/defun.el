@@ -160,51 +160,25 @@ is a comment, uncomment."
   (ispell-change-dictionary "english")
   (flyspell-buffer))
 
-(defun inc-font-size ()
+(defun increase-font-size ()
   (interactive)
-  (let* ((current-font (cdr (assoc 'font (frame-parameters))))
-         (splitted (split-string current-font "-"))
-         (new-size (+ (string-to-number (nth 7 splitted)) 1))
-         (new-font (concat (nth 0 splitted) "-"
-                           (nth 1 splitted) "-"
-                           (nth 2 splitted) "-"
-                           (nth 3 splitted) "-"
-                           (nth 4 splitted) "-"
-                           (nth 5 splitted) "-"
-                           (nth 6 splitted) "-"
-                           (number-to-string new-size) "-*-"
-                           (nth 9 splitted) "-"
-                           (nth 10 splitted) "-"
-                           (nth 11 splitted) "-*-"
-                           (nth 13 splitted))))
-    (if (> (length splitted) 14)
-        (dotimes (n (- (length splitted) 14))
-          (setq new-font (concat new-font "-" (nth (+ n 14) splitted)))))
-    (set-default-font new-font t)
-    (set-frame-font new-font t)))
+  (set-face-attribute 'default
+                      nil
+                      :height
+                      (ceiling (* 1.10
+                                  (face-attribute 'default :height))))
+  (restore-frame)
+  (maximize-frame))
 
-(defun dec-font-size ()
+(defun decrease-font-size ()
   (interactive)
-  (let* ((current-font (cdr (assoc 'font (frame-parameters))))
-         (splitted (split-string current-font "-"))
-         (new-size (- (string-to-number (nth 7 splitted)) 1))
-         (new-font (concat (nth 0 splitted) "-"
-                           (nth 1 splitted) "-"
-                           (nth 2 splitted) "-"
-                           (nth 3 splitted) "-"
-                           (nth 4 splitted) "-"
-                           (nth 5 splitted) "-"
-                           (nth 6 splitted) "-"
-                           (number-to-string new-size) "-*-"
-                           (nth 9 splitted) "-"
-                           (nth 10 splitted) "-"
-                           (nth 11 splitted) "-*-"
-                           (nth 13 splitted))))
-    (if (> (length splitted) 14)
-        (dotimes (n (- (length splitted) 14))
-          (setq new-font (concat new-font "-" (nth (+ n 14) splitted)))))
-    (set-default-font new-font t)
-    (set-frame-font new-font t)))
+  (set-face-attribute 'default
+                      nil
+                      :height
+                      (floor (* 0.9
+                                (face-attribute 'default :height))))
+  (restore-frame)
+  (maximize-frame))
 
 (defun senny-open-file-at-point ()
   (interactive)

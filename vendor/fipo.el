@@ -206,10 +206,12 @@
   (define-key *fipo-mode-map* (kbd "C-S-f a") 'fipo-ido-open-admin-ear-file)
   (define-key *fipo-mode-map* (kbd "C-S-f f") 'fipo-ido-open-fipo-ear-file)
   (define-key *fipo-mode-map* (kbd "C-S-f d") 'fipo-ido-open-day-ear-file)
+  (define-key *fipo-mode-map* (kbd "C-S-f c") 'fipo-ido-open-communiquee-file)
   (define-key *fipo-mode-map* (kbd "C-S-f o") 'fipo-ido-open-view-file)
   (define-key *fipo-mode-map* (kbd "C-S-s") 'fipo-find-in-project)
   (define-key *fipo-mode-map* (kbd "C-S-b o") 'fipo-ido-contentbus-dir)
   (define-key *fipo-mode-map* (kbd "C-S-b b") 'fipo-ido-open-contentbus-file)
+  (define-key *fipo-mode-map* (kbd "C-S-b s") 'fipo-find-in-contentbus)
   (define-key *fipo-mode-map* (kbd "C-S-c s") 'fipo-clearcase-status)
   (define-key *fipo-mode-map* (kbd "C-S-c d") 'fipo-clearcase-diff-checkouts)
   (define-key *fipo-mode-map* (kbd "C-S-a d") 'fipo-debug-view)
@@ -238,6 +240,16 @@
                        (ido-completing-read (concat path ": ")
                                             (fipo-view-files path))))))
 
+(defun fipo-start-contentbus ()
+  (when (not (file-exists-p *fipo-contentbus-location*))
+    (message (shell-command-to-string "cb mount"))))
+
+(defun fipo-find-in-contentbus (search-string)
+  (interactive "Mquery-string: ")
+  (let ((command
+         (concat "grep -nr \"" search-string "\" " *fipo-contentbus-location* "*")))
+        (compilation-start command 'grep-mode)))
+
 (defun fipo-contentbus-clear-cache ()
   (interactive)
   (when (file-exists-p *fipo-contentbus-cache-file*)
@@ -245,10 +257,12 @@
 
 (defun fipo-ido-contentbus-dir ()
   (interactive)
+  (fipo-start-contentbus)
   (ido-find-file-in-dir *fipo-contentbus-location*))
 
 (defun fipo-ido-open-contentbus-file ()
   (interactive)
+  (fipo-start-contentbus)
   (when (not (file-exists-p *fipo-contentbus-cache-file*))
     (let ((contentbus-files (shell-command-to-string (concat
                                                       "dir /B /S /a-d " *fipo-contentbus-location*))))
@@ -265,8 +279,8 @@
       (insert-file *fipo-contentbus-cache-file*)
       (setq *fipo-contentbus-files* (split-string (buffer-substring-no-properties (point-min) (point-max))))))
   (find-file-text (concat *fipo-contentbus-location*
-                     (ido-completing-read (concat *fipo-contentbus-location* ": ")
-                                          *fipo-contentbus-files*))))
+                          (ido-completing-read (concat *fipo-contentbus-location* ": ")
+                                               *fipo-contentbus-files*))))
 
 (defun fipo-ido-open-admin-ear-file ()
   (interactive)
@@ -275,6 +289,10 @@
 (defun fipo-ido-open-fipo-ear-file ()
   (interactive)
   (fipo-ido-open-view-file "\\fipo-ear"))
+
+(defun fipo-ido-open-communiquee-file ()
+  (interactive)
+  (fipo-ido-open-view-file "\\communique"))
 
 (defun fipo-ido-open-day-ear-file ()
   (interactive)

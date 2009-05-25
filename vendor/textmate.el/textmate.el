@@ -103,8 +103,6 @@
                                       ,(kbd "C-D")   [(control shift d)])
                                      (textmate-remove-current-line
                                       ,(kbd "C-K")   [(control shift k)])
-                                     (textmate-toggle-camel-case
-                                      ,(kbd "C-_")   [(control _)])
                                      (upcase-region
                                       ,(kbd "A-u")   [?\A-u])
                                      (downcase-region

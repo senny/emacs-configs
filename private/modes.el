@@ -104,7 +104,8 @@
 (vendor 'cucumber)
 
 ;;;; Ediff
-(setq ediff-merge-split-window-function 'split-window-vertically)
+(setq ediff-merge-split-window-function 'split-window-horizontally)
+(setq ediff-split-window-function 'split-window-horizontally)
 
 ;;;; Auto-Complete
 (vendor 'auto-complete)
@@ -115,5 +116,7 @@
 (define-key ac-complete-mode-map "\M-i" 'ac-previous)
 ;; (set-default 'ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-dabbrev))
 (set-default 'ac-sources '(ac-source-yasnippet ac-source-abbrev))
+
 ;;;; Sunrise Commander
 (require 'sunrise-commander)
+(define-key sr-mode-map (kbd "<backtab>") 'sr-follow-file-other)

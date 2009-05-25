@@ -1,6 +1,4 @@
 ;; start the emacs-server to use emacsclient
-(server-start)
-
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
 (setq cua-highlight-region-shift-only t)
