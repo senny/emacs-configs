@@ -1,0 +1,5 @@
+#name: describe SomeClass do ... end
+# --
+describe ${1:SomeClass} do
+  $0
+end

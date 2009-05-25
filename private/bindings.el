@@ -129,6 +129,10 @@
 
 (add-hook 'css-mode-hook '(lambda ()
                             (define-key css-mode-map [tab] 'defunkt-indent)))
+
 ;; diff
 (global-set-key (kbd "C-c d b") 'ediff-buffers)
 (global-set-key (kbd "C-c d b") 'ediff-files)
+
+;; Textmate
+(global-set-key (kbd "M-t") 'textmate-goto-file)
