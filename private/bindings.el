@@ -7,7 +7,9 @@
 (global-set-key (kbd "M-j") 'backward-char)
 (global-set-key (kbd "M-l") 'forward-char)
 (global-set-key (kbd "M-i") 'previous-line)
+(global-set-key (kbd "M-I") 'scroll-down)
 (global-set-key (kbd "M-k") 'next-line)
+(global-set-key (kbd "M-K") 'scroll-up)
 (global-set-key (kbd "M-L") 'end-of-line)
 (global-set-key (kbd "M-J") 'beginning-of-line)
 
@@ -103,8 +105,8 @@
 
 ;; Window management
 (global-set-key [f1] 'resize-windows)
-(global-set-key (kbd "C-+") 'inc-font-size) ; increase the font-size
-(global-set-key (kbd "C-_") 'dec-font-size) ; decrease the font-size
+(global-set-key (kbd "C-+") 'increase-font-size) ; increase the font-size
+(global-set-key (kbd "C-_") 'decrease-font-size) ; decrease the font-size
 
 ;; Buffer cycling
 (global-set-key (kbd "C-ä") 'forward-buffer)
@@ -127,3 +129,6 @@
 
 (add-hook 'css-mode-hook '(lambda ()
                             (define-key css-mode-map [tab] 'defunkt-indent)))
+;; diff
+(global-set-key (kbd "C-c d b") 'ediff-buffers)
+(global-set-key (kbd "C-c d b") 'ediff-files)

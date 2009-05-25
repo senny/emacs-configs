@@ -168,6 +168,10 @@
      (org-level-4 ((t (:inherit type))))
      (org-special-keyword ((t (:inherit doc))))
 
+     (newsticker-treeview-selection-face ((t (:inherit highlighted))))
+     (newsticker-treeview-face ((t (:inherit default))))
+     (newsticker-treeview-immortal-face ((t (:inherit keyword))))
+     
      (ido-only-match ((t (:inherit string))))
      (ido-subdir ((t (:inherit constant))))
      
