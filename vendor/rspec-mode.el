@@ -49,9 +49,6 @@
 ;; Public License.
 
 (require 'ruby-mode)
-(require 'snippet)
-
-(defconst rspec-mode-abbrev-table (make-abbrev-table))
 
 (defun rspec-keymap ()
   "Creates a keymap for spec files"
@@ -67,17 +64,6 @@
   "Minor mode for rSpec files"
   :lighter " rSpec"
   :keymap  (rspec-keymap))
-
-;; Snippets
-(snippet-with-abbrev-table
- 'rspec-mode-abbrev-table
- ("helper" . "require 'pathname'\nrequire Pathname(__FILE__).dirname + '../spec_helper'\n\n$.")
- ("desc"   . "describe $${ClassName} do\n  $.\nend ")
- ("descm"  . "describe $${ClassName}, \"$${modifier}\" do\n  $.\nend ")
- ("it"     . "it \"should $${what exactly?}\" do\n  $.\n  end ")
- ("bef"    . "before do\n  $.\n  end"))
-
-
 
 (defun rspec-beginning-of-example ()
   "Moves point to the beginning of the example in which the point current is."
@@ -258,32 +244,6 @@
             (local-set-key (kbd "C-c ,v") 'rspec-verify)
             (local-set-key (kbd "C-c ,a") 'rspec-verify-all)
             (local-set-key (kbd "C-c ,t") 'rspec-toggle-spec-and-target)))
-
-;; This hook makes any abbreviation that are defined in
-;; rspec-mode-abbrev-table available in rSpec buffers
-(add-hook 'rspec-mode-hook
-          (lambda ()
-            (merge-abbrev-tables rspec-mode-abbrev-table
-                                 local-abbrev-table)))
-
-;; abbrev
-;; from http://www.opensource.apple.com/darwinsource/Current/emacs-59/emacs/lisp/derived.el
-(defun merge-abbrev-tables (old new)
-  "Merge an old abbrev table into a new one.
-This function requires internal knowledge of how abbrev tables work,
-presuming that they are obarrays with the abbrev as the symbol, the expansion
-as the value of the symbol, and the hook as the function definition."
-  (when old
-    (mapatoms
-     (lambda(it)
-       (or (intern-soft (symbol-name it) new)
-           (define-abbrev new
-             (symbol-name it)
-             (symbol-value it)
-             (symbol-function it)
-             nil
-             t)))
-     old)))
 
 ;; Setup better rspec output output
 (require 'mode-compile)
