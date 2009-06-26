@@ -89,6 +89,8 @@
   (local-set-key (kbd "M-a") 'execute-extended-command)
   (local-set-key (kbd "M-s") 'move-cursor-next-pane)
   (local-set-key (kbd "M-S") 'move-cursor-previous-pane)
+  (local-set-key (kbd "M-h") 'beginning-of-buffer)
+  (local-set-key (kbd "M-H") 'end-of-buffer)
   (local-set-key (kbd "M-0") 'delete-window)
   (local-set-key (kbd "M-1") 'delete-other-windows)
   (local-set-key (kbd "M-2") 'split-window-vertically)
