@@ -38,12 +38,6 @@
 ;; Commands
 (require 'unbound)
 
-;; Clojure
-
-(setq clojure-src-root "/Users/topfunky/tmp/clojure")
-(eval-after-load 'clojure-mode '(clojure-slime-config))
-
-
 ;; Minor Modes
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
 (require 'textmate)
@@ -102,6 +96,10 @@
             (local-set-key (kbd "C-c <up>")    'hs-hide-all)
             (local-set-key (kbd "C-c <down>")  'hs-show-all)
             (hs-minor-mode t)))         ; Hide and show blocks
+
+
+(require 'objj-mode)
+
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
@@ -461,3 +459,4 @@
 
 ;; Activate theme
 (color-theme-helvetica)
+;; (color-theme-emacs-21)
