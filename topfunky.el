@@ -27,7 +27,7 @@
 (setq backup-directory-alist (list (cons "." backup-dir)))
 
 ;; Clojure
-(eval-after-load 'clojure-mode '(clojure-slime-config))
+;;(eval-after-load 'clojure-mode '(clojure-slime-config))
 
 ;; Snippets
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/yasnippet.el"))
@@ -97,9 +97,10 @@
             (local-set-key (kbd "C-c <down>")  'hs-show-all)
             (hs-minor-mode t)))         ; Hide and show blocks
 
-
 (require 'objj-mode)
 
+;; org-mode
+(setq org-agenda-files (list "~/.org/iphone-screencast.org"))
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
@@ -431,7 +432,7 @@
      (ruler-mode-tab-stop-face ((t (:box (:color "grey76" :line-width 1 :style released-button) :background "grey76" :stipple nil :inverse-video nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal :family "Inconsolata" :foreground "steelblue"))))
      (scroll-bar ((t (nil))))
      (secondary-selection ((t (:background "Aquamarine" :foreground "SlateBlue"))))
-     (show-paren-match-face ((t (:bold t :background "#333333" :foreground "White" :weight bold))))
+     (show-paren-match-face ((t (:bold t :foreground "#ffffbb" :weight bold))))
      (show-paren-mismatch-face ((t (:foreground "Red"))))
      (swbuff-current-buffer-face ((t (:bold t :foreground "red" :weight bold))))
      (text-cursor ((t (:background "Red" :foreground "white"))))
