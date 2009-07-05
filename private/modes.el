@@ -102,9 +102,6 @@
 ;;;; Flymake
 (require 'flymake-cursor) ;display error-messages when the curosr moves over the line
 
-;;;; Cucumber
-(vendor 'cucumber)
-
 ;;;; Ediff
 (setq ediff-merge-split-window-function 'split-window-horizontally)
 (setq ediff-split-window-function 'split-window-horizontally)
@@ -125,3 +122,7 @@
 
 ;;;; RSpec
 (vendor 'rspec-mode)
+
+;;;; Cucumber
+(add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))
+(load "feature-mode")
