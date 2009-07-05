@@ -15,7 +15,10 @@
 (define-derived-mode objj-mode objc-mode
   "Objective-J"
   "Major mode for editing Objective-J files."
-  (setq c-basic-offset 4))
+  (setq c-basic-offset 4)             ;; 4 spaces for tab
+  (setq indent-tabs-mode nil)         ;; Spaces, not tabs
+  (c-set-offset 'substatement-open 0) ;; Curly brace on next line
+  )
 
 ;; TODO: Define more syntax settings to comply with http://cappuccino.org/contribute/coding-style.php
 
