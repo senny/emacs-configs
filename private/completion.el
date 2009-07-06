@@ -1,58 +1,60 @@
-;;; Require
-(vendor 'auto-complete)
-;; (require 'auto-complete-extension nil t) ;optional
-;; (require 'auto-complete-yasnippet nil t) ;optional
-(require 'auto-complete-css nil t) ;optional
-;; (require 'auto-complete-ruby nil t) ;optional
-;; (require 'auto-complete-semantic nil t)  ;optional
-;; (require 'auto-complete-gtags nil t)     ;optional
+;; use tab to indent and complete
+(vendor 'tabkey2)
+(tabkey2-mode 1)
+(setq tabkey2-completion-functions
+      '(("autocomplete" ac-complete t)
+        ("Hippie expand" hippie-expand t)
+        ;;        ("Spell check word" flyspell-correct-word-before-point)
+        ;;        ("JDE Completion" jde-complete-minibuf)
+        ;;        ("Yasnippet" yas/expand (yas/expandable-at-point))
+        ;;        ("Semantic Smart Completion" senator-complete-symbol senator-minor-mode)
+        ;;        ("Programmable completion" pcomplete)
+        ;;        ("nXML completion" nxml-complete)
+        ;;        ("Complete Emacs symbol" lisp-complete-symbol)
+        ;;        ("Widget complete" widget-complete)
+        ;;        ("Comint Dynamic Complete" comint-dynamic-complete)
+        ;;        ("PHP completion" php-complete-function)
+        ;;        ("Tags completion" complete-symbol)
+        ;;        ("Predictive word" complete-word-at-point predictive-mode)
+        ;;        ("Predictive abbreviations" pabbrev-expand-maybe)
+        ;;        ("Dynamic word expansion" dabbrev-expand nil (setq dabbrev--last-abbrev-location nil))
+        ;;        ("Ispell complete word" ispell-complete-word)
+        ;;        ("Anything" anything (commandp 'anything))
+        ))
 
-;;; Code:
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/company"))
+(load "company")
 
-;; Generic setup.
-(global-auto-complete-mode t)           ;enable global-mode
-(setq ac-auto-start t)                  ;automatically start
-(setq ac-dwim t)                        ;Do what i mean
-(setq ac-override-local-map nil)        ;don't override local map
+;; only start completio when inserting character
+(setq company-begin-commands '(self-insert-command))
 
-;; The mode that automatically startup.
-(setq ac-modes
-      '(emacs-lisp-mode lisp-interaction-mode lisp-mode scheme-mode
-                        c-mode cc-mode c++-mode java-mode
-                        perl-mode cperl-mode python-mode ruby-mode
-                        ecmascript-mode javascript-mode php-mode css-mode
-                        makefile-mode sh-mode fortran-mode f90-mode ada-mode
-                        xml-mode sgml-mode
-                        haskell-mode literate-haskell-mode
-                        emms-tag-editor-mode
-                        asm-mode
-                        org-mode))
-;; (add-to-list 'ac-trigger-commands 'org-self-insert-command) ; if you want enable auto-complete at org-mode, uncomment this line
-
-;; The sources for common all mode.
-(custom-set-variables
- '(ac-sources
-   '(
-     ;; ac-source-yasnippet ;this source need file `auto-complete-yasnippet.el'
-     ;; ac-source-semantic    ;this source need file `auto-complete-semantic.el'
-     ;; ac-source-imenu
-     ac-source-abbrev
-     ac-source-dabbrev
-     ac-source-words-in-buffer
-     ac-source-files-in-current-dir
-     ac-source-filename
-     )))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Lisp mode ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (dolist (hook (list
                'emacs-lisp-mode-hook
-               'lisp-interaction-mode
+               'lisp-mode-hook
+               'lisp-interaction-mode-hook
+               'java-mode-hook
+               'nxml-mode-hook
+               'ruby-mode-hook
+               'css-mode-hook
+               'html-mode-hook
+               'jde-mode-hook
+               'javascript-mode-hook
                ))
-  (add-hook hook '(lambda ()
-                    (add-to-list 'ac-sources 'ac-source-symbols))))
+  (add-hook hook 'company-mode))
 
-(add-hook 'css-mode-hook '(lambda ()
-                            (add-to-list 'ac-sources 'ac-source-css-keywords)))
+(setq company-idle-delay 0)
+(setq company-backends '(company-elisp
+                         company-nxml
+                         company-css
+                         company-eclim
+                         ;; company-semantic
+                         ;; (company-gtags company-etags company-dabbrev-code company-keywords)
+                         ;; company-files
+                         company-dabbrev))
 
-;; (add-hook 'ruby-mode-hook '(lambda ()
-;;                              (add-to-list 'ac-sources 'ac-source-ruby)))
+(setq company-eclim-executable "eclim")
+
+(define-key company-active-map (kbd "M-k") 'company-select-next)
+(define-key company-active-map (kbd "M-i") 'company-select-previous)
+(define-key company-mode-map (kbd "C-SPC") 'company-complete)
+
