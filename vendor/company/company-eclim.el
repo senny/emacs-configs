@@ -87,8 +87,10 @@ eclim can only complete correctly when the buffer has been saved."
 (defun company-eclim--project-name ()
   (if (eq company-eclim--project-name 'unknown)
       (setq company-eclim--project-name
-            (car (cddr (assoc (company-eclim--project-dir)
-                              (company-eclim--project-list)))))
+            (car (cddr (assoc (downcase (company-eclim--project-dir))
+                  (mapcar (lambda (project)
+          (list (downcase (nth 0 project)) (nth 1 project) (nth 2 project)))
+        (company-eclim--project-list))))))
     company-eclim--project-name))
 
 (defun company-eclim--candidates (prefix)
