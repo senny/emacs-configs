@@ -1,26 +1,5 @@
 ;;(load "vendor/nxhtml/util/winsize")
-;; use tab to indent and complete
-(vendor 'tabkey2)
-(tabkey2-mode 1)
-(setq tabkey2-completion-functions
-      '(("Hippie expand" hippie-expand t)
-        ;;        ("Spell check word" flyspell-correct-word-before-point)
-        ;;        ("JDE Completion" jde-complete-minibuf)
-        ;;        ("Yasnippet" yas/expand (yas/expandable-at-point))
-        ;;        ("Semantic Smart Completion" senator-complete-symbol senator-minor-mode)
-        ;;        ("Programmable completion" pcomplete)
-        ;;        ("nXML completion" nxml-complete)
-        ;;        ("Complete Emacs symbol" lisp-complete-symbol)
-        ;;        ("Widget complete" widget-complete)
-        ;;        ("Comint Dynamic Complete" comint-dynamic-complete)
-        ;;        ("PHP completion" php-complete-function)
-        ;;        ("Tags completion" complete-symbol)
-        ;;        ("Predictive word" complete-word-at-point predictive-mode)
-        ;;        ("Predictive abbreviations" pabbrev-expand-maybe)
-        ;;        ("Dynamic word expansion" dabbrev-expand nil (setq dabbrev--last-abbrev-location nil))
-        ;;        ("Ispell complete word" ispell-complete-word)
-        ;;        ("Anything" anything (commandp 'anything))
-        ))
+
 
 ;; linum
 (require 'linum)
@@ -110,16 +89,6 @@
 ;;;; Ediff
 (setq ediff-merge-split-window-function 'split-window-horizontally)
 (setq ediff-split-window-function 'split-window-horizontally)
-
-;;;; Auto-Complete
-(vendor 'auto-complete)
-(require 'auto-complete-yasnippet)
-(require 'ac-dabbrev)
-(define-key ac-complete-mode-map "\t" 'ac-complete)
-(define-key ac-complete-mode-map "\M-k" 'ac-next)
-(define-key ac-complete-mode-map "\M-i" 'ac-previous)
-;; (set-default 'ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-dabbrev))
-(set-default 'ac-sources '(ac-source-yasnippet ac-source-abbrev))
 
 ;;;; Sunrise Commander
 (require 'sunrise-commander)
