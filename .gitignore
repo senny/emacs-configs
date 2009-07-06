@@ -15,4 +15,7 @@ oddmuse/*
 /#.newsrc-dribble#
 .svn
 .DS_Store
-image-dired
+image-dired/
+elim/
+elpa-to-submit/nxhtml/etc/schema/xhtml-loader.rnc~
+tramp

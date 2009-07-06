@@ -32,6 +32,9 @@
 (require 'ansi-color)
 (require 'recentf)
 
+;; backport some functionality to Emacs 22 if needed
+(require 'dominating-file)
+
 ;; this must be loaded before ELPA since it bundles its own
 ;; out-of-date js stuff. TODO: fix it to use ELPA dependencies
 ;; (load "elpa-to-submit/nxhtml/autostart")
@@ -57,11 +60,6 @@
 
 (regen-autoloads)
 (load custom-file 'noerror)
-
-;; More complicated packages that haven't made it into ELPA yet
-
-(autoload 'jabber-connect "jabber" "" t)
-;; TODO: rinari, slime
 
 ;; Work around a bug on OS X where system-name is FQDN
 (if (eq system-type 'darwin)

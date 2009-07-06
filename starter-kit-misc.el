@@ -14,6 +14,7 @@
 (prefer-coding-system 'utf-8)
 
 (setq visible-bell t
+      echo-keystrokes 0.1
       font-lock-maximum-decoration t
       inhibit-startup-message t
       transient-mark-mode t
@@ -31,7 +32,7 @@
       save-place-file (concat dotfiles-dir "places"))
 
 ;; Set this to whatever browser you use
-(setq browse-url-browser-function 'browse-url-firefox)
+;; (setq browse-url-browser-function 'browse-url-firefox)
 ;; (setq browse-url-browser-function 'browse-default-macosx-browser)
 ;; (setq browse-url-browser-function 'browse-default-windows-browser)
 ;; (setq browse-url-browser-function 'browse-default-kde)
