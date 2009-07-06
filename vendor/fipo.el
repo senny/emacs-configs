@@ -384,14 +384,14 @@ server-log will be available in the *fipo-server* buffer."
   (interactive)
   (save-excursion
     (fipo-clearcase-buffer)
-    (insert (execute-view-command "cc-info"))
-    (insert (execute-view-command "cc-st"))))
+    (insert (execute-view-command "cc info"))
+    (insert (execute-view-command "cc st"))))
 
 (defun fipo-clearcase-diff-checkouts ()
   (interactive)
   (save-excursion
     (fipo-clearcase-buffer)
-    (insert (execute-view-command "cc-diff"))
+    (insert (execute-view-command "cc diff"))
     (beginning-of-buffer)
     (diff-mode)))
 
@@ -399,7 +399,7 @@ server-log will be available in the *fipo-server* buffer."
   (interactive)
   (save-excursion
     (fipo-clearcase-buffer)
-    (insert (execute-view-command "cc-ci -a"))))
+    (insert (execute-view-command "cc ci -a"))))
 
 (defun fipo-current-view-name ()
   (replace-regexp-in-string *fipo-view-name-prefix* "" *fipo-project-view*))
