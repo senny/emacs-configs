@@ -26,6 +26,9 @@
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
 
+(setq default-tab-width 2)
+(setq tab-width 2)
+
 ;; Clojure
 ;;(eval-after-load 'clojure-mode '(clojure-slime-config))
 
