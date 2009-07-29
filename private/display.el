@@ -8,7 +8,7 @@
 (add-hook 'window-setup-hook 'maximize-frame t)
 
 ;; Package to interactivly resize split screens
-(require 'winsize)
+;; (require 'winsize)
 
 ;; highlight the selected region
 (transient-mark-mode 1)
