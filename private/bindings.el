@@ -114,6 +114,7 @@
 
 ;; Completion
 (global-set-key (kbd "C-SPC") 'alternate-completion)
+(global-set-key (kbd "TAB") 'indent-or-complete)
 
 ;; vim emulation
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)
