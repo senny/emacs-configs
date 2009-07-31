@@ -1,9 +1,9 @@
 ;; use tab to indent and complete
-(vendor 'tabkey2)
-(tabkey2-mode 1)
-(setq tabkey2-completion-functions
-      '(("autocomplete" ac-complete t)
-        ("Hippie expand" hippie-expand t)
+;; (vendor 'tabkey2)
+;; (tabkey2-mode 1)
+;; (setq tabkey2-completion-functions
+;;       '(("autocomplete" ac-complete t)
+;;         ("Hippie expand" hippie-expand t)
         ;;        ("Spell check word" flyspell-correct-word-before-point)
         ;;        ("JDE Completion" jde-complete-minibuf)
         ;;        ("Yasnippet" yas/expand (yas/expandable-at-point))
@@ -20,7 +20,7 @@
         ;;        ("Dynamic word expansion" dabbrev-expand nil (setq dabbrev--last-abbrev-location nil))
         ;;        ("Ispell complete word" ispell-complete-word)
         ;;        ("Anything" anything (commandp 'anything))
-        ))
+;;         ))
 
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/company"))
 (load "company")
@@ -40,7 +40,8 @@
                'jde-mode-hook
                'javascript-mode-hook
                ))
-  (add-hook hook 'company-mode))
+  (add-hook hook (lambda ()
+                   (company-mode 1))))
 
 (setq company-idle-delay 0)
 (setq company-backends '(company-elisp
