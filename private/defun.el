@@ -184,3 +184,9 @@ is a comment, uncomment."
   (interactive)
   (let ((ido-use-filename-at-point t))
     (ido-find-file)))
+
+(defun indent-or-complete ()
+    (interactive)
+    (if (looking-at "\\_>")
+        (company-complete-common)
+      (indent-according-to-mode)))
