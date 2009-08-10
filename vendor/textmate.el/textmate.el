@@ -499,13 +499,13 @@ A place is considered `tab-width' character columns."
 (put 'downcase-region 'disabled nil)
 
 ;; enable skeleton-pair insert globally
-(setq skeleton-pair t)
-(setq skeleton-pair-on-word t) ; apply skeleton trick even in front of a word.
-(global-set-key (kbd "(")  'skeleton-pair-insert-maybe)
-(global-set-key (kbd "[")  'skeleton-pair-insert-maybe)
-(global-set-key (kbd "{")  'skeleton-pair-insert-maybe)
-(global-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
-(global-set-key (kbd "\'") 'skeleton-pair-insert-maybe)
+;; (setq skeleton-pair t)
+;; (setq skeleton-pair-on-word t) ; apply skeleton trick even in front of a word.
+;; (global-set-key (kbd "(")  'skeleton-pair-insert-maybe)
+;; (global-set-key (kbd "[")  'skeleton-pair-insert-maybe)
+;; (global-set-key (kbd "{")  'skeleton-pair-insert-maybe)
+;; (global-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
+;; (global-set-key (kbd "\'") 'skeleton-pair-insert-maybe)
 
 ;;;###autoload
 (define-minor-mode textmate-mode "TextMate Emulation Minor Mode"
