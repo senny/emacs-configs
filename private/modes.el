@@ -1,6 +1,5 @@
 ;;(load "vendor/nxhtml/util/winsize")
 
-
 ;; linum
 (require 'linum)
 ;; (global-linum-mode 1)

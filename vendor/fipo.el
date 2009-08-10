@@ -1,4 +1,4 @@
-(defvar *fipo-contentbus-location* "A:\\"
+(defvar *fipo-contentbus-location* "Z:\\"
   "Windows drive letter where the contentbus is mapped to")
 
 (defvar *fipo-view-path* "C:\\views\\"
@@ -270,7 +270,7 @@
         (set-buffer (get-buffer-create "*contentbus-cache*"))
         (delete-region (point-min) (point-max))
         (insert contentbus-files)
-        (replace-regexp "A:\\\\" "" nil (point-min) (point-max))
+        (replace-regexp (concat *fipo-contentbus-location* "\\") "" nil (point-min) (point-max))
         (write-file *fipo-contentbus-cache-file*)
         (kill-buffer "contentbus-files.lst"))))
   (when (not (get-buffer "*contentbus-cache*"))
