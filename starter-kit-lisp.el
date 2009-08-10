@@ -52,51 +52,6 @@
 (font-lock-add-keywords 'clojure-mode
                         '(("(\\|)" . 'esk-paren-face)))
 
-(defface esk-clojure-trace-face
-   '((((class color) (background dark))
-      (:foreground "grey50"))
-     (((class color) (background light))
-      (:foreground "grey55")))
-   "Face used to dim parentheses."
-   :group 'starter-kit-faces)
-
-(setq esk-clojure-trace-face 'esk-clojure-trace-face)
-
-;; This will make relevant lines stand out more in stack traces
-(defun sldb-font-lock ()
-  (font-lock-add-keywords nil
-                          '(("[0-9]+: \\(clojure\.\\(core\\|lang\\).*\\)"
-                             1 esk-clojure-trace-face)
-                            ("[0-9]+: \\(java.*\\)"
-                             1 esk-clojure-trace-face)
-                            ("[0-9]+: \\(swank.*\\)"
-                             1 esk-clojure-trace-face)
-                            ("\\[\\([A-Z]+\\)\\]"
-                             1 font-lock-function-name-face))))
-
-(add-hook 'sldb-mode-hook 'sldb-font-lock)
-
-(defun slime-jump-to-trace (&optional on)
-  "Jump to the file/line that the current stack trace line references.
-Only works with files in your project root's src/, not in dependencies."
-  (interactive)
-  (save-excursion
-    (beginning-of-line)
-    (search-forward-regexp "[0-9]: \\([^$(]+\\).*?\\([0-9]*\\))")
-    (let ((line (string-to-number (match-string 2)))
-          (ns-path (split-string (match-string 1) "\\."))
-          (project-root (locate-dominating-file default-directory "src/")))
-      (find-file (format "%s/src/%s.clj" project-root
-                         (mapconcat 'identity ns-path "/")))
-      (goto-line line))))
-
-(eval-after-load 'slime
-  '(progn
-     (defalias 'sldb-toggle-details 'slime-jump-to-trace)
-     (defun sldb-prune-initial-frames (frames)
-       "Show all stack trace lines by default."
-       frames)))
-
 (eval-after-load 'find-file-in-project
   '(add-to-list 'ffip-patterns "*.clj"))
 
@@ -113,6 +68,8 @@ Kills existing SLIME session, if any."
                  (locate-dominating-file default-directory "pom.xml"))))
   (when (get-buffer "*inferior-lisp*")
     (kill-buffer "*inferior-lisp*"))
+  (defvar swank-clojure-extra-vm-args nil)
+  (defvar slime-lisp-implementations nil)
   (add-to-list 'swank-clojure-extra-vm-args
                (format "-Dclojure.compile.path=%s"
                        (expand-file-name "target/classes/" path)))
@@ -135,6 +92,7 @@ Kills existing SLIME session, if any."
 
 (add-hook 'scheme-mode-hook 'run-coding-hook)
 (add-hook 'scheme-mode-hook 'idle-highlight)
+(add-hook 'scheme-mode-hook 'turn-on-paredit)
 (font-lock-add-keywords 'scheme-mode
 			'(("(\\|)" . 'esk-paren-face)))
 
