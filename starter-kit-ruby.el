@@ -105,6 +105,10 @@ exec-to-string command, but it works and seems fast"
 (setq rinari-major-modes
       (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
             'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
+            (add-to-list 'load-path (concat dotfiles-dir "vendor/rhtml-mode"))
+                 (require 'rhtml-mode)
+                 (add-hook 'rhtml-mode-hook
+                 	  (lambda () (rinari-launch)))
 
 ;; TODO: set up ri
 ;; TODO: electric

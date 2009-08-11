@@ -96,3 +96,5 @@
 ;;;; Cucumber
 (add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))
 (load "feature-mode")
+
+(vendor 'magit)
