@@ -185,6 +185,19 @@ is a comment, uncomment."
   (let ((ido-use-filename-at-point t))
     (ido-find-file)))
 
+(defun set-pairs (pairs)
+  "Sets up handling of pair characters."
+  (mapcar (lambda (pair)
+            (local-set-key pair 'skeleton-pair-insert-maybe))
+            ;; (cond ((string= pair "\"") (local-set-key pair 'move-over-dbl-quote))
+            ;;       ((string= pair "\'") (local-set-key pair 'move-over-quote))
+            ;;       ((string= pair "|") (local-set-key pair 'move-over-pipe))
+            ;;       ((string= pair "[") (local-set-key "\]" 'move-over-square))
+            ;;       ((string= pair "(") (local-set-key "\)" 'move-over-bracket))
+            ;;       ((string= pair "{") (local-set-key "\}" 'move-over-curly))))
+          pairs)
+  (setq skeleton-pair t))
+
 (defun indent-or-complete ()
     (interactive)
     (if (looking-at "\\_>")
