@@ -66,7 +66,7 @@
     (setq system-name (car (split-string system-name "\\."))))
 
 ;; You can keep system- or user-specific customizations here
-(setq system-specific-config (concat dotfiles-dir system-name ".el")
+(setq system-specific-config (concat dotfiles-dir "machines" system-name ".el")
       user-specific-config (concat dotfiles-dir user-login-name ".el")
       private-config-dir (concat dotfiles-dir "private")
       private-config (concat private-config-dir ".el"))
