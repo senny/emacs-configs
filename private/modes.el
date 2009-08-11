@@ -1,6 +1,5 @@
 ;;(load "vendor/nxhtml/util/winsize")
 
-
 ;; linum
 (require 'linum)
 ;; (global-linum-mode 1)
@@ -65,15 +64,21 @@
 ;; this function rebinds M-s and M-S to switch between the different windows
 (defun rebind-commands ()
   (interactive)
-  (local-set-key (kbd "M-a") 'execute-extended-command)
-  (local-set-key (kbd "M-s") 'move-cursor-next-pane)
-  (local-set-key (kbd "M-S") 'move-cursor-previous-pane)
-  (local-set-key (kbd "M-h") 'beginning-of-buffer)
-  (local-set-key (kbd "M-H") 'end-of-buffer)
-  (local-set-key (kbd "M-0") 'delete-window)
-  (local-set-key (kbd "M-1") 'delete-other-windows)
-  (local-set-key (kbd "M-2") 'split-window-vertically)
-  (local-set-key (kbd "M-3") 'split-window-horizontally))
+  (local-unset-key (kbd "M-a"))
+  (local-unset-key (kbd "M-s"))
+  (local-unset-key (kbd "M-S"))
+  (local-unset-key (kbd "M-h"))
+  (local-unset-key (kbd "M-H"))
+  (local-unset-key (kbd "M-0"))
+  (local-unset-key (kbd "M-1"))
+  (local-unset-key (kbd "M-2"))
+  (local-unset-key (kbd "M-3"))
+  (local-unset-key (kbd "M-i"))
+  (local-unset-key (kbd "M-j"))
+  (local-unset-key (kbd "M-k"))
+  (local-unset-key (kbd "M-l"))
+  (local-unset-key (kbd "M-J"))
+  (local-unset-key (kbd "M-L")))
 
 (add-hook 'after-change-major-mode-hook 'rebind-commands)
 (add-hook 'sr-start-hook 'rebind-commands)
