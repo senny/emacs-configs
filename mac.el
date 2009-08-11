@@ -1,6 +1,9 @@
 ;; start the server to use emacsclient from the console
 (server-start)
 
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/git/bin:/opt/local/bin/find")) 
+(setq exec-path (append exec-path '("/usr/local/git/bin" "/opt/local/bin/find"))) 
+
 (setq custom-file (concat private-config-dir "/custom/carbon-emacs-custom.el"))
 (load custom-file)
 

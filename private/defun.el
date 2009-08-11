@@ -197,3 +197,9 @@ is a comment, uncomment."
             ;;       ((string= pair "{") (local-set-key "\}" 'move-over-curly))))
           pairs)
   (setq skeleton-pair t))
+
+(defun indent-or-complete ()
+    (interactive)
+    (if (looking-at "\\_>")
+        (company-complete-common)
+      (indent-according-to-mode)))
