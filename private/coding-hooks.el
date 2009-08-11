@@ -1,3 +1,5 @@
+(make-variable-buffer-local 'company-backends)
+
 (defun default-lisp-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
   (setq company-backends '(company-elisp
@@ -6,6 +8,8 @@
 
 (defun default-java-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'"))
+  (setq company-backends '(company-dabbrev-code))
+  (company-mode t)
   (linum-mode 1)
   (setq c-comment-continuation-stars "* ")
   (setq c-basic-offset 2))
@@ -23,6 +27,9 @@
 (add-hook 'java-mode-hook 'default-java-mode-hook)
 (add-hook 'jde-mode-hook
           (lambda ()
+            (local-unset-key (kbd "M-j"))
+            (local-unset-key (kbd "C-c C-a"))
+            (global-unset-key (kbd "C-c C-a"))
             (default-java-mode-hook)
             (setq jde-complete-insert-method-signature nil)
             ;; No "final" when auto creating methods and variables.
@@ -54,3 +61,8 @@
           (lambda ()
             (set-pairs '("(" "{" "[" "\""))
             (auto-fill-mode 1)))
+
+;; Comint
+(add-hook 'comint-mode-hook
+          (lambda ()
+            ))
