@@ -18,10 +18,6 @@
 ;;(add-to-list 'load-path (concat dotfiles-dir "vendor/vc-clearcase"))
 ;;(load "vc-clearcase-auto")
 
-(load (concat dotfiles-dir "vendor/fipo"))
-(fipo-mode 1)
-
-
 ;;;; bindings
 (add-hook 'after-init-hook
           (lambda ()
