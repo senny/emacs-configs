@@ -124,3 +124,13 @@ exec-to-string command, but it works and seems fast"
 
 (provide 'starter-kit-ruby)
 ;; starter-kit-ruby.el ends here
+
+;; TODO Temporary addition
+(defun ruby-reindent-then-newline-and-indent ()
+  (interactive "*")
+  (newline)
+  (save-excursion
+    (end-of-line 0)
+    (indent-according-to-mode)
+    (delete-region (point) (progn (skip-chars-backward " \t") (point))))
+  (indent-according-to-mode))
