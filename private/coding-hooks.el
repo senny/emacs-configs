@@ -10,7 +10,6 @@
   (set-pairs '("(" "{" "[" "\"" "\'"))
   (setq company-backends '(company-dabbrev-code))
   (company-mode t)
-  (linum-mode 1)
   (setq c-comment-continuation-stars "* ")
   (setq c-basic-offset 2))
 
@@ -59,6 +58,9 @@
 ;; Org-mode
 (add-hook 'org-mode-hook
           (lambda ()
+            (define-key org-mode-map (kbd "C-c a") 'org-agenda)
+            (define-key org-mode-map (kbd "C-c t u") 'org-clock-update-time-maybe)
+            (define-key org-mode-map (kbd "C-c t g") 'org-clock-goto)
             (set-pairs '("(" "{" "[" "\""))
             (auto-fill-mode 1)))
 

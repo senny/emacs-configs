@@ -13,6 +13,8 @@
 (define-key jde-mode-map (kbd "C-c C-v g") 'jde-gen-get-set-methods)
 (define-key jde-mode-map (kbd "C-c o") 'senny-organize-imports)
 
+(add-to-list 'auto-mode-alist '("\\.jsp$" . html-mode))
+
 (defun jde-senny-organize-imports ()
   (save-excursion
     (jde-import-all)
