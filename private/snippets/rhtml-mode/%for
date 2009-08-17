@@ -1,0 +1,5 @@
+#name : <% for $element in $list -%> $. <% end -%>
+# --
+<% for ${element} in ${enumeration} -%>
+$0
+<% end -%>
