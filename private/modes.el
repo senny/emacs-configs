@@ -46,6 +46,8 @@
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+(setq org-agenda-clockreport-parameter-plist (quote (:link nil :maxlevel 3 :emphasize t)))
+
 
 ;; nxml
 (add-hook 'nxml-completion-hook 'rng-complete nil t)

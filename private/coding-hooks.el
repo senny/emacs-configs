@@ -13,6 +13,10 @@
   (setq c-comment-continuation-stars "* ")
   (setq c-basic-offset 2))
 
+(defun default-html-mode-hook ()
+  (setq company-backends '(company-dabbrev))
+  (set-pairs '("<" "{" "[" "\"" "\'")))
+
 ;; Ruby
 (add-hook 'ruby-mode-hook
           (lambda ()
@@ -46,14 +50,17 @@
 ;; CSS
 (add-hook 'css-mode-hook
           (lambda ()
+            (setq company-backends '(company-css))
+            (company-mode t)
+            (setq css-indent-level 2)
             (setq css-indent-offset 2)
             (set-pairs '("(" "[" "\"" "\'"))))
 
 ;; HTML
+(add-hook 'html-mode-hook 'default-html-mode-hook)
 (add-hook 'nxml-mode-hook
           (lambda ()
-            (set-pairs '("<" "{" "[" "\"" "\'"))
-            (setq css-indent-offset 2)))
+            (default-html-mode-hook)))
 
 ;; Org-mode
 (add-hook 'org-mode-hook
