@@ -34,7 +34,7 @@
 
      (preprocessor ((t (:foreground "Aquamarine"))))
      (highlighted ((t (:background "#606060"))))
-     (highlighted-line ((t (:background "#101010"))))
+     (highlighted-line ((t (:background "#000000"))))
      (important-region ((t (:background "#000000"))))
      (flashy-highlight ((t (:background "#6C6A41"))))
      (default ((t (:foreground "#F8F8F8"))))

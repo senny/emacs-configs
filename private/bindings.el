@@ -136,3 +136,6 @@
 
 ;; Textmate
 (global-set-key (kbd "M-t") 'textmate-goto-file)
+
+;;;; KEYMAPS
+(define-key ido-file-dir-completion-map (kbd "C-x C-r") 'senny-ido-rgrep)

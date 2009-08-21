@@ -1,8 +1,8 @@
 ;;(load "vendor/nxhtml/util/winsize")
 
-;; linum
+;;;; MISC
 (require 'linum)
-;; (global-linum-mode 1)
+(global-hl-line-mode t)
 
 ;; Aspell + Flyspell
 (setq ispell-program-name "aspell")
@@ -108,3 +108,11 @@
 (load "feature-mode")
 
 (vendor 'magit)
+
+;;;; iSearch
+(define-key isearch-mode-map (kbd "M-v") 'isearch-yank-kill)
+
+(require 'better-registers)
+(better-registers t)
+(better-registers-install-save-registers-hook)
+(load better-registers-save-file)
