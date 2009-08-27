@@ -12,7 +12,7 @@
 (setq default-frame-alist '((font ."-outline-Monaco-normal-normal-normal-*-13-*-*-*-p-*-iso8859-1")))
 
 ;;use replace the dos environment with cygwin
-;;(setenv "PATH" (concat "c:/cygwin/bin;" (getenv "PATH")))
+;; (setenv "PATH" (getenv "PATH"))
 ;;(setq exec-path (cons "c:/cygwin/bin/" exec-path))
 ;;(vendor 'cygwin-mount)
 ;;(cygwin-mount-activate)

@@ -1,4 +1,5 @@
-;;(load "vendor/nxhtml/util/winsize")
+(require 'winsize)
+(global-set-key (kbd "<f12>") 'resize-windows)
 
 ;;;; MISC
 (require 'linum)

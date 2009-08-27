@@ -14,6 +14,7 @@
 (define-key jde-mode-map (kbd "C-c o") 'senny-organize-imports)
 
 (add-to-list 'auto-mode-alist '("\\.jsp$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.java$" . java-mode))
 
 (defun jde-senny-organize-imports ()
   (save-excursion
