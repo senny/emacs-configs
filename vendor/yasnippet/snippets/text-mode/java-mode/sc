@@ -1,3 +1,0 @@
-#name : Scanner
-# --
-Scanner ${1:variable_name} = new Scanner($0);

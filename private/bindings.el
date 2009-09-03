@@ -103,7 +103,8 @@
 (global-set-key (kbd "C-c i") 'indent-buffer)
 
 ;; Window management
-(global-set-key [f1] 'resize-windows)
+(global-unset-key (kbd "M-4"))
+(global-set-key (kbd "M-4") 'resize-windows)
 (global-set-key (kbd "C-+") 'increase-font-size) ; increase the font-size
 (global-set-key (kbd "C-_") 'decrease-font-size) ; decrease the font-size
 

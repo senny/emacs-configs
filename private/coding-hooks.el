@@ -3,28 +3,29 @@
 (defun default-lisp-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
   (auto-complete-mode t)
-  (setq ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-words-in-buffer ac-source-symbols)))
-  ;; (setq company-backends '(company-elisp
-  ;;                          company-dabbrev-code))
-  ;; (company-mode t))
+  (setq ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-words-in-buffer ac-source-symbols))
+  (setq company-backends '(company-elisp
+                           company-dabbrev-code))
+  (company-mode t))
+
 
 
 (defun default-java-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'"))
-  ;; (setq company-backends '(company-dabbrev-code))
+  (setq company-backends '(company-dabbrev-code))
   ;; (company-mode t)
   (setq c-comment-continuation-stars "* ")
   (setq c-basic-offset 2))
 
 (defun default-html-mode-hook ()
-  ;; (setq company-backends '(company-dabbrev))
+  (setq company-backends '(company-dabbrev))
   (set-pairs '("<" "{" "[" "\"" "\'")))
 
 ;; Ruby
 (add-hook 'ruby-mode-hook
           (lambda ()
-            ;; (setq company-backends '(
-            ;;                          company-dabbrev-code))
+            (setq company-backends '(
+                                     company-dabbrev-code))
             ;; (company-mode t)
             ;; (setq ac-omni-completion-sources '(("\\.\\=" ac-source-rcodetools)))
             (auto-complete-mode t)
@@ -55,7 +56,7 @@
 ;; CSS
 (add-hook 'css-mode-hook
           (lambda ()
-            ;; (setq company-backends '(company-css))
+            (setq company-backends '(company-css))
             ;; (company-mode t)
             (setq css-indent-level 2)
             (setq css-indent-offset 2)
