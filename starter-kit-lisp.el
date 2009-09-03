@@ -8,11 +8,6 @@
 (define-key lisp-mode-shared-map (kbd "C-\\") 'lisp-complete-symbol)
 (define-key lisp-mode-shared-map (kbd "C-c v") 'eval-buffer)
 
-;; DO NOT USE PAREDIT
-(defun turn-on-paredit ()
-  ;; (paredit-mode t)
-  )
-
 ;; (eval-after-load 'paredit
 ;;      ;; Not sure why paredit behaves this way with comments; it's annoying
 ;;   '(define-key paredit-mode-map (kbd ";")   'self-insert-command))
@@ -84,7 +79,7 @@
   (add-hook
    (intern (concat (symbol-name x) "-mode-hook"))
    (lambda ()
-     (paredit-mode +1)
+     ;; (paredit-mode +1)
      (idle-highlight +1)
      (run-coding-hook))))
 

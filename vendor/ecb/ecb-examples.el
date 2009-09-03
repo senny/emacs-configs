@@ -2,14 +2,10 @@
 
 ;; Copyright (C) 2000 - 2005 Jesper Nordenberg,
 ;;                           Klaus Berndl,
-;;                           Kevin A. Burton,
 ;;                           Free Software Foundation, Inc.
 
-;; Author: Jesper Nordenberg <mayhem@home.se>
-;;         Klaus Berndl <klaus.berndl@sdm.de>
-;;         Kevin A. Burton <burton@openprivacy.org>
+;; Author: Klaus Berndl <klaus.berndl@sdm.de>
 ;; Maintainer: Klaus Berndl <klaus.berndl@sdm.de>
-;;             Kevin A. Burton <burton@openprivacy.org>
 ;; Keywords: browser, code, programming, tools
 ;; Created: 2002
 
@@ -26,7 +22,7 @@
 ;; GNU Emacs; see the file COPYING.  If not, write to the Free Software
 ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-;; $Id: ecb-examples.el,v 1.20 2005/06/20 14:34:20 berndl Exp $
+;; $Id: ecb-examples.el,v 1.26 2009/05/08 14:05:55 berndl Exp $
 
 ;;; Commentary:
 ;;
@@ -74,11 +70,101 @@
 ;; --- Code for the bufferinfo buffer ----------------------------------------
 ;; ---------------------------------------------------------------------------
 
+;; Normally we should have some options the user can customize
+
+;; Lets define an own customize-group
+(defgroup ecb-examples nil
+  "Settings for the bufferinfo example in the Emacs code browser."
+  :group 'ecb-examples-bufferinfo
+  :prefix "ecb-")
+
+;; The following three options are typical for a special ECB-buffer which
+;; should be synchronized with current buffer in the edit-area.
+
+;; The :type of the first two options is essential and MUST NOT be defined
+;; different, because the macro `defecb-autocontrol/sync-function' and the
+;; function `ecb-activate-ecb-autocontrol-function' expects exactly this
+;; option-type!
+
+;; An own hook running after synchronizing is not essential but mostly useful
+;; for users who wants to do some own stuff.
+
+(defcustom ecb-examples-bufferinfo-buffer-sync 'basic
+  "*Synchronize the bufferinfo buffer automatically with current edit buffer.
+
+If 'always then the synchronization takes place always a buffer changes in the
+edit window, if nil then never. If a list of major-modes then only if the
+`major-mode' of the new buffer belongs NOT to this list.
+
+If the special value 'basic is set then ECB uses the setting of the option
+`ecb-basic-buffer-sync'.
+
+IMPORTANT NOTE: Every time the synchronization is done the hook
+`ecb-bufferinfo-buffer-sync-hook' is evaluated."
+  :group 'ecb-examples-bufferinfo
+  :type '(radio :tag "Synchronize ECBs example bufferino buffer"
+                (const :tag "use basic value" :value basic)
+                (const :tag "Always" :value always)
+                (const :tag "Never" nil)
+                (repeat :tag "Not with these modes"
+                        (symbol :tag "mode"))))
+
+(defcustom ecb-examples-bufferinfo-buffer-sync-delay 'basic
+  "*Time Emacs must be idle before the bufferinfo-buffer is synchronized.
+Synchronizing is done with the current source displayed in the edit window. If
+nil then there is no delay, means synchronization takes place immediately. A
+small value of about 0.25 seconds saves CPU resources and you get even though
+almost the same effect as if you set no delay.
+
+If the special value 'basic is set then ECB uses the setting of the option
+`ecb-basic-buffer-sync-delay'"
+  :group 'ecb-analyse
+  :type '(radio (const :tag "use basic value" :value basic)
+                (const :tag "No synchronizing delay" :value nil)
+                (number :tag "Idle time before synchronizing" :value 2))
+  :set (function (lambda (symbol value)
+                   (set symbol value)
+                   (if (and (boundp 'ecb-minor-mode)
+                            (featurep 'ecb-examples)
+                            ecb-minor-mode)
+                       (ecb-activate-ecb-autocontrol-function
+                        value 'ecb-examples-bufferinfo-buffer-sync))))
+  :initialize 'custom-initialize-default)
+
+(defcustom ecb-examples-bufferinfo-buffer-sync-hook nil
+  "Hook run at the end of `ecb-examples-bufferinfo-buffer-sync'.
+See documentation of `ecb-examples-bufferinfo-buffer-sync' for conditions when
+synchronization takes place and so in turn these hooks are evaluated.
+
+Preconditions for such a hook:
+- Current buffer is the buffer of the currently selected
+  edit-window.
+- The bufferinfo-buffer is displayed in a visible window of the
+  ecb-frame \(so no check for visibilty of the bufferinfo-buffer in
+  the ecb-frame is necessary in a hook function)
+
+Postcondition for such a hook:
+Point must stay in the same edit-window as before evaluating the hook.
+
+Important note: If the option
+`ecb-examples-bufferinfo-buffer-sync' is not nil the function
+`ecb-examples-bufferinfo-buffer-sync' is running either every
+time Emacs is idle or even after every command \(see
+`ecb-examples-bufferinfo-buffer-sync-delay'). So if the
+bufferinfo-buffer is displayed in a window of the ecb-frame \(see
+preconditions above) these hooks can be really called very often!
+Therefore each function of this hook should/must check in an
+efficient way at beginning if its task have to be really
+performed and then do them only if really necessary! Otherwise
+performance of Emacs could slow down dramatically!"
+  :group 'ecb-analyse
+  :type 'hook)
+
+;; --------------- internals for bufferinfo-buffer -------------------
+
 
 (defconst ecb-examples-bufferinfo-buffer-name " *ECB buffer info*")
-(defvar ecb-examples-bufferinfo-last-file nil)
-
-
+(defvar ecb-examples-bufferinfo-last-file-buffer nil)
 
 ;; Two helper functions for displaying infos in a special buffer
 
@@ -108,49 +194,70 @@
     (insert "This is a not a filebuffer, so there are no\n")
     (insert "informations available.")))
 
+;; IMPORTANT: The main synchronizing function must be defined with the macro
+;; `defecb-autocontrol/sync-function'!
 
-
-;; The main synchronizing function which is added to
-;; `ecb-current-buffer-sync-hook' for autom. evaluation by
-;; `ecb-current-buffer-sync' which runs dependent on the values of
-;; `ecb-window-sync' and `ecb-window-sync-delay'.
-
-(defun ecb-examples-bufferinfo-sync ()
+(defecb-autocontrol/sync-function ecb-examples-bufferinfo-buffer-sync
+    ecb-examples-bufferinfo-buffer-name ecb-examples-bufferinfo-buffer-sync t
   "Synchronizes the buffer-info buffer with current source if changed.
 Can be called interactively but normally this should not be necessary because
-it will be called autom. with `ecb-current-buffer-sync-hook'."
-  (interactive)
+it will be called autom. by the internal synchronizing mechanism of ECB."
 
-  (ecb-do-if-buffer-visible-in-ecb-frame 'ecb-examples-bufferinfo-buffer-name
+  ;; The macro `defecb-autocontrol/sync-function' does a lot for our
+  ;; conveniance:
+  
+  ;; 1) here we can be sure that the buffer with name
+  ;; `ecb-examples-bufferinfo-buffer-name' is displayed in a window of
+  ;; `ecb-frame' because the macro `defecb-autocontrol/sync-function'
+  ;; encapsulates automatically the following code within
+  ;; `ecb-do-if-buffer-visible-in-ecb-frame' and this macro binds locally the
+  ;; variables visible-buffer and visible-window: visible-window:=
+  ;; (get-buffer-window ecb-examples-bufferinfo-buffer-name) visible-buffer:=
+  ;; (get-buffer ecb-examples-bufferinfo-buffer-name)
 
-    ;; here we can be sure that the buffer with name
-    ;; `ecb-examples-bufferinfo-buffer-name' is displayed in a window of
-    ;; `ecb-frame'.
+  ;; 2) The macro `defecb-autocontrol/sync-function' automatically takes care of
+  ;; the setting of option `ecb-examples-bufferinfo-buffer-sync' and runs the
+  ;; following code only when the related conditions are true
+
+  ;; 3) The generated function has one optional argument FORCE which can be used
+  ;; in the code below.
+  
+  ;; 4) The macro `defecb-autocontrol/sync-function' makes this synchronizing
+  ;; function interactive
+
+  ;; For details please read the documentation of
+  ;; `defecb-autocontrol/sync-function'!
+
+  ;; synchronize only when point stays in one of the edit-window.
+  (when (ecb-point-in-edit-window-number)
+
+    ;; we need the file-name of indirect-buffers too (if the base-buffer is a
+    ;; file-buffer), therefore we use `ecb-buffer-file-name' (see the docstring
+    ;; of this function)
+    (let ((filename (ecb-buffer-file-name (current-buffer))))
     
-    ;; The macro `ecb-do-if-buffer-visible-in-ecb-frame' binds locally the
-    ;; variables visible-buffer and visible-window:
-    ;; visible-window:= (get-buffer-window ecb-examples-bufferinfo-buffer-name)
-    ;; visible-buffer:= (get-buffer ecb-examples-bufferinfo-buffer-name)
+      (if (and filename (ecb-buffer-or-file-readable-p filename))
 
-    (let ((filename (buffer-file-name (current-buffer))))
-     
-      (if (and filename (file-readable-p filename))
+          ;; synchronizing for real filesource-buffers or indirect buffers of
+          ;; real file buffers
 
-          ;; synchronizing for real filesource-buffers
-            
-          ;; Let us be smart: We synchronize only if sourcebuffer has changed
-          (when (not (ecb-string= (ecb-fix-filename filename)
-                                  (ecb-fix-filename
-                                   ecb-examples-bufferinfo-last-file)))
-            ;; set new last-file-name so we can check next time if changed
-            (setq ecb-examples-bufferinfo-last-file filename)
-            ;; we display the file-infos for current source-file
-            (ecb-examples-print-file-attributes visible-buffer filename))
+            ;; Let us be smart: We synchronize only if sourcebuffer has changed
+            ;; or if the argument FORCE is not nil
+            (when (or force
+                      (not (equal (current-buffer)
+                                  ecb-examples-bufferinfo-last-file-buffer)))
+              ;; set new last-file-buffer so we can check next time if changed
+              (setq ecb-examples-bufferinfo-last-file-buffer (current-buffer))
+              ;; we display the file-infos for current source-buffer
+              (ecb-examples-print-file-attributes visible-buffer filename))
         
         ;; what should we do for non file buffers like help-buffers etc...
-        (setq ecb-examples-bufferinfo-last-file nil)
+        (setq ecb-examples-bufferinfo-last-file-buffer nil)
         (ecb-examples-print-non-filebuffer visible-buffer
-                                           (buffer-name (current-buffer)))))))
+                                           (buffer-name (current-buffer)))))
+
+    ;; Now lets run the hooks in `ecb-examples-bufferinfo-buffer-sync-hook'
+    (run-hooks 'ecb-examples-bufferinfo-buffer-sync-hook)))
 
 
 ;; Two conveniance-commands for the user
@@ -175,7 +282,17 @@ also if the ECB-analyse-window is not visible in current layout."
 (defecb-window-dedicator ecb-examples-set-bufferinfo-buffer
     ecb-examples-bufferinfo-buffer-name
   "Set the buffer in the current window to the bufferinfo-buffer and make this
-window dedicated for this buffer."
+window dedicated for this buffer. Makes the buffer read-only."
+  ;; activating the synchronization of the bufferinfo-window:
+  ;; `ecb-activate-ecb-autocontrol-function' takes care of the possible
+  ;; settings in `ecb-examples-bufferinfo-buffer-sync-delay'. Therefore we do
+  ;; it here because then changes in ecb-examples-bufferinfo-buffer-sync-delay
+  ;; are taken into account each time the bufferinfo buffer is set in the
+  ;; layout (after each hiding/showing the ecb-window, each redrawing the
+  ;; layout deactivating/activating ECB)
+  (ecb-activate-ecb-autocontrol-function ecb-examples-bufferinfo-buffer-sync-delay
+                                         'ecb-examples-bufferinfo-buffer-sync)
+  
   (switch-to-buffer (get-buffer-create ecb-examples-bufferinfo-buffer-name))
   (setq buffer-read-only t))
 
@@ -250,13 +367,14 @@ Otherwise nothing will be done."
   (interactive "e")
   (mouse-set-point e)
   (let ((line (ecb-buffer-substring (ecb-line-beginning-pos) (ecb-line-end-pos))))
-    (cond ((string-match "prior" line)
-           (ecb-select-edit-window)
-           (call-interactively 'scroll-down))
-          ((string-match "next" line)
-           (ecb-select-edit-window)
-           (call-interactively 'scroll-up))
-          (t nil))))
+    (save-match-data
+      (cond ((string-match "prior" line)
+             (ecb-select-edit-window)
+             (call-interactively 'scroll-down))
+            ((string-match "next" line)
+             (ecb-select-edit-window)
+             (call-interactively 'scroll-up))
+            (t nil)))))
 
 
 ;; Two conveniance-commands for the user
@@ -380,8 +498,7 @@ window/buffer of a layout."
 
 (defun ecb-examples-activate ()
   "Activate the new layout \"example-layout1\".
-Add `ecb-examples-bufferinfo-sync' to `ecb-current-buffer-sync-hook', set
-`ecb-compile-window-height' to 5 and `ecb-windows-height' to 6. The
+Set `ecb-compile-window-height' to 5 and `ecb-windows-height' to 6. The
 preactivation-state is saved and will be restored by
 `ecb-examples-deactivate'."
   (interactive)
@@ -395,10 +512,6 @@ preactivation-state is saved and will be restored by
   (assert (not (ecb-string= ecb-layout-name "example-layout1")) nil
           "The examples-layout1 is already active!")
   
-  ;; activating the synchronization of the bufferinfo-window
-  (add-hook 'ecb-current-buffer-sync-hook
-            'ecb-examples-bufferinfo-sync)
-  
   ;; saving the state
   (ecb-examples-preactivation-state 'save)
 
@@ -406,16 +519,20 @@ preactivation-state is saved and will be restored by
   (setq ecb-windows-height 6)
   (setq ecb-compile-window-height 8)
   (let ((ecb-change-layout-preserves-compwin-state nil))
+    ;; activating the synchronization of the bufferinfo-window is done in the
+    ;; dedicator-function (see `ecb-examples-set-bufferinfo-buffer' for the
+    ;; reason). So the synchronizing will be activated implicitly with the
+    ;; layout-switch because this redraws the layout and this calls all
+    ;; dedicator-functions.
     (ecb-layout-switch "example-layout1")))
-
 
 
 ;; Deactivation of the example
 
 (defun ecb-examples-deactivate ()
   "Deactivate the new layout \"example-layout1\".
-Remove `ecb-examples-bufferinfo-sync' from `ecb-current-buffer-sync-hook' and
-restore the state as before activation."
+Stops `ecb-examples-bufferinfo-buffer-sync' and restore the state
+as before activation."
   (interactive)
 
   (assert (featurep 'ecb) nil
@@ -427,9 +544,10 @@ restore the state as before activation."
   (assert (ecb-string= ecb-layout-name "example-layout1") nil
           "The example-layout1 is not active!")
   
-  (remove-hook 'ecb-current-buffer-sync-hook
-               'ecb-examples-bufferinfo-sync)
+  (ecb-stop-autocontrol/sync-function 'ecb-examples-bufferinfo-buffer-sync)
+  
   (ecb-examples-preactivation-state 'restore)
+  
   (ecb-layout-switch ecb-layout-name))
   
 

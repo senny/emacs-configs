@@ -86,7 +86,7 @@
                                      (textmate-clear-cache
                                       ,(kbd "A-M-t") [(control c)(control t)])
                                      (align
-                                      ,(kbd "A-M-]") [(control c)(control a)])
+                                      ,(kbd "A-M-]") nil)
                                      (indent-according-to-mode
                                       ,(kbd "A-M-[") nil)
                                      (textmate-shift-right

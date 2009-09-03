@@ -204,10 +204,17 @@ is a comment, uncomment."
       (company-complete-common)
     (indent-according-to-mode)))
 
-
 (defun senny-ido-rgrep ()
   (interactive)
   (let ((enable-recursive-minibuffers t))
     (grep (concat "grep -rnH " (read-string "Pattern: ") " " (directory-file-name ido-current-directory)))
     (switch-to-buffer "*grep*" nil t)
     (keyboard-escape-quit)))
+
+(defun senny-w32-explorer-open ()
+  "Launch the windows explorer in the current directory and selects current file"
+  (interactive)
+  (w32-shell-execute
+   "open"
+   "explorer"
+   (concat "/e,/select," (convert-standard-filename buffer-file-name))))
