@@ -80,6 +80,7 @@
 (setq auto-mode-alist
       (cons '("\\.applescript$" . applescript-mode) auto-mode-alist))
 
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
