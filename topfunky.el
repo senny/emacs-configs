@@ -29,6 +29,15 @@
 ;; Clojure
 ;;(eval-after-load 'clojure-mode '(clojure-slime-config))
 
+;; Plain Text
+;;; Stefan Monnier <foo at acm.org>. It is the opposite of 
+;;; fill-paragraph. Takes a multi-line paragraph and makes 
+;;; it into a single line of text.
+(defun unfill-paragraph ()
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil)))
+
 ;; Snippets
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/yasnippet.el"))
 (require 'yasnippet)
