@@ -77,6 +77,7 @@
 
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.mdown\\'" . markdown-mode))
 
 (require 'haml-mode)
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
@@ -441,8 +442,8 @@
      (ruler-mode-tab-stop-face ((t (:box (:color "grey76" :line-width 1 :style released-button) :background "grey76" :stipple nil :inverse-video nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal :family "Inconsolata" :foreground "steelblue"))))
      (scroll-bar ((t (nil))))
      (secondary-selection ((t (:background "Aquamarine" :foreground "SlateBlue"))))
-     (show-paren-match-face ((t (:bold t :foreground "#ffffbb" :weight bold))))
-     (show-paren-mismatch-face ((t (:foreground "Red"))))
+     (show-paren-match-face ((t (:bold t :foreground "#ffffbb" :background "black" :weight bold))))
+     (show-paren-mismatch-face ((t (:foreground "Red" :background "black"))))
      (swbuff-current-buffer-face ((t (:bold t :foreground "red" :weight bold))))
      (text-cursor ((t (:background "Red" :foreground "white"))))
      (tool-bar ((t (:background "grey75" :foreground "black" :box (:line-width 1 :style released-button)))))
