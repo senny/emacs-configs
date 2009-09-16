@@ -52,7 +52,7 @@
 
 (when (vendor 'auto-complete)
   ;;(require 'auto-complete-yasnippet)
-  (require 'auto-complete-ruby)
+  ;;(require 'auto-complete-ruby)
   (require 'auto-complete-css)
 
   (define-key ac-complete-mode-map "\t" 'ac-expand)
