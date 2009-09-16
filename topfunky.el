@@ -26,6 +26,9 @@
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
 
+(setq default-tab-width 2)
+(setq tab-width 2)
+
 ;; Clojure
 ;;(eval-after-load 'clojure-mode '(clojure-slime-config))
 
@@ -66,6 +69,12 @@
 (define-key rinari-minor-mode-map [(control meta shift left)] 'rinari-find-controller)
 (define-key rinari-minor-mode-map [(control meta shift up)] 'rinari-find-model)
 (define-key rinari-minor-mode-map [(control meta shift right)] 'rinari-find-view)
+
+(defun rake-generate-html ()
+  (interactive)
+  (rake "generate_html"))
+(global-set-key [(meta shift r)] 'rake-generate-html)
+
 
 (autoload 'applescript-mode "applescript-mode" "major mode for editing AppleScript source." t)
 (setq auto-mode-alist
