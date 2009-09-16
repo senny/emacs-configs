@@ -116,7 +116,7 @@
             (local-set-key (kbd "C-c <up>")    'hs-hide-all)
             (local-set-key (kbd "C-c <down>")  'hs-show-all)
             (hs-minor-mode t)))         ; Hide and show blocks
-
+(add-to-list 'auto-mode-alist '("\\.h\\'" . objc-mode))
 (require 'objj-mode)
 
 ;; org-mode
