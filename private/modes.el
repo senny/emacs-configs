@@ -50,6 +50,7 @@
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 (setq org-agenda-clockreport-parameter-plist (quote (:link nil :maxlevel 3 :emphasize t)))
 (setq org-clock-persist t)
+(setq org-clock-out-when-done nil)
 
 ;; nxml
 (add-hook 'nxml-completion-hook 'rng-complete nil t)
@@ -118,6 +119,9 @@
 (better-registers t)
 (better-registers-install-save-registers-hook)
 (load better-registers-save-file)
+
+;;;; Batch
+(vendor 'batch-mode)
 
 ;;;; CSS
 ;; (defconst css-validator (concat "java"))
