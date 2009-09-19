@@ -41,6 +41,11 @@
   (let ((fill-column (point-max)))
     (fill-paragraph nil)))
 
+(defun refresh-file ()
+  (interactive)
+  (revert-buffer t t t))
+(global-set-key [f5] 'refresh-file)
+
 ;; Snippets
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/yasnippet.el"))
 (require 'yasnippet)
