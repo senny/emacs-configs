@@ -1,3 +1,0 @@
-#name : Boolean instance variable
-# --
-private boolean ${1:variable_value} = ${2:true};

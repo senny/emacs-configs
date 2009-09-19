@@ -46,9 +46,11 @@
   (let (org-log-done org-log-states)    ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
+(org-clock-persistence-insinuate)
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 (setq org-agenda-clockreport-parameter-plist (quote (:link nil :maxlevel 3 :emphasize t)))
-
+(setq org-clock-persist t)
+(setq org-clock-out-when-done nil)
 
 ;; nxml
 (add-hook 'nxml-completion-hook 'rng-complete nil t)
@@ -117,3 +119,21 @@
 (better-registers t)
 (better-registers-install-save-registers-hook)
 (load better-registers-save-file)
+
+;;;; Batch
+(vendor 'batch-mode)
+
+;;;; CSS
+;; (defconst css-validator (concat "java"))
+
+;; (defun flymake-css-init ()
+;;   (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+;;                        'flymake-create-temp-inplace))
+;;          (local-file  (file-relative-name
+;;                        temp-file
+;;                        (file-name-directory buffer-file-name))))
+;;     (list css-validator (list "-jar C:\\Users\\senny\\coding\\java\\libraries\\css-validator\\css-validator.jar" "-output gnu" (concat "file:" local-file)))))
+
+;; (push '(".+\\.css$" flymake-css-init) flymake-allowed-file-name-masks)
+
+;; (push '("^file:\\([^:]+\\):\\([^:]+\\):\\(.*\\)" 1 2 nil 3) flymake-err-line-patterns)
