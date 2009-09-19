@@ -33,8 +33,8 @@
 ;;(eval-after-load 'clojure-mode '(clojure-slime-config))
 
 ;; Plain Text
-;;; Stefan Monnier <foo at acm.org>. It is the opposite of 
-;;; fill-paragraph. Takes a multi-line paragraph and makes 
+;;; Stefan Monnier <foo at acm.org>. It is the opposite of
+;;; fill-paragraph. Takes a multi-line paragraph and makes
 ;;; it into a single line of text.
 (defun unfill-paragraph ()
   (interactive)
@@ -103,6 +103,17 @@
 
 ;; XCODE
 (require 'objc-c-mode)
+(defconst my-objc-style
+  '(("objc" ()
+     "My ObjC style")))
+(defun my-objc-mode-hook ()
+  (c-add-style "objc" my-objc-style)
+  (c-set-offset 'substatement-open 0))
+(add-hook 'objc-mode-hook 'my-objc-mode-hook)
+
+;; (setq c-default-style "bsd"
+;;       c-basic-offset 4)
+
 (require 'xcode)
 (define-key objc-mode-map [(meta r)] 'xcode-compile)
 (define-key objc-mode-map [(meta K)] 'xcode-clean)
