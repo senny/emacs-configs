@@ -5,11 +5,9 @@
 ;;                           Kevin A. Burton,
 ;;                           Free Software Foundation, Inc.
 
-;; Author: Jesper Nordenberg <mayhem@home.se>
-;;         Klaus Berndl <klaus.berndl@sdm.de>
+;; Author: Klaus Berndl <klaus.berndl@sdm.de>
 ;;         Kevin A. Burton <burton@openprivacy.org>
 ;; Maintainer: Klaus Berndl <klaus.berndl@sdm.de>
-;;             Kevin A. Burton <burton@openprivacy.org>
 ;; Keywords: browser, code, programming, tools
 ;; Created: 2001
 
@@ -26,7 +24,7 @@
 ;; GNU Emacs; see the file COPYING.  If not, write to the Free Software
 ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-;; $Id: ecb-help.el,v 1.110 2005/02/28 11:31:57 berndl Exp $
+;; $Id: ecb-help.el,v 1.117 2009/05/09 15:23:50 berndl Exp $
 
 ;;; Commentary:
 ;;
@@ -192,21 +190,23 @@ HTML-online-documentation is not included."
                                            '("html" "info"))))
              ecb-show-help-format))
         (info-path-abs (expand-file-name
-                        (if (or (string-match "^\\." ecb-help-info-path)
-                                (string-match (concat "^"
-                                                      (regexp-quote
-                                                       ecb-help-info-start-file))
-                                              ecb-help-info-path))
-                            (concat ecb-ecb-dir ecb-help-info-path)
-                          ecb-help-info-path)))
+                        (save-match-data
+                          (if (or (string-match "^\\." ecb-help-info-path)
+                                  (string-match (concat "^"
+                                                        (regexp-quote
+                                                         ecb-help-info-start-file))
+                                                ecb-help-info-path))
+                              (concat ecb-ecb-dir ecb-help-info-path)
+                            ecb-help-info-path))))
         (html-path-abs (expand-file-name
-                        (if (or (string-match "^\\." ecb-help-html-path)
-                                (string-match (concat "^"
-                                                      (regexp-quote
-                                                       ecb-help-html-start-file))
-                                              ecb-help-html-path))
-                            (concat ecb-ecb-dir ecb-help-html-path)
-                          ecb-help-html-path))))
+                        (save-match-data
+                          (if (or (string-match "^\\." ecb-help-html-path)
+                                  (string-match (concat "^"
+                                                        (regexp-quote
+                                                         ecb-help-html-start-file))
+                                                ecb-help-html-path))
+                              (concat ecb-ecb-dir ecb-help-html-path)
+                            ecb-help-html-path)))))
     (if (equal f 'info)
         (ecb-info info-path-abs)
       (message "Opening ECB online-help in a web-browser...")
@@ -241,7 +241,7 @@ this."
   (when (or ecb-minor-mode
             (y-or-n-p "ECB should be active when submitting a problem-report. Force report? "))
     (if (and (equal ecb-frame (selected-frame))
-             (not (ecb-point-in-edit-window)))
+             (not (ecb-point-in-edit-window-number)))
         (ecb-select-edit-window))
     (if (not (locate-library "reporter"))
         (ecb-error "You need the reporter.el package to submit a bugreport for ECB!")
@@ -251,8 +251,9 @@ this."
         ;;prepare the basic buffer
         (reporter-submit-bug-report
          ecb-problem-report-mail-address
-         (format "ECB: %s, semantic: %s, eieio: %s, speedbar: %s, JDEE: %s"
+         (format "ECB: %s, CEDET: %s, semantic: %s, eieio: %s, speedbar: %s, JDEE: %s"
                  ecb-version
+                 cedet-version
                  semantic-version
                  eieio-version
                  speedbar-version
@@ -290,8 +291,9 @@ a backtrace-buffer and inserts the contents of that."
     ;; ecb-faces
     (let ((ecb-face-list (delq nil (mapcar (function
                                             (lambda (f)
-                                              (if (string-match "^ecb-"
-                                                                (symbol-name f))
+                                              (if (save-match-data
+                                                    (string-match "^ecb-"
+                                                                  (symbol-name f)))
                                                   f
                                                 nil)))
                                            (face-list)))))
@@ -317,9 +319,9 @@ a backtrace-buffer and inserts the contents of that."
       (if tag-dump-buffer
           (progn
             (insert "The contents of the *ecb-tag-dump* buffer were\n\n")
-	    (insert-buffer tag-dump-buffer)
+	    (insert-buffer-substring tag-dump-buffer)
             ;; we must force the mark
-	    (goto-char (mark t))
+	    ;;(goto-char (mark t))
             (insert "\nEnd Insert *ecb-tag-dump* buffer" ))
         (insert "There was no *ecb-tag-dump* buffer" ))
       (insert "\n-----------------------------------------------------\n\n")
@@ -329,7 +331,7 @@ a backtrace-buffer and inserts the contents of that."
 ;;       (if tag-dump-buffer
 ;;           (progn
 ;;             (insert "The contents of the *ecb-tag-dump* buffer were\n\n")
-;; 	    (insert-buffer tag-dump-buffer)
+;; 	    (insert-buffer-substring tag-dump-buffer)
 ;;             ;; we must force the mark
 ;; 	    (goto-char (mark t))
 ;;             (insert "\nEnd Insert *ecb-tag-dump* buffer" ))
@@ -341,9 +343,9 @@ a backtrace-buffer and inserts the contents of that."
       (if backtrace-buffer
           (progn
             (insert "The contents of the *Backtrace* buffer were\n\n")
-	    (insert-buffer backtrace-buffer)
+	    (insert-buffer-substring backtrace-buffer)
             ;; we must force the mark
-	    (goto-char (mark t))
+	    ;;(goto-char (mark t))
             (insert "\nEnd Insert *Backtrace* buffer" ))
         (insert "There was no *Backtrace* buffer" ))
       (insert "\n-----------------------------------------------------\n\n")
@@ -353,8 +355,8 @@ a backtrace-buffer and inserts the contents of that."
       (if messages-buffer
           (progn
             (insert "The contents of the *Messages* buffer were\n\n")
-	    (insert-buffer messages-buffer)
-	    (goto-char (mark t))
+	    (insert-buffer-substring messages-buffer)
+	    ;;(goto-char (mark t))
             (insert "\nEnd Insert *Messages* buffer" ))
         (insert "There was no *Messages* buffer" ))
       (insert  "\n-----------------------------------------------------\n\n"))))
@@ -398,9 +400,7 @@ could be interesting for support."
         (semantic-vars (sort (delete nil
                                      `(semantic-after-toplevel-cache-change-hook
                                        semantic-after-partial-cache-change-hook
-                                       ,(if (boundp 'semantic-format-face-alist)
-                                            'semantic-format-face-alist
-                                          'semantic-face-alist)
+                                       semantic-format-face-alist
                                        semantic-uml-colon-string
                                        semantic-orphaned-member-metaparent-type))
                              (function (lambda (l r)
@@ -426,15 +426,24 @@ could be interesting for support."
         (ecb-internal-vars (sort '(ecb-path-selected-directory
                                    ecb-path-selected-source
                                    ecb-use-semantic-grouping
+                                   ecb-autocontrol/sync-fcn-register
                                    ecb-idle-timer-alist
                                    ecb-post-command-hooks
+                                   ecb-pre-command-hooks
                                    ecb-max-specpdl-size-old
                                    ecb-max-lisp-eval-depth-old
                                    ecb-minor-mode
+                                   ecb-adviced-function-sets
+                                   ecb-adviced-functions
                                    ecb-last-window-config-before-deactivation
                                    ecb-edit-area-creators
+                                   ecb-stealthy-function-list
+                                   ecb-stealthy-function-state-alist
                                    ecb-windows-hidden
                                    ecb-toggle-layout-state
+                                   ecb-tree-buffer-creators
+                                   ecb-tree-buffers
+                                   ecb-buffer-setfunction-registration
                                    ecb-current-maximized-ecb-buffer-name
                                    ecb-special-ecb-buffers-of-current-layout)
                                  (function (lambda (l r)

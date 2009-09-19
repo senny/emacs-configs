@@ -26,5 +26,5 @@
           (lambda ()
             (define-prefix-command 'windows-key-map)
             (global-set-key (kbd "M-w") 'windows-key-map)
-            (define-key windows-key-map (kbd "e") 'w32shell-explorer-here)
+            (define-key windows-key-map (kbd "e") 'senny-w32-explorer-open)
             (define-key windows-key-map (kbd "c") 'w32shell-cmd-here)))

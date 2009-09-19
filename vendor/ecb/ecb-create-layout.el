@@ -5,11 +5,8 @@
 ;;                           Kevin A. Burton,
 ;;                           Free Software Foundation, Inc.
 
-;; Author: Jesper Nordenberg <mayhem@home.se>
-;;         Klaus Berndl <klaus.berndl@sdm.de>
-;;         Kevin A. Burton <burton@openprivacy.org>
+;; Author: Klaus Berndl <klaus.berndl@sdm.de>
 ;; Maintainer: Klaus Berndl <klaus.berndl@sdm.de>
-;;             Kevin A. Burton <burton@openprivacy.org>
 ;; Keywords: browser, code, programming, tools
 ;; Created: 2002
 
@@ -26,7 +23,7 @@
 ;; GNU Emacs; see the file COPYING.  If not, write to the Free Software
 ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-;; $Id: ecb-create-layout.el,v 1.32 2005/05/23 15:49:15 berndl Exp $
+;; $Id: ecb-create-layout.el,v 1.36 2009/05/15 16:40:05 berndl Exp $
 
 ;;; Commentary:
 ;;
@@ -275,9 +272,10 @@ DELETE-FRAME is not nil then the new created frame will be deleted and the
   (ad-disable-advice 'delete-frame 'before 'ecb-create-layout)
   (ad-activate 'delete-frame)
   ;; killing all white-space-filled layout-buffers
-  (dolist (b (buffer-list ecb-create-layout-frame))
-    (if (string-match "^ \\*ECB-LC-" (buffer-name b))
-        (kill-buffer b)))
+  (save-match-data
+    (dolist (b (buffer-list ecb-create-layout-frame))
+      (if (string-match "^ \\*ECB-LC-" (buffer-name b))
+          (kill-buffer b))))
   ;; restore the global-map
   (if (keymapp ecb-create-layout-old-global-map)
       (use-global-map ecb-create-layout-old-global-map))
@@ -462,8 +460,6 @@ DELETE-FRAME is not nil then the new created frame will be deleted and the
                                           "Insert the buffer type"))))
       ;; removing the new buffer type from the available-list
       (ecb-create-layout-remove-from-buf-type new-type)
-      ;; TODO: Klaus Berndl <klaus.berndl@sdm.de>: Fix this - it seems not
-      ;; work anymore!!!
       (ecb-mode-line-set (buffer-name (current-buffer))
                          (selected-frame)
                          (concat "ECB " new-type) nil t)
@@ -511,10 +507,11 @@ DELETE-FRAME is not nil then the new created frame will be deleted and the
                 (ecb-create-layout-split-hor fraction)
               (ecb-create-layout-split-ver fraction))))
       ;; creating new fitting buffers
-      (save-selected-window
-        (ecb-create-layout-new-buffer)
-        (select-window (next-window))
-        (ecb-create-layout-new-buffer))
+      (ecb-create-layout-new-buffer)
+       (save-excursion
+         (save-selected-window
+           (select-window (next-window))
+           (ecb-create-layout-new-buffer)))
       ;; asking for the buffer type
       (ecb-create-layout-set-buffer-factor real-split-factor)
       (ecb-create-layout-gen-lisp-for-buffer-type
@@ -671,9 +668,7 @@ never selects the edit-window."
   (setq major-mode 'ecb-create-layout-mode)
   (setq mode-name "ECB Create-Layout")
   (use-local-map ecb-create-layout-mode-map)
-  (make-variable-buffer-local 'buffer-read-only)
-  ;; TODO: Klaus Berndl <klaus.berndl@sdm.de>: Scheint nicht mehr zu
-  ;; funktionieren.
+  (make-local-variable 'buffer-read-only)
   (ecb-mode-line-set (buffer-name (current-buffer))
                      (selected-frame) "" nil t)
   (setq buffer-read-only t))
@@ -703,8 +698,6 @@ never selects the edit-window."
                 ecb-create-layout-help-text-top
               ecb-create-layout-help-text-left-right)))
   (setq ecb-create-layout-edit-window (selected-window))
-  ;; TODO: Klaus Berndl <klaus.berndl@sdm.de>: Scheint nicht mehr zu
-  ;; funktionieren.
   (ecb-mode-line-set (buffer-name (current-buffer))
                      (selected-frame) "   ECB edit-window" nil t)
   ;; The edit window must not be dedicated
@@ -817,9 +810,10 @@ unbound."
   (ecb-load-layouts)
   (let ((new-layout-list
          (sort (ecb-set-difference (ecb-available-layouts-of-type nil)
-                               (mapcar (function (lambda (elem)
-                                                   (car elem)))
-                                       ecb-buildin-layouts))
+                                   (mapcar (function (lambda (elem)
+                                                       (car elem)))
+                                           ecb-buildin-layouts)
+                                   'member)
                'ecb-string<))
         (layout-name nil))
     (if (= (length new-layout-list) 0)

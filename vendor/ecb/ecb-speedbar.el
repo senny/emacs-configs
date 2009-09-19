@@ -5,11 +5,9 @@
 ;;                           Kevin A. Burton,
 ;;                           Free Software Foundation, Inc.
 
-;; Author: Jesper Nordenberg <mayhem@home.se>
-;;         Klaus Berndl <klaus.berndl@sdm.de>
+;; Author: Klaus Berndl <klaus.berndl@sdm.de>
 ;;         Kevin A. Burton <burton@openprivacy.org>
 ;; Maintainer: Klaus Berndl <klaus.berndl@sdm.de>
-;;             Kevin A. Burton <burton@openprivacy.org>
 ;; Keywords: browser, code, programming, tools
 ;; Created: 2002
 
@@ -26,7 +24,7 @@
 ;; GNU Emacs; see the file COPYING.  If not, write to the Free Software
 ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-;; $Id: ecb-speedbar.el,v 1.66 2005/04/19 15:26:22 berndl Exp $
+;; $Id: ecb-speedbar.el,v 1.73 2009/05/08 14:05:55 berndl Exp $
 
 ;;; Commentary:
 
@@ -68,7 +66,7 @@
 
 (require 'speedbar)
 (require 'ecb-util)
-(require 'ecb-semantic-wrapper)
+(require 'ecb-cedet-wrapper)
 (require 'ecb-common-browser)
 
 (eval-when-compile
@@ -97,17 +95,80 @@ Example: \(speedbar-change-initial-expansion-list \"buffers\")."
   :group 'ecb-speedbar
   :type 'hook)
 
-(defconst ecb-speedbar-adviced-functions '((speedbar-click . around)
-                                           (speedbar-frame-mode . around)
-                                           (dframe-select-attached-frame . after)
-                                           (speedbar-get-focus . around)
-                                           ;; we have to fix a bug there
-                                           (dframe-mouse-set-point . around))
-  "These functions of speedbar are always adviced if ECB is active. Each
-element of the list is a cons-cell where the car is the function-symbol and
-the cdr the advice-class \(before, around or after). If a function should be
-adviced with more than one class \(e.g. with a before and an after-advice)
-then for every class a cons must be added to this list.")
+(defcustom ecb-speedbar-buffer-sync 'basic
+  "*Synchronize the speedbar-buffer of ECB automatically with current
+edit buffer.
+
+If 'always then the synchronization takes place always a buffer changes in the
+edit window, if nil then never. If a list of major-modes then only if the
+`major-mode' of the new buffer belongs NOT to this list.
+
+If the special value 'basic is set then ECB uses the setting of the option
+`ecb-basic-buffer-sync'.
+
+IMPORTANT NOTE: Every time the synchronization is done the hook
+`ecb-speedbar-buffer-sync-hook' is evaluated."
+  :group 'ecb-speedbar
+  :type '(radio :tag "Synchronize ECBs speedbar buffer"
+                (const :tag "Use basic value" :value basic)
+                (const :tag "Always" :value always)
+                (const :tag "Never" nil)
+                (repeat :tag "Not with these modes"
+                        (symbol :tag "mode"))))
+    
+
+(defcustom ecb-speedbar-buffer-sync-delay 'basic
+  "*Time Emacs must be idle before the speedbar-buffer of ECB is synchronized.
+Synchronizing is done with the current source displayed in the edit window. If
+nil then there is no delay, means synchronization takes place immediately. A
+small value of about 0.25 seconds saves CPU resources and you get even though
+almost the same effect as if you set no delay.
+
+If the special value 'basic is set then ECB uses the setting of the option
+`ecb-basic-buffer-sync-delay'."
+  :group 'ecb-speedbar
+  :type '(radio (const :tag "Use basic value" :value basic)
+                (const :tag "No synchronizing delay" :value nil)
+                (number :tag "Idle time before synchronizing" :value 2))
+  :set (function (lambda (symbol value)
+                   (set symbol value)
+                   (if (and (boundp 'ecb-minor-mode)
+                            ecb-minor-mode)
+                       (ecb-activate-ecb-autocontrol-function
+                        value 'ecb-analyse-buffer-sync))))
+  :initialize 'custom-initialize-default)
+  
+(defcustom ecb-speedbar-buffer-sync-hook nil
+  "Hook run at the end of `ecb-speedbar-buffer-sync'.
+See documentation of `ecb-speedbar-buffer-sync' for conditions when
+synchronization takes place and so in turn these hooks are evaluated.
+
+Preconditions for such a hook:
+- Current buffer is the buffer of the currently selected
+  edit-window.
+- The speedbar-buffer is displayed in a visible window of the
+  ecb-frame \(so no check for visibilty of the speedbar-buffer in
+  the ecb-frame is necessary in a hook function)
+
+Postcondition for such a hook:
+Point must stay in the same edit-window as before evaluating the hook.
+
+Important note: If the option `ecb-speedbar-buffer-sync' is not
+nil the function `ecb-speedbar-buffer-sync' is running either
+every time Emacs is idle or even after every command \(see
+`ecb-speedbar-buffer-sync-delay'). So if the speedbar-buffer is
+displayed in a window of the ecb-frame \(see preconditions above)
+these hooks can be really called very often! Therefore each
+function of this hook should/must check in an efficient way at
+beginning if its task have to be really performed and then do
+them only if really necessary! Otherwise performance of Emacs
+could slow down dramatically!"
+  :group 'ecb-speedbar
+  :type 'hook)
+
+
+(defecb-advice-set ecb-speedbar-adviced-functions 
+  "These functions of speedbar are always adviced if ECB is active.")
 
 (defconst ecb-speedbar-buffer-name " SPEEDBAR"
   "Name of the ECB speedbar buffer.")
@@ -115,7 +176,7 @@ then for every class a cons must be added to this list.")
 (defun ecb-speedbar-buffer-selected ()
   (equal (current-buffer) (get-buffer ecb-speedbar-buffer-name)))
 
-(defadvice speedbar-click (around ecb)
+(defecb-advice speedbar-click around ecb-speedbar-adviced-functions
   "Makes the function compatible with ECB. If ECB is active and the window of
 `ecb-speedbar-buffer-name' is visible \(means a layouts uses the
 speedbar-integration) and the clicked node in speedbar is a file then the
@@ -138,7 +199,7 @@ after clicking onto a filename in the speedbar."
         (ecb-select-edit-window))))
 
 
-(defadvice speedbar-frame-mode (around ecb)
+(defecb-advice speedbar-frame-mode around ecb-speedbar-adviced-functions
   "During running speedbar within ECB this command is disabled!"
   (if ecb-minor-mode
       (when (interactive-p)
@@ -146,7 +207,7 @@ after clicking onto a filename in the speedbar."
     ad-do-it))
 
 
-(defadvice speedbar-get-focus (around ecb)
+(defecb-advice speedbar-get-focus around ecb-speedbar-adviced-functions
   "During running speedbar within ECB this function behaves like follows:
 Change window focus to or from the ECB-speedbar-window. If the selected window
 is not speedbar-window, then the speedbar-window is selected. If the
@@ -160,7 +221,7 @@ speedbar-window is active, then select the edit-window."
 ;; Klaus Berndl <klaus.berndl@sdm.de>: This implementation is done to make
 ;; clear where the bug is fixed...a better impl. can be seen in
 ;; tree-buffer-mouse-set-point (does the same but better code - IMHO).
-(defadvice dframe-mouse-set-point (around ecb)
+(defecb-advice dframe-mouse-set-point around ecb-speedbar-adviced-functions
   "Fixes a bug in the original implementation: if clicked onto an image then
 the point was not set by `mouse-set-point'."
   (if (and (fboundp 'event-over-glyph-p) (event-over-glyph-p e))
@@ -181,7 +242,7 @@ the point was not set by `mouse-set-point'."
 ;; inline compiled into all users of this function. So our advice would never
 ;; take effect. But dframe-select-attached-frame is a defun so we can advice
 ;; it!
-(defadvice dframe-select-attached-frame (after ecb)
+(defecb-advice dframe-select-attached-frame after ecb-speedbar-adviced-functions
   "Run `ecb-speedbar-dframe-select-attached-window' but only if
 `dframe-after-select-attached-frame-hook' is not available."
   (unless (boundp 'dframe-after-select-attached-frame-hook)
@@ -194,7 +255,9 @@ the point was not set by `mouse-set-point'."
              (equal (window-buffer ecb-last-edit-window-with-point)
                     ecb-last-source-buffer))
     (select-window ecb-last-edit-window-with-point)
-    (set-buffer ecb-last-source-buffer)))
+    (set-buffer ecb-last-source-buffer)
+;;     nil
+    ))
 
 (defun ecb-speedbar-select-speedbar-window ()
   (ignore-errors
@@ -212,6 +275,7 @@ the point was not set by `mouse-set-point'."
 
 (defvar ecb-speedbar-verbosity-level-old nil)
 (defvar ecb-speedbar-select-frame-method-old nil)
+(defvar ecb-speedbar-update-flag-old -1)
 
 (defun ecb-speedbar-activate()
   "Make sure the speedbar is running. WARNING: This could be dependent on the
@@ -220,7 +284,7 @@ speedbar versions >= 0.14beta1. But be aware: If the speedbar impl changes in
 future this could break."
 
   ;; enable the advices for speedbar
-  (ecb-enable-advices ecb-speedbar-adviced-functions)
+  (ecb-enable-advices 'ecb-speedbar-adviced-functions)
   
   (run-hooks 'ecb-speedbar-before-activate-hook)
 
@@ -228,7 +292,7 @@ future this could break."
             'ecb-speedbar-dframe-select-attached-window)
 
   ;;disable automatic speedbar updates... let the ECB handle this with
-  ;;ecb-current-buffer-sync
+  ;;its sync-mechanism
   (speedbar-disable-update)
 
   ;;always stay in the current frame
@@ -264,7 +328,9 @@ future this could break."
         (if dframe-track-mouse-function
             (set (make-local-variable 'track-mouse) t)) ;this could be messy.
         ;; disable auto-show-mode for Emacs
-        (setq auto-show-mode nil))))
+        ;; obsolete with beginning of Emacs 21...
+;;         (setq auto-show-mode nil)
+        )))
 
   ;;Start up the timer
   (speedbar-reconfigure-keymaps)
@@ -284,8 +350,13 @@ future this could break."
       (setq ecb-speedbar-verbosity-level-old speedbar-verbosity-level))
   (setq speedbar-verbosity-level 0)
 
-  (add-hook 'ecb-current-buffer-sync-hook-internal
-            'ecb-speedbar-current-buffer-sync)
+  ;; save old update-flag but only the first time
+  (if (equal ecb-speedbar-update-flag-old -1)
+      (setq ecb-speedbar-update-flag-old speedbar-update-flag))
+  (setq speedbar-update-flag nil)
+
+  (ecb-activate-ecb-autocontrol-function ecb-speedbar-buffer-sync-delay 
+                                          'ecb-speedbar-buffer-sync)
 
   ;;reset the selection variable
   (setq speedbar-last-selected-file nil))
@@ -293,7 +364,7 @@ future this could break."
 
 (defun ecb-speedbar-deactivate ()
   "Reset things as before activating speedbar by ECB"
-  (ecb-disable-advices ecb-speedbar-adviced-functions)
+  (ecb-disable-advices 'ecb-speedbar-adviced-functions)
   
   (remove-hook 'dframe-after-select-attached-frame-hook
                'ecb-speedbar-dframe-select-attached-window)
@@ -310,15 +381,16 @@ future this could break."
   (if ecb-speedbar-verbosity-level-old
       (setq speedbar-verbosity-level ecb-speedbar-verbosity-level-old))
   (setq ecb-speedbar-verbosity-level-old nil)
-  
-  (remove-hook 'ecb-current-buffer-sync-hook-internal
-               'ecb-speedbar-current-buffer-sync)
+
+  (if (not (equal ecb-speedbar-update-flag-old -1))
+      (setq speedbar-update-flag ecb-speedbar-update-flag-old))
+
+  (ecb-stop-autocontrol/sync-function 'ecb-speedbar-buffer-sync)
 
   (when (and speedbar-buffer
              (buffer-live-p speedbar-buffer))
     (kill-buffer speedbar-buffer)
     (setq speedbar-buffer nil)))
-
 
 
 (defun ecb-speedbar-active-p ()
@@ -330,28 +402,25 @@ future this could break."
   "Encapsulate updating the speedbar."
   (speedbar-update-contents))
 
-(defun ecb-speedbar-current-buffer-sync()
-  "Update the speedbar so that it's synced up with the current file."
-  (interactive)
 
-  ;;only operate if the current frame is the ECB frame and the
-  ;;ecb-speedbar-buffer is visible!
-  (ecb-do-if-buffer-visible-in-ecb-frame 'ecb-speedbar-buffer-name
-    ;; this macro binds the local variables visible-buffer and visible-window!
-    (let ((speedbar-default-directory
-           (save-excursion
-             (set-buffer visible-buffer)
-             (ecb-fix-filename default-directory)))
-          (ecb-default-directory (ecb-fix-filename default-directory)))
-      (when (and (or (not (ecb-string= speedbar-default-directory
-                                       ecb-default-directory))
-                     (member speedbar-initial-expansion-list-name
-                             ;; TODO: Klaus Berndl <klaus.berndl@sdm.de>: make
-                             ;; this customizable
-                             '("buffers" "Analyze")))
-                 speedbar-buffer
-                 (buffer-live-p speedbar-buffer))
-        (ecb-speedbar-update-contents)))))
+(defecb-autocontrol/sync-function ecb-speedbar-buffer-sync
+    ecb-speedbar-buffer-name ecb-speedbar-buffer-sync t
+  "Update the speedbar so that it's synced up with the current file."
+  (let ((speedbar-default-directory
+         (save-excursion
+           (set-buffer visible-buffer)
+           (ecb-fix-filename default-directory)))
+        (ecb-default-directory (ecb-fix-filename default-directory)))
+    (when (and (or (not (ecb-string= speedbar-default-directory
+                                     ecb-default-directory))
+                   (member speedbar-initial-expansion-list-name
+                           ;; TODO: Klaus Berndl <klaus.berndl@sdm.de>: make
+                           ;; this customizable
+                           '("buffers" "Analyze")))
+               speedbar-buffer
+               (buffer-live-p speedbar-buffer))
+      (ecb-speedbar-update-contents)
+      (run-hooks 'ecb-speedbar-buffer-sync-hook))))
 
 (defun ecb-goto-window-speedbar ()
   "Make the ECB-speedbar window the current window.
@@ -469,7 +538,7 @@ Return NODE."
                          (list (cons (cdr (assoc major-mode
                                                  ecb-non-semantic-parsing-function))
                                      'identity)))))
-                  (speedbar-fetch-dynamic-tags (buffer-file-name
+                  (speedbar-fetch-dynamic-tags (ecb-buffer-file-name
                                                 (current-buffer)))))
            (tag-list (cdr lst))
            (methods speedbar-tag-hierarchy-method))

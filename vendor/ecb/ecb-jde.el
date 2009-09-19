@@ -9,7 +9,6 @@
 ;;         Klaus Berndl <klaus.berndl@sdm.de>
 ;;         Kevin A. Burton <burton@openprivacy.org>
 ;; Maintainer: Klaus Berndl <klaus.berndl@sdm.de>
-;;             Kevin A. Burton <burton@openprivacy.org>
 ;; Keywords: browser, code, programming, tools
 ;; Created: 2003
 
@@ -26,9 +25,10 @@
 ;; GNU Emacs; see the file COPYING.  If not, write to the Free Software
 ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-;; $Id: ecb-jde.el,v 1.15 2005/04/19 15:18:59 berndl Exp $
+;; $Id: ecb-jde.el,v 1.19 2009/05/10 16:41:42 berndl Exp $
 
 ;;; Commentary:
+;;
 ;;
 ;; Contains code for JDEE integrations into ECB or vice versa
 ;; JDEE is available at http://jdee.sunsite.dk/
@@ -86,7 +86,7 @@ Works only for classes where the source-code \(i.e. the *.java-file) is
 available."
   (interactive)
   (when (and ecb-minor-mode
-             (ecb-point-in-edit-window)
+             (ecb-point-in-edit-window-number)
              (equal major-mode 'jde-mode))
     (if (jde-open-functions-exist)
         (let* (
@@ -118,33 +118,23 @@ available."
                   ;; methods-window before because otherwise our automatically
                   ;; buffer-sync would resync with current java-source-file.
                   (if (ecb-window-select ecb-methods-buffer-name)
-                      (ecb-set-selected-source java-file-name nil t nil))))
+                      (ecb-set-selected-source java-file-name nil t))))
             
             (ecb-error "Can not parse the thing at point!")))
       (message "You need JDE >= 2.2.6 and Senator for using this feature!"))))
 
 
-(defun ecb-jde-show-class-source (unqual-class)
-  "Calls `jde-show-class-source' for UNQUAL-CLASS and returns t if no error
-occurs."
+(defun ecb-jde-show-class-source (external-tag)
+  "Calls `jde-show-class-source' for th tag-name of EXTERNAL-TAG.
+Returns t if the tag is found and no error occurs otherwise nil.
+
+This function is for usage with `ecb-find-external-tag-functions'."
   (when (eq major-mode 'jde-mode)
     (condition-case nil
         (progn
-          (jde-show-class-source unqual-class)
+          (jde-show-class-source (ecb--semantic-tag-name external-tag))
           t)
       (error nil))))
-
-
-(defun ecb-jde-open-class-at-point-ff-function (filename &optional wildcards)
-  "Special handling of the class opening at point JDE feature. This function
-calls the value of `jde-open-class-at-point-find-file-function' with activated
-ECB-adviced functions."
-  (ecb-with-adviced-functions
-   (if (and (boundp 'jde-open-class-at-point-find-file-function)
-            (fboundp jde-open-class-at-point-find-file-function))
-       (funcall jde-open-class-at-point-find-file-function
-                filename wildcards))))
-
 
 (defun ecb-jde-gen-class-buffer (dir filename)
   "Calls `jde-gen-class-buffer' for the file FILENAME in DIR. If this function
