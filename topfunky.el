@@ -108,16 +108,9 @@
 
 ;; XCODE
 (require 'objc-c-mode)
-(defconst my-objc-style
-  '(("objc" ()
-     "My ObjC style")))
-(defun my-objc-mode-hook ()
-  (c-add-style "objc" my-objc-style)
-  (c-set-offset 'substatement-open 0))
-(add-hook 'objc-mode-hook 'my-objc-mode-hook)
 
-;; (setq c-default-style "bsd"
-;;       c-basic-offset 4)
+(setq c-default-style "bsd"
+      c-basic-offset 2)
 
 (require 'xcode)
 (define-key objc-mode-map [(meta r)] 'xcode-compile)
