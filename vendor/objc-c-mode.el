@@ -278,21 +278,6 @@ tried.  This is typically chained with `c-lineup-ObjC-method-call'."
 (defvar objc-font-lock-keywords objc-font-lock-keywords-1
   "Default expressions to highlight in ObjC mode.")
 
-
-imenu-generic-expression
-
-imenu-syntax-alist
-
-(setq objc-imenu-generic-expression
-      '(("Comments" "^-- \\(.+\\)" 1)
-        ("Function Definitions" "^\\s-*\\(function\\|procedure\\)[ \n\t]+\\([a-z0-9_]+\\)\
-[ \n\t]*([a-z0-9 _,\n\t]*)[ \n\t]*\\(return[ \n\t]+[a-z0-9_]+[ \n\t]+\\)?[ai]s\\b" 2)
-        ("Function Prototypes" "^\\s-*\\(function\\|procedure\\)[ \n\t]+\\([a-z0-9_]+\\)\
-[ \n\t]*([a-z0-9 _,\n\t]*)[ \n\t]*\\(return[ \n\t]+[a-z0-9_]+[ \n\t]*\\)?;" 2)
-        ("Indexes" "^\\s-*create\\s-+index\\s-+\\(\\w+\\)" 1)
-        ("Tables" "^\\s-*create\\s-+table\\s-+\\(\\w+\\)" 1)))
-
-
 (provide 'objc-c-mode)
 
 ;;; objc-c-mode.el ends here
