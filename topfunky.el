@@ -75,25 +75,27 @@
         try-expand-dabbrev
         try-expand-dabbrev-visible
         try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill
-        try-complete-file-name
-        try-complete-file-name-partially
-        try-complete-lisp-symbol
-        try-complete-lisp-symbol-partially
-        try-expand-line
-        try-expand-line-all-buffers
-        try-expand-list
-        try-expand-list-all-buffers
-        try-expand-whole-kill))
+        ;;        try-expand-dabbrev-from-kill
+        ;;         try-complete-file-name
+        ;;         try-complete-file-name-partially
+        ;;         try-complete-lisp-symbol
+        ;;         try-complete-lisp-symbol-partially
+        ;;         try-expand-line
+        ;;         try-expand-line-all-buffers
+        ;;         try-expand-list
+        ;;         try-expand-list-all-buffers
+        ;;        try-expand-whole-kill
+        ))
 
 (defun indent-or-complete ()
   (interactive)
   (if (and (looking-at "$") (not (looking-back "^\\s-*")))
       (hippie-expand nil)
-      (indent-for-tab-command)))
+    (indent-for-tab-command)))
 (add-hook 'find-file-hooks (function (lambda ()
-  (local-set-key (kbd "TAB") 'indent-or-complete))))
+                                       (local-set-key (kbd "TAB") 'indent-or-complete))))
 
+;; dabbrev-case-fold-search for case-sensitive search
 
 ;; Rinari
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/jump.el"))
@@ -141,6 +143,8 @@
 (setq c-default-style "bsd"
       c-basic-offset 2)
 
+(require 'cc-menus)
+
 (require 'xcode)
 (define-key objc-mode-map [(meta r)] 'xcode-compile)
 (define-key objc-mode-map [(meta K)] 'xcode-clean)
@@ -157,8 +161,8 @@
 (add-to-list 'auto-mode-alist '("\\.h\\'" . objc-mode))
 (require 'objj-mode)
 
-;; org-mode
-(setq org-agenda-files (list "~/.org/iphone-screencast.org"))
+;; Mercurial
+(require 'mercurial)
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
