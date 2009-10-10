@@ -22,12 +22,22 @@
 ;;        ("Anything" anything (commandp 'anything))
 ;; ))
 
+(defun intelisense-complete ()
+  (interactive)
+  (ac-start))
+
+(defun indent-or-complete ()
+  (interactive)
+  (if (looking-at "\\_>")
+      (company-complete-common)
+    (indent-according-to-mode)))
+
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/company"))
 (load "company")
 
 ;; only start completio when inserting character
 (setq company-begin-commands '(self-insert-command))
-(setq company-idle-delay 0)
+(setq company-idle-delay nil)
 (setq company-show-numbers nil)
 (setq company-backends '(company-elisp
                          company-nxml
@@ -59,6 +69,6 @@
   (define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
   (define-key ac-complete-mode-map "\M-k" 'ac-next)
   (define-key ac-complete-mode-map "\M-i" 'ac-previous)
-  (setq ac-auto-start 0)
+  (setq ac-auto-start nil)
   (setq ac-dwim t)
-  (set-default 'ac-sources '(ac-source-words-in-buffer)))
+  (set-default 'ac-sources '(ac-source-words-in-buffer ac-source-words-in-all-buffer)))

@@ -198,12 +198,6 @@ is a comment, uncomment."
           pairs)
   (setq skeleton-pair t))
 
-(defun indent-or-complete ()
-  (interactive)
-  (if (looking-at "\\_>")
-      (company-complete-common)
-    (indent-according-to-mode)))
-
 (defun senny-ido-rgrep ()
   (interactive)
   (let ((enable-recursive-minibuffers t))
