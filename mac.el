@@ -4,9 +4,9 @@
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/git/bin:/opt/local/bin/find"))
 (setq exec-path (append exec-path '("/usr/local/git/bin" "/opt/local/bin/find")))
 (setq custom-file (concat private-config-dir
-                          (if (string-match "aquamacs" (emacs-version))
-                              "/custom/aquamacs-custom.el"
-                            "/custom/carbon-emacs-custom.el")))
+                          (cond ((string-match "aquamacs" (emacs-version)) "/custom/aquamacs-custom.el")
+                                ((string-match "carbon" (emacs-version)) "/custom/carbon-emacs-custom.el")
+                                (t "/custom/cocoa-emacs-custom.el"))))
 (load custom-file)
 
 ;; use emacs keybindings.
