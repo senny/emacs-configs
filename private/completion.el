@@ -57,9 +57,7 @@
 (define-key company-active-map (kbd "TAB") 'company-complete)
 (define-key company-mode-map (kbd "C-SPC") 'company-complete)
 
-
-;;;; AutoComplete
-
+;;;; auto-complete
 (when (vendor 'auto-complete)
   ;;(require 'auto-complete-yasnippet)
   ;;(require 'auto-complete-ruby)
