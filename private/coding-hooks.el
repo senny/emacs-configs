@@ -2,8 +2,10 @@
 
 (defun default-lisp-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
-  (auto-complete-mode t)
   (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer ac-source-symbols))
+  (setq company-idle-delay 0.1)
+  ;; (auto-complete-mode t)
+  (setq ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-words-in-buffer ac-source-symbols))
   (setq company-backends '(company-elisp
                            company-dabbrev-code)))
 
