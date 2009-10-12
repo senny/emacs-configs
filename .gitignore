@@ -1,6 +1,9 @@
 loaddefs.el*
 backups/*
 machines/*
+server/*
+tutorial/*
+vendor/.emacsregisters.el
 auto-save-list
 custom.el
 *elc
