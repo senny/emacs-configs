@@ -10,6 +10,7 @@
  '(jde-jdk-registry (quote (("1.5" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.5") ("1.6" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.6") ("CurrentJDK OS-X" . "/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK"))))
  '(ns-alternate-modifier (quote none))
  '(ns-command-modifier (quote meta))
+ '(ns-pop-up-frames nil)
  '(visible-bell nil))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.

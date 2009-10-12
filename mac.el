@@ -1,8 +1,8 @@
 ;; start the server to use emacsclient from the console
 (server-start)
 
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/git/bin:/opt/local/bin/find"))
-(setq exec-path (append exec-path '("/usr/local/git/bin" "/opt/local/bin/find")))
+(setenv "PATH" (concat (getenv "PATH") ":/opt/local/bin:/opt/local/bin/find"))
+(setq exec-path (append exec-path '("/opt/local/bin" "/opt/local/bin/find")))
 (setq custom-file (concat private-config-dir
                           (cond ((string-match "aquamacs" (emacs-version)) "/custom/aquamacs-custom.el")
                                 ((string-match "carbon" (emacs-version)) "/custom/carbon-emacs-custom.el")
