@@ -251,7 +251,7 @@
      ((background-color . "#444444")
       (background-mode . dark)
       (border-color . "black")
-      (cursor-color . "White")
+      (cursor-color . "#cccccc")
       (foreground-color . "#d3d3d3")
       (mouse-color . "Grey"))
      ((apropos-keybinding-face . underline)
