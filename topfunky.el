@@ -162,7 +162,7 @@
 (require 'objj-mode)
 
 ;; Mercurial
-(require 'mercurial)
+;;(require 'mercurial)
 
 ;; Font
 (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
