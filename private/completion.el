@@ -22,9 +22,11 @@
 ;;        ("Anything" anything (commandp 'anything))
 ;; ))
 
+(setq senny-intellisense-completion-function 'ac-start)
+
 (defun intelisense-complete ()
   (interactive)
-  (ac-start))
+  (funcall senny-intellisense-completion-function))
 
 (defun indent-or-complete ()
   (interactive)
