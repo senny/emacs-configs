@@ -13,6 +13,9 @@
 (global-set-key (kbd "M-L") 'end-of-line)
 (global-set-key (kbd "M-J") 'beginning-of-line)
 
+;; TODO: make movement keys working in ido
+;; (define-key ido-completion-map (kbd "M-l") 'ido-next-match)
+;; (define-key ido-completion-map (kbd "M-j") 'ido-prev-match)
 
 (global-unset-key (kbd "M-b")) ; backward-word
 (global-unset-key (kbd "M-f")) ; forward-word
