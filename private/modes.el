@@ -1,5 +1,5 @@
-(require 'winsize)
-(global-set-key (kbd "<f12>") 'resize-windows)
+;; (require 'winsize)
+;; (global-set-key (kbd "<f12>") 'resize-windows)
 
 ;;;; MISC
 (require 'linum)
@@ -48,7 +48,7 @@
 
 (org-clock-persistence-insinuate)
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-(setq org-agenda-clockreport-parameter-plist (quote (:link nil :maxlevel 3 :emphasize t)))
+(setq org-agenda-clockreport-parameter-plist (quote (:link nil :maxlevel 4 :emphasize t)))
 (setq org-clock-persist t)
 (setq org-clock-out-when-done nil)
 
