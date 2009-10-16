@@ -2,6 +2,7 @@
 (make-variable-buffer-local 'company-idle-delay)
 (make-variable-buffer-local 'company-backends)
 (make-variable-buffer-local 'ac-sources)
+(make-variable-buffer-local 'ac-auto-start)
 
 (defun default-lisp-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
@@ -22,6 +23,18 @@
   (setq c-basic-offset 2)
   ;; (auto-complete-mode t)
   )
+
+(defun default-css-mode-hook ()
+  (setq company-backends '(company-css company-keywords company-dabbrev))
+  (setq company-idle-delay 0)
+  (company-mode t)
+  (setq ac-sources '(ac-source-css-keywords ac-source-words-in-buffer ac-source-words-in-all-buffer))
+  (setq ac-auto-start t)
+  ;; (auto-complete-mode t)
+
+  (setq css-indent-level 2)
+  (setq css-indent-offset 2)
+  (set-pairs '("(" "[" "\"" "\'")))
 
 (defun default-html-mode-hook ()
   (setq company-backends '(company-dabbrev))
@@ -71,13 +84,7 @@
 (add-hook 'emacs-lisp-mode-hook 'default-lisp-mode-hook )
 
 ;; CSS
-(add-hook 'css-mode-hook
-          (lambda ()
-            (setq company-backends '(company-css))
-            ;; (company-mode t)
-            (setq css-indent-level 2)
-            (setq css-indent-offset 2)
-            (set-pairs '("(" "[" "\"" "\'"))) )
+(add-hook 'css-mode-hook 'default-css-mode-hook)
 
 ;; HTML
 (add-hook 'html-mode-hook 'default-html-mode-hook )
