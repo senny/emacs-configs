@@ -42,9 +42,9 @@
 (setq company-idle-delay nil)
 (setq company-show-numbers nil)
 (setq company-backends '(company-elisp
-                         company-nxml
-                         company-css
-                         company-eclim
+                         ;; company-nxml
+                         ;; company-css
+                         ;; company-eclim
                          ;; company-dabbrev-code
                          ;; company-semantic
                          ;; (company-gtags company-etags company-dabbrev-code company-keywords)
