@@ -13,6 +13,10 @@
 (global-set-key (kbd "M-L") 'end-of-line)
 (global-set-key (kbd "M-J") 'beginning-of-line)
 
+
+(global-set-key [\M-down] 'senny-move-line-down)
+(global-set-key [\M-up] 'senny-move-line-up)
+
 ;; TODO: make movement keys working in ido
 ;; (define-key ido-completion-map (kbd "M-l") 'ido-next-match)
 ;; (define-key ido-completion-map (kbd "M-j") 'ido-prev-match)

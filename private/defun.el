@@ -212,3 +212,20 @@ is a comment, uncomment."
    "open"
    "explorer"
    (concat "/e,/select," (convert-standard-filename buffer-file-name))))
+
+(defun senny-move-line-down ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (next-line)
+      (transpose-lines 1))
+    (next-line)
+    (move-to-column col)))
+
+(defun senny-move-line-up ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (next-line)
+      (transpose-lines -1))
+    (move-to-column col)))

@@ -7,9 +7,8 @@
                                    'inf-ruby
                                    'js2-mode
                                    'css-mode
-                                   'nxml-mode
                                    'gist
-                                   'paredit)
+                                   'nxml-mode)
   "Libraries that should be installed by default.")
 
 (defun starter-kit-elpa-install ()
