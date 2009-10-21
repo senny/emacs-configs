@@ -160,6 +160,11 @@ is a comment, uncomment."
   (ispell-change-dictionary "english")
   (flyspell-buffer))
 
+(defun senny-ispell-buffer ()
+  (interactive)
+  (call-interactively 'ispell-change-dictionary)
+  (ispell-buffer))
+
 (defun increase-font-size ()
   (interactive)
   (set-face-attribute 'default
