@@ -9,6 +9,7 @@
 ;; (require 'jde)
 ;; (require 'decompile)
 
+(require 'javadoc-help)
 ;; (define-key jde-mode-map (kbd "C-c C-v w") 'jde-wiz-get-set-methods)
 ;; (define-key jde-mode-map (kbd "C-c C-v g") 'jde-gen-get-set-methods)
 ;; (define-key jde-mode-map (kbd "C-c o") 'jde-senny-organize-imports)
