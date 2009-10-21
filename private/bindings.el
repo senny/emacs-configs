@@ -101,6 +101,7 @@
 (global-set-key (kbd "C-c C-m") 'execute-extended-command)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x p") 'senny-ido-find-project)
+(global-set-key (kbd "C-x w") 'senny-ispell-buffer)
 (global-set-key (kbd "C-c p") 'senny-ido-find-config)
 (global-set-key (kbd "C-f p") 'senny-open-task-file)
 (global-set-key [C-return] 'defunkt-duplicate-line)
@@ -123,8 +124,9 @@
 (global-set-key (kbd "C-SPC") 'intelisense-complete)
 (global-set-key (kbd "TAB") 'indent-or-complete)
 
-;; vim emulation
+;; Searching
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)
+(define-key isearch-mode-map (kbd "M-s") 'move-cursor-next-pane)
 
 ;; no printing!
 (when (boundp 'osx-key-mode-map)
