@@ -4,6 +4,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(browse-url-browser-function (quote browse-url-firefox))
  '(clearcase-diff-on-checkin t)
  '(clearcase-suppress-checkout-comments t)
  '(compilation-scroll-output t)
