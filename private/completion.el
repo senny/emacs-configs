@@ -22,11 +22,13 @@
 ;;        ("Anything" anything (commandp 'anything))
 ;; ))
 
-(setq senny-intellisense-completion-function 'ac-start)
+(set-default 'senny-intellisense-completion-function 'ac-start)
 
 (defun intelisense-complete ()
   (interactive)
-  (funcall senny-intellisense-completion-function))
+  (if senny-intellisense-completion-function
+      (funcall senny-intellisense-completion-function)
+    (message "no completion function defined!")))
 
 (defun indent-or-complete ()
   (interactive)
@@ -63,6 +65,7 @@
   ;;(require 'auto-complete-yasnippet)
   ;;(require 'auto-complete-ruby)
   (require 'auto-complete-css)
+  (require 'ac-dabbrev)
 
   (define-key ac-complete-mode-map "\t" 'ac-expand)
   (define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
@@ -70,4 +73,4 @@
   (define-key ac-complete-mode-map "\M-i" 'ac-previous)
   (setq ac-auto-start nil)
   (setq ac-dwim t)
-  (set-default 'ac-sources '(ac-source-words-in-buffer ac-source-words-in-all-buffer)))
+  (set-default 'ac-sources '(ac-source-words-in-buffer ac-source-dabbrev)))
