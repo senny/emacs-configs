@@ -16,7 +16,7 @@
 
 (defun default-java-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'"))
-  (setq company-backends '(company-eclim))
+  (setq company-backends '(company-emacs-eclim))
   (setq senny-intellisense-completion-function 'eclim-complete)
   (company-mode t)
   (setq c-comment-continuation-stars "* ")
