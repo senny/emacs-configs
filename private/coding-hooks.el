@@ -6,13 +6,14 @@
 
 (defun default-lisp-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
-  (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer ac-source-symbols))
+  (setq ac-sources '(ac-source-symbols))
   (setq company-idle-delay 0.1)
-  ;; (auto-complete-mode t)
-  (setq ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-words-in-buffer ac-source-symbols))
+  (setq ac-auto-start t)
+  (auto-complete-mode t)
   (setq company-backends '(company-elisp
                            company-dabbrev-code))
-  (company-mode t))
+  ;; (company-mode t)
+  )
 
 (defun default-java-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'"))
@@ -27,10 +28,10 @@
 (defun default-css-mode-hook ()
   (setq company-backends '(company-css company-keywords company-dabbrev))
   (setq company-idle-delay 0)
-  (company-mode t)
-  (setq ac-sources '(ac-source-css-keywords ac-source-words-in-buffer ac-source-words-in-all-buffer))
+  ;; (company-mode t)
+  (setq ac-sources '(ac-source-css-properties ac-source-css-keywords))
   (setq ac-auto-start t)
-  ;; (auto-complete-mode t)
+  (auto-complete-mode t)
 
   (setq css-indent-level 2)
   (setq css-indent-offset 2)

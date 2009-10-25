@@ -62,15 +62,16 @@
 
 ;;;; auto-complete
 (when (vendor 'auto-complete)
+  (require 'auto-complete-config)
   ;;(require 'auto-complete-yasnippet)
   ;;(require 'auto-complete-ruby)
-  (require 'auto-complete-css)
-  (require 'ac-dabbrev)
+  ;;(require 'auto-complete-css)
+  ;;(require 'ac-dabbrev)
 
-  (define-key ac-complete-mode-map "\t" 'ac-expand)
+  (define-key ac-complete-mode-map (kbd "TAB") 'ac-complete)
   (define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
-  (define-key ac-complete-mode-map "\M-k" 'ac-next)
-  (define-key ac-complete-mode-map "\M-i" 'ac-previous)
+  (define-key ac-complete-mode-map (kbd "M-k") 'ac-next)
+  (define-key ac-complete-mode-map (kbd "M-i") 'ac-previous)
   (setq ac-auto-start nil)
   (setq ac-dwim t)
   (set-default 'ac-sources '(ac-source-words-in-buffer ac-source-dabbrev)))
