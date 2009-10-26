@@ -116,7 +116,9 @@
 (setq auto-mode-alist
       (cons '("\\.applescript$" . applescript-mode) auto-mode-alist))
 
+;; org-mode
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(global-set-key [(control meta return)] 'org-insert-heading)
 
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
