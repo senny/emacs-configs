@@ -9,10 +9,10 @@
   (setq ac-sources '(ac-source-symbols))
   (setq company-idle-delay 0.1)
   (setq ac-auto-start t)
-  (auto-complete-mode t)
+  ;; (auto-complete-mode t)
   (setq company-backends '(company-elisp
                            company-dabbrev-code))
-  ;; (company-mode t)
+  (company-mode t)
   )
 
 (defun default-java-mode-hook ()
@@ -22,6 +22,7 @@
   (company-mode t)
   (setq c-comment-continuation-stars "* ")
   (setq c-basic-offset 2)
+  (setq ac-sources '(ac-source-words-in-buffer))
   ;; (auto-complete-mode t)
   )
 
@@ -37,7 +38,6 @@
   (setq css-indent-offset 2)
   (set-pairs '("(" "[" "\"" "\'")))
 
-
 (defun default-ruby-mode-hook ()
   (setq company-backends '(company-dabbrev-code))
   (setq ac-sources '(ac-source-words-in-buffer ac-source-dabbrev))
@@ -51,6 +51,15 @@
 (defun default-html-mode-hook ()
   (setq company-backends '(company-dabbrev))
   (set-pairs '("<" "{" "[" "\"" "\'")))
+
+(defun default-org-mode-hook ()
+  (set-pairs '("(" "{" "[" "\""))
+  (define-key org-mode-map (kbd "C-c a") 'org-agenda)
+  (define-key org-mode-map (kbd "C-c t u") 'org-clock-update-time-maybe)
+  (define-key org-mode-map (kbd "C-c t g") 'org-clock-goto)
+  (auto-fill-mode 1)
+  ;; (setq ac-sources '(ac-source-org))
+  (auto-complete-mode t))
 
 ;; Objective C
 (add-hook 'objc-mode-hook
@@ -97,13 +106,7 @@
             (default-html-mode-hook)) )
 
 ;; Org-mode
-(add-hook 'org-mode-hook
-          (lambda ()
-            (define-key org-mode-map (kbd "C-c a") 'org-agenda)
-            (define-key org-mode-map (kbd "C-c t u") 'org-clock-update-time-maybe)
-            (define-key org-mode-map (kbd "C-c t g") 'org-clock-goto)
-            (set-pairs '("(" "{" "[" "\""))
-            (auto-fill-mode 1)))
+(add-hook 'org-mode-hook 'default-org-mode-hook)
 
 ;; Comint
 (add-hook 'comint-mode-hook
