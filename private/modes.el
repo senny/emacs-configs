@@ -5,6 +5,10 @@
 (require 'linum)
 (global-hl-line-mode t)
 
+;; Browse Kill Ring
+(require 'browse-kill-ring)
+(require 'browse-kill-ring+)
+
 ;; Aspell + Flyspell
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "german")
