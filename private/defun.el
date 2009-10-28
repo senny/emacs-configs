@@ -234,3 +234,14 @@ is a comment, uncomment."
       (next-line)
       (transpose-lines -1))
     (move-to-column col)))
+
+(defun move-cursor-next-pane ()
+  "Move cursor to the next pane."
+  (interactive)
+  (other-window 1))
+
+(defun move-cursor-previous-pane ()
+  "Move cursor to the previous pane."
+  (interactive)
+  (other-window -1))
+

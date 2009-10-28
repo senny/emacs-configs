@@ -56,18 +56,6 @@
 
 (global-set-key (kbd "M-s") 'move-cursor-next-pane)
 (global-set-key (kbd "M-S") 'move-cursor-previous-pane)
-(defun move-cursor-next-pane ()
-  "Move cursor to the next pane."
-  (interactive)
-  (other-window 1)
-  )
-
-(defun move-cursor-previous-pane ()
-  "Move cursor to the previous pane."
-  (interactive)
-  (other-window -1)
-  )
-
 (global-unset-key (kbd "C-/")) ; undo
 (global-unset-key (kbd "C-_")) ; undo
 (global-set-key (kbd "M-Z") 'redo)
@@ -85,12 +73,14 @@
 (global-set-key (kbd "M-c") 'kill-ring-save)
 (global-set-key (kbd "M-v") 'yank)
 (global-set-key (kbd "M-V") 'yank-pop)
+(global-set-key (kbd "M-b") 'browse-kill-ring)
 
 (global-unset-key (kbd "C-x C-f")) ; find-file
 (global-unset-key (kbd "C-x h")) ; mark-whole-buffer
 (global-unset-key (kbd "C-x C-w")) ; write-file
 (global-set-key (kbd "C-o") 'find-file)
 (global-set-key (kbd "C-S-o") 'senny-open-file-at-point)
+(global-set-key (kbd "C-w") 'close-current-buffer)
 (global-set-key (kbd "C-w") 'close-current-buffer)
 (global-set-key (kbd "C-S-n") 'write-file)
 (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
