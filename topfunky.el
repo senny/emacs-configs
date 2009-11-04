@@ -163,6 +163,9 @@
 (add-to-list 'auto-mode-alist '("\\.h\\'" . objc-mode))
 (require 'objj-mode)
 
+;; gist
+(require 'gist)
+
 ;; Mercurial
 ;;(require 'mercurial)
 
