@@ -19,12 +19,12 @@
      (define-key espresso-mode-map (kbd ",") 'self-insert-command)
      (font-lock-add-keywords 'espresso-mode
                              '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
-                                1 font-lock-warning-face t)))
-     (font-lock-add-keywords
-      'espresso-mode `(("\\(function *\\)("
-                        (0 (progn (compose-region (match-beginning 1)
-                                                  (match-end 1) "ƒ")
-                                  nil)))))))
+                                1 font-lock-warning-face t)))))
+     ;; (font-lock-add-keywords
+     ;;  'espresso-mode `(("\\(function *\\)("
+     ;;                    (0 (progn (compose-region (match-beginning 1)
+     ;;                                              (match-end 1) "ƒ")
+     ;;                              nil)))))))
 
 (provide 'starter-kit-js)
 ;;; starter-kit-js.el ends here
