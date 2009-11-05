@@ -22,7 +22,8 @@
   (company-mode t)
   (setq c-comment-continuation-stars "* ")
   (setq c-basic-offset 2)
-  (setq ac-sources '(ac-source-words-in-buffer))
+  (setq ac-sources '(ac-source-eclim ac-source-words-in-buffer))
+  ;; (java-mode-indent-annotations-setup)
   ;; (auto-complete-mode t)
   )
 

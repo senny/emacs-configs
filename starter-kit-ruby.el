@@ -127,7 +127,7 @@ exec-to-string command, but it works and seems fast"
                                                      (directory-files gem-dir nil "^[^.]")))))))
 
 (global-set-key (kbd "C-h r") 'ri)
-(global-set-key (kbd "C-c g") 'ruby-open-gem)
+(global-set-key (kbd "C-c C-r g") 'ruby-open-gem)
 
 (provide 'starter-kit-ruby)
 ;; starter-kit-ruby.el ends here
