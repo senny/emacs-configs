@@ -156,14 +156,19 @@ is a comment, uncomment."
 
 (defun senny-flyspell-prog-mode ()
   (interactive)
-  (flyspell-prog-mode)
   (ispell-change-dictionary "english")
+  (flyspell-prog-mode)
   (flyspell-buffer))
 
 (defun senny-ispell-buffer ()
   (interactive)
   (call-interactively 'ispell-change-dictionary)
   (ispell-buffer))
+
+(defun senny-flyspell-mode ()
+  (interactive)
+  (call-interactively 'ispell-change-dictionary)
+  (call-interactively 'flyspell-mode))
 
 (defun increase-font-size ()
   (interactive)

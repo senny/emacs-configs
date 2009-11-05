@@ -99,6 +99,7 @@
 (global-set-key "\C-R" 'replace-string)
 (global-set-key (kbd "C-$") 'senny-kill-buffer)
 (global-set-key (kbd "C-c i") 'indent-buffer)
+(global-set-key (kbd "C-c g") 'grep)
 
 ;; Window management
 (global-unset-key (kbd "M-4"))
@@ -126,9 +127,6 @@
 ;; no mailing!
 (global-unset-key (kbd "C-x m"))
 (global-unset-key "\C-z")
-
-(add-hook 'css-mode-hook '(lambda ()
-                            (define-key css-mode-map [tab] 'defunkt-indent)))
 
 ;; diff
 (global-set-key (kbd "C-c d b") 'ediff-buffers)
