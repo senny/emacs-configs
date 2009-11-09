@@ -265,3 +265,11 @@ is a comment, uncomment."
   arg lines up." 
    (interactive "*p") 
    (move-text-internal (- arg))) 
+
+
+(defun senny-toggle-window-configuration-and-enlarged-window ()
+  (interactive)
+  (if (= (count-windows nil) 1)
+      (better-registers-jump-to-register ?w)
+    (window-configuration-to-register ?w)
+    (delete-other-windows)))
