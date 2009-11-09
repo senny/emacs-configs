@@ -41,7 +41,7 @@
 
 (defun default-ruby-mode-hook ()
   (setq company-backends '(company-dabbrev-code))
-  (setq ac-sources '(ac-source-words-in-buffer ac-source-dabbrev))
+  (setq ac-sources '(ac-source-words-in-buffer))
   ;; (company-mode t)
   ;; (setq ac-omni-completion-sources '(("\\.\\=" ac-source-rcodetools)))
   (auto-complete-mode t)
