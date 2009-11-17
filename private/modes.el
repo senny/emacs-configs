@@ -13,12 +13,6 @@
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "german")
 
-;; Yasnippet
-(vendor 'yasnippet)
-(yas/initialize)
-(yas/load-directory (concat dotfiles-dir "vendor/yasnippet/snippets"))
-(yas/load-directory (concat private-config-dir "/snippets"))
-
 ;; ido
 (ido-mode t)
 (setq ido-enable-flex-matching t)
@@ -109,6 +103,11 @@
 
 ;;;; RSpec
 (vendor 'rspec-mode)
+
+;;;; Ruby Block Mode
+(vendor 'ruby-block)
+(setq ruby-block-highlight-toggle t)
+(setq ruby-block-delay nil)
 
 ;;;; Cucumber
 (add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))
