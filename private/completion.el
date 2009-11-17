@@ -1,6 +1,5 @@
 ;; Yasnippet
 (vendor 'yasnippet)
-(yas/load-directory (concat dotfiles-dir "vendor/yasnippet/snippets"))
 (yas/load-directory (concat private-config-dir "/snippets"))
 
 (set-default 'senny-completion-function 'auto-complete)
