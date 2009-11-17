@@ -113,7 +113,7 @@
 (global-set-key (kbd "C-ö") 'backward-buffer)
 
 ;; Completion
-(global-set-key (kbd "C-SPC") 'intelisense-complete)
+(global-set-key (kbd "C-SPC") 'senny-intelisense-complete)
 (global-set-key (kbd "TAB") 'indent-or-complete)
 
 ;; Searching
