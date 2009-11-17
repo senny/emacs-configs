@@ -1,43 +1,30 @@
-;; use tab to indent and complete
-;; (vendor 'tabkey2)
-;; (tabkey2-mode 1)
-;; (setq tabkey2-completion-functions
-;;       '(("autocomplete" ac-complete t)
-;;         ("Hippie expand" hippie-expand t)
-;;        ("Spell check word" flyspell-correct-word-before-point)
-;;        ("JDE Completion" jde-complete-minibuf)
-;;        ("Yasnippet" yas/expand (yas/expandable-at-point))
-;;        ("Semantic Smart Completion" senator-complete-symbol senator-minor-mode)
-;;        ("Programmable completion" pcomplete)
-;;        ("nXML completion" nxml-complete)
-;;        ("Complete Emacs symbol" lisp-complete-symbol)
-;;        ("Widget complete" widget-complete)
-;;        ("Comint Dynamic Complete" comint-dynamic-complete)
-;;        ("PHP completion" php-complete-function)
-;;        ("Tags completion" complete-symbol)
-;;        ("Predictive word" complete-word-at-point predictive-mode)
-;;        ("Predictive abbreviations" pabbrev-expand-maybe)
-;;        ("Dynamic word expansion" dabbrev-expand nil (setq dabbrev--last-abbrev-location nil))
-;;        ("Ispell complete word" ispell-complete-word)
-;;        ("Anything" anything (commandp 'anything))
-;; ))
+;; Yasnippet
+(vendor 'yasnippet)
+(yas/load-directory (concat dotfiles-dir "vendor/yasnippet/snippets"))
+(yas/load-directory (concat private-config-dir "/snippets"))
 
-(set-default 'senny-intellisense-completion-function 'ac-start)
+(set-default 'senny-completion-function 'auto-complete)
+(set-default 'senny-intellisense-completion-function 'auto-complete)
 
-(defun intelisense-complete ()
+(defun senny-intelisense-complete ()
   (interactive)
   (if senny-intellisense-completion-function
       (funcall senny-intellisense-completion-function)
+    (message "no intellisense completion function defined!")))
+
+(defun senny-complete ()
+  (interactive)
+  (if senny-completion-function
+      (funcall senny-completion-function)
     (message "no completion function defined!")))
 
 (defun indent-or-complete ()
   (interactive)
   (if (looking-at "\\_>")
-      (company-complete-common)
+      (senny-complete)
     (indent-according-to-mode)))
 
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/company"))
-(load "company")
+(vendor 'company)
 
 ;; only start completio when inserting character
 (setq company-begin-commands '(self-insert-command))
