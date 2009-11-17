@@ -114,7 +114,7 @@
 
 ;; Completion
 (global-set-key (kbd "C-SPC") 'senny-intelisense-complete)
-(global-set-key (kbd "TAB") 'indent-or-complete)
+(global-set-key (kbd "TAB") 'senny-indent-or-complete)
 
 ;; Searching
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)

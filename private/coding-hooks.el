@@ -50,7 +50,7 @@
   ;; (setq ac-omni-completion-sources '(("\\.\\=" ac-source-rcodetools)))
   (auto-complete-mode t)
   (ruby-block-mode t)
-  (local-set-key (kbd "TAB") 'indent-or-complete)
+  (local-set-key (kbd "TAB") 'senny-indent-or-complete)
   (local-set-key [return] 'ruby-reindent-then-newline-and-indent))
 
 (defun default-html-mode-hook ()

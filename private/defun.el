@@ -1,3 +1,21 @@
+(defun senny-intelisense-complete ()
+  (interactive)
+  (if senny-intellisense-completion-function
+      (funcall senny-intellisense-completion-function)
+    (message "no intellisense completion function defined!")))
+
+(defun senny-complete ()
+  (interactive)
+  (if senny-completion-function
+      (funcall senny-completion-function)
+    (message "no completion function defined!")))
+
+(defun senny-indent-or-complete ()
+  (interactive)
+  (if (looking-at "\\_>")
+      (senny-complete)
+    (indent-according-to-mode)))
+
 (defun senny-kill-buffer ()
   (interactive)
   (kill-buffer (buffer-name)))
@@ -273,3 +291,21 @@ is a comment, uncomment."
       (better-registers-jump-to-register ?w)
     (window-configuration-to-register ?w)
     (delete-other-windows)))
+
+(defun indirect-region (start end)
+  "Edit the current region in another buffer. You can choose a new
+major mode for the newly created buffer."
+  (interactive "r")
+  (let ((buffer-name (generate-new-buffer-name "*indirect*"))
+        (mode (intern
+               (completing-read
+                "Mode: "
+                (mapcar (lambda (e)
+                          (list (symbol-name e)))
+                        (apropos-internal "-mode$" 'commandp))
+                nil t nil))))
+    (pop-to-buffer (clone-indirect-buffer buffer-name nil))
+    (funcall mode)
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (shrink-window-if-larger-than-buffer)))
