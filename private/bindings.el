@@ -101,6 +101,7 @@
 (global-set-key (kbd "C-$") 'senny-kill-buffer)
 (global-set-key (kbd "C-c i") 'indent-buffer)
 (global-set-key (kbd "C-c g") 'grep)
+(global-set-key (kbd "C-x n r") 'indirect-region)
 
 ;; Window management
 (global-unset-key (kbd "M-4"))
