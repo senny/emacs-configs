@@ -23,7 +23,7 @@
   (interactive)
   (color-theme-install
    '(color-theme-twilight
-     ((background-color . "#141414")
+     ((background-color . "#131313")
       (background-mode . dark)xb
       (border-color . "black")
       (cursor-color . "#A7A7A7")
@@ -32,9 +32,10 @@
      (border-glyph ((t (nil))))
      (buffers-tab ((t (:background "black" :foreground "white"))))
 
+     (light-background ((t (:background "#181818"))))
+     (dark-background ((t (:background "#080808"))))
      (preprocessor ((t (:foreground "Aquamarine"))))
      (highlighted ((t (:background "#606060"))))
-     (highlighted-line ((t (:background "#000000"))))
      (important-region ((t (:background "#000000"))))
      (flashy-highlight ((t (:background "#6C6A41"))))
      (default ((t (:foreground "#F8F8F8"))))
@@ -135,6 +136,7 @@
 
      (mumamo-background-chunk-major ((t (:inherit background-color))))
      (mumamo-background-chunk-submode ((t (:inherit background-color))))
+     (mumamo-background-chunk-submode1 ((t (:inherit light-background))))
      (nxml-delimited-data-face ((t (:inherit string))))
      (nxml-name-face ((t (:inherit variable))))
      (nxml-ref-face ((t (:inherit constant))))
@@ -176,7 +178,7 @@
      (ido-only-match ((t (:inherit string))))
      (ido-subdir ((t (:inherit constant))))
 
-     (mac-ts-caret-position ((t (:inherit highlighted-line))))
+     (mac-ts-caret-position ((t (:inherit dark-background))))
      
      (erb-comment-face ((t (:inherit comment))))
      (erb-comment-delim-face ((t (:inherit comment))))
@@ -191,7 +193,7 @@
      (minibuffer-noticeable-prompt ((t (:inherit minibuffer-prompt))))
      (mode-line ((t (:background "#CCCCCC" :foreground "black"))))
      (highlight ((t (:inherit highlighted))))
-     (hl-line ((t (:inherit highlighted-line ))))
+     (hl-line ((t (:inherit dark-background))))
      (left-margin ((t (nil))))
      (text-cursor ((t (:background "yellow" :foreground "black"))))
      (toolbar ((t (nil)))))))
