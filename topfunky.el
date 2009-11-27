@@ -66,6 +66,8 @@
 ;; Javascript
 ;; TODO javascript-indent-level 2
 
+
+
 ;; Remove scrollbars and make hippie expand
 ;; work nicely with yasnippet
 (scroll-bar-mode -1)

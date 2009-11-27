@@ -74,7 +74,7 @@
 (defvar *textmate-project-root* nil)
 (defvar *textmate-project-files* '())
 (defvar *textmate-gf-exclude*
-  "/\\.|vendor|fixtures|tmp|log|build|\\.xcodeproj|\\.nib|\\.framework|\\.app|\\.pbproj|\\.pbxproj|\\.xcode|\\.xcodeproj|\\.bundle|UnitTesting")
+  "/\\.vendor|fixtures|tmp|log|build|\\.xcodeproj|\\.nib|\\.framework|\\.app|\\.pbproj|\\.pbxproj|\\.xcode|\\.xcodeproj|\\.bundle|UnitTesting")
 
 ;;; Bindings
 
@@ -100,7 +100,6 @@
   (define-key osx-key-mode-map (kbd "A-T") 'textmate-goto-symbol)) ;; Aquamacs menu item key bindings.
 
 (defun textmate-bind-carbon-keys ()
-  ;; Are these any good? Anyone have good Carbon defaults?
   (define-key textmate-mode-map [M-return] 'textmate-next-line)
   (define-key textmate-mode-map [C-return] 'textmate-previous-line)
                                         ;  (define-key textmate-mode-map (kbd "A-M-t") 'textmate-clear-cache)
