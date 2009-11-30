@@ -7,7 +7,6 @@
 ;; scattered all over the file system!
 (defvar autosave-dir
   (concat "/tmp/emacs_autosaves/" (user-login-name) "/"))
-
 (make-directory autosave-dir t)
 
 (defun auto-save-file-name-p (filename)
@@ -25,6 +24,8 @@
 ;; backed up in the corresponding directory. Emacs will mkdir it if necessary.)
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
+
+;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (setq default-tab-width 2)
 (setq tab-width 2)
