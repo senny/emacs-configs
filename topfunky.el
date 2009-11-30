@@ -1,5 +1,11 @@
 ;; DESCRIPTION: topfunky settings
 
+;; Manually set PATH for use by eshell, rspec-mode, etc.
+(let ((path))
+  (setq path "/opt/ruby-enterprise/bin:~/bin:~/src/homebrew/bin")
+  (setq path (concat path ":/usr/local/bin:/usr/bin"))
+  (setenv "PATH" path))
+
 (add-to-list 'load-path (concat dotfiles-dir "/vendor"))
 
 ;; Save backups in one place
@@ -61,6 +67,9 @@
 (require 'textmate)
 (textmate-mode)
 (require 'whitespace)
+
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/rspec-mode"))
+(require 'rspec-mode)
 
 ;; Major Modes
 
