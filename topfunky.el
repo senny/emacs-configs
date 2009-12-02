@@ -6,7 +6,8 @@
                      "~/bin:"
                      "~/src/homebrew/bin:"
                      "/usr/local/bin:"
-                     "/usr/bin"))
+                     "/usr/bin:"
+                     "/bin"))
   (setenv "PATH" path))
 
 (add-to-list 'load-path (concat dotfiles-dir "/vendor"))
