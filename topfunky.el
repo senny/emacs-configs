@@ -1,5 +1,15 @@
 ;; DESCRIPTION: topfunky settings
 
+;; Manually set PATH for use by eshell, rspec-mode, etc.
+(let ((path))
+  (setq path (concat "/opt/ruby-enterprise/bin:"
+                     "~/bin:"
+                     "~/src/homebrew/bin:"
+                     "/usr/local/bin:"
+                     "/usr/bin:"
+                     "/bin"))
+  (setenv "PATH" path))
+
 (add-to-list 'load-path (concat dotfiles-dir "/vendor"))
 
 ;; Save backups in one place
@@ -7,7 +17,6 @@
 ;; scattered all over the file system!
 (defvar autosave-dir
   (concat "/tmp/emacs_autosaves/" (user-login-name) "/"))
-
 (make-directory autosave-dir t)
 
 (defun auto-save-file-name-p (filename)
@@ -26,8 +35,16 @@
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
 
+;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (setq default-tab-width 2)
 (setq tab-width 2)
+
+;; Open current file in TextMate.
+(defun textmate-open-buffer ()
+  (interactive)
+  (shell-command-to-string (concat "mate " buffer-file-name)))
+
 
 ;; Clojure
 ;;(eval-after-load 'clojure-mode '(clojure-slime-config))
@@ -60,6 +77,9 @@
 (require 'textmate)
 (textmate-mode)
 (require 'whitespace)
+
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/rspec-mode"))
+(require 'rspec-mode)
 
 ;; Major Modes
 
@@ -108,6 +128,7 @@
 (define-key rinari-minor-mode-map [(control meta shift up)] 'rinari-find-model)
 (define-key rinari-minor-mode-map [(control meta shift right)] 'rinari-find-view)
 
+;; Custom task for PeepCode publishing
 (defun rake-generate-html ()
   (interactive)
   (rake "generate_html"))
