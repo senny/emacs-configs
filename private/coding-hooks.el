@@ -46,6 +46,7 @@
   (set-pairs '("(" "{" "[" "\"" "\'" "|"))
   (setq company-backends '(company-dabbrev-code))
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
+  (setq ac-auto-start t)
   ;; (company-mode t)
   ;; (setq ac-omni-completion-sources '(("\\.\\=" ac-source-rcodetools)))
   (auto-complete-mode t)
