@@ -37,8 +37,8 @@
 
 ;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(setq default-tab-width 2)
-(setq tab-width 2)
+(setq default-tab-width 4)
+(setq tab-width 4)
 
 ;; Open current file in TextMate.
 (defun textmate-open-buffer ()
@@ -84,9 +84,15 @@
 ;; Major Modes
 
 ;; Javascript
-;; TODO javascript-indent-level 2
+(setq js2-basic-offset 2)
+(setq js2-auto-indent-flag nil)
+(setq javascript-indent-level 2)
 
-
+(add-hook 'javascript-mode-hook
+          (lambda ()
+            (set (make-local-variable 'compile-command)
+                 (let ((file (file-name-nondirectory buffer-file-name)))
+                   (concat "java -classpath ~/src/rhino1_7R2/build/classes org.mozilla.javascript.tools.shell.Main ~/bin/src/jslint.js " file)))))
 
 ;; Remove scrollbars and make hippie expand
 ;; work nicely with yasnippet
