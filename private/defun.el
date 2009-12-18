@@ -309,3 +309,7 @@ major mode for the newly created buffer."
     (narrow-to-region start end)
     (goto-char (point-min))
     (shrink-window-if-larger-than-buffer)))
+
+(defun senny-copy-filename-current-buffer-as-kill ()
+  (interactive)
+  (kill-new buffer-file-name))

@@ -45,4 +45,4 @@
   (define-key ac-complete-mode-map (kbd "M-i") 'ac-previous)
   (setq ac-auto-start nil)
   (setq ac-dwim t)
-  (set-default 'ac-sources '(ac-source-yasnippet)))
+  (set-default 'ac-sources '(ac-source-yasnippet ac-source-words-in-same-mode-buffers)))
