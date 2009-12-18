@@ -7,13 +7,14 @@
 
 (defun default-lisp-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
-  (setq ac-sources '(ac-source-symbols))
-  (setq company-idle-delay 0.1)
+  (setq ac-sources '(ac-source-symbols ac-source-emacs-lisp-features))
   (setq ac-auto-start t)
   ;; (auto-complete-mode t)
+  (setq company-idle-delay 0.1)
   (setq company-backends '(company-elisp
                            company-dabbrev-code))
-  (company-mode t))
+  (company-mode t)
+  )
 
 (defun default-java-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'"))
@@ -48,9 +49,7 @@
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
   (setq ac-auto-start t)
   ;; (company-mode t)
-  ;; (setq ac-omni-completion-sources '(("\\.\\=" ac-source-rcodetools)))
   (auto-complete-mode t)
-  (ruby-block-mode t)
   (local-set-key (kbd "TAB") 'senny-indent-or-complete)
   (local-set-key [return] 'ruby-reindent-then-newline-and-indent))
 
