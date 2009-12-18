@@ -2,8 +2,8 @@
 ;; (global-set-key (kbd "<f12>") 'resize-windows)
 
 ;;;; MISC
-(require 'linum)
 (global-hl-line-mode t)
+(column-number-mode t)
 
 ;; Browse Kill Ring
 (require 'browse-kill-ring)
