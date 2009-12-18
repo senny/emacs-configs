@@ -100,9 +100,9 @@
 (vendor 'rspec-mode)
 
 ;;;; Ruby Block Mode
-(vendor 'ruby-block)
-(setq ruby-block-highlight-toggle t)
-(setq ruby-block-delay nil)
+;; (vendor 'ruby-block)
+;; (setq ruby-block-highlight-toggle t)
+;; (setq ruby-block-delay nil)
 
 ;;;; Cucumber
 (add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))
