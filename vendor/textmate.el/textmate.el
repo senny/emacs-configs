@@ -74,7 +74,7 @@
 (defvar *textmate-project-root* nil)
 (defvar *textmate-project-files* '())
 (defvar *textmate-gf-exclude*
-  "/\\.git|script|vendor|fixtures|tmp|log|build|\\.xcodeproj|\\.nib|\\.framework|\\.app|\\.pbproj|\\.pbxproj|\\.xcode|\\.xcodeproj|\\.bundle|UnitTesting")
+  "/\\.sass-cache|\\.DS_Store|\\.git|\\/script|\\/vendor|\\/fixtures|\\/tmp|\\/log|\\/build|\\.xcodeproj|\\.nib|\\.framework|\\.app|\\.pbproj|\\.pbxproj|\\.xcode|\\.xcodeproj|\\.bundle|\\/UnitTesting")
 
 ;;; Bindings
 
