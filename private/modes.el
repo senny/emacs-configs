@@ -110,6 +110,9 @@
 
 (vendor 'magit)
 
+;;;; YAML Mode
+(require 'yaml-mode)
+
 ;;;; iSearch
 (define-key isearch-mode-map (kbd "M-v") 'isearch-yank-kill)
 

@@ -5,7 +5,7 @@
 ;; Author: Yoshiki Kurihara <kurihara@cpan.org>
 ;;         Marshall T. Vandegrift <llasram@gmail.com>
 ;; Keywords: data yaml
-;; Version: 0.0.3
+;; Version: 0.0.5
 
 ;; This file is not part of Emacs
 
@@ -98,21 +98,27 @@ that key is pressed to begin a block literal."
   :group 'yaml)
 
 (defface yaml-tab-face
-   '((((class color)) (:background "red" :foreground "red" :bold t))
-     (t (:reverse-video t)))
+  '((((class color)) (:background "red" :foreground "red" :bold t))
+    (t (:reverse-video t)))
   "Face to use for highlighting tabs in YAML files."
   :group 'faces
+  :group 'yaml)
+
+(defcustom yaml-imenu-generic-expression
+  '((nil  "^\\(:?[a-zA-Z_-]+\\):"          1))
+  "The imenu regex to parse an outline of the yaml file."
+  :type 'string
   :group 'yaml)
 
 
 ;; Constants
 
-(defconst yaml-mode-version "0.0.3" "Version of `yaml-mode.'")
+(defconst yaml-mode-version "0.0.5" "Version of `yaml-mode.'")
 
 (defconst yaml-blank-line-re "^ *$"
   "Regexp matching a line containing only (valid) whitespace.")
 
-(defconst yaml-comment-re "\\(#*.*\\)"
+(defconst yaml-comment-re "\\(?:^\\|\\s-+\\)\\(#.*\\)"
   "Regexp matching a line containing a YAML comment or delimiter.")
 
 (defconst yaml-directive-re "^\\(?:--- \\)? *%\\(\\w+\\)"
@@ -208,7 +214,6 @@ that key is pressed to begin a block literal."
   (modify-syntax-entry ?\[ "(]" yaml-mode-syntax-table)
   (modify-syntax-entry ?\] ")[" yaml-mode-syntax-table))
 
-;;;###autoload
 (define-derived-mode yaml-mode fundamental-mode "YAML"
   "Simple mode to edit YAML.
 
@@ -225,17 +230,17 @@ that key is pressed to begin a block literal."
 ;; Font-lock support
 
 (defvar yaml-font-lock-keywords
-   (list
-    (cons yaml-comment-re '(1 font-lock-comment-face))
-    (cons yaml-constant-scalars-re '(1 font-lock-constant-face))
-    (cons yaml-tag-re '(0 font-lock-type-face))
-    (cons yaml-node-anchor-alias-re '(0 font-lock-function-name-face t))
-    (cons yaml-hash-key-re '(1 font-lock-variable-name-face t))
-    (cons yaml-document-delimiter-re '(0 font-lock-comment-face))
-    (cons yaml-directive-re '(1 font-lock-builtin-face))
-    '(yaml-font-lock-block-literals 0 font-lock-string-face t)
-    '("^[\t]+" 0 'yaml-tab-face t))
-   "Additional expressions to highlight in YAML mode.")
+  (list
+   (cons yaml-comment-re '(1 font-lock-comment-face))
+   (cons yaml-constant-scalars-re '(1 font-lock-constant-face))
+   (cons yaml-tag-re '(0 font-lock-type-face))
+   (cons yaml-node-anchor-alias-re '(0 font-lock-function-name-face t))
+   (cons yaml-hash-key-re '(1 font-lock-variable-name-face t))
+   (cons yaml-document-delimiter-re '(0 font-lock-comment-face))
+   (cons yaml-directive-re '(1 font-lock-builtin-face))
+   '(yaml-font-lock-block-literals 0 font-lock-string-face t)
+   '("^[\t]+" 0 'yaml-tab-face t))
+  "Additional expressions to highlight in YAML mode.")
 
 (defvar yaml-font-lock-syntactic-keywords
   (list '(yaml-syntactic-block-literals 0 "." t))
@@ -259,22 +264,22 @@ artificially limitted to the value of
       (goto-char (point-at-bol))
       (while (and (looking-at yaml-blank-line-re) (not (bobp)))
         (forward-line -1))
-      (let ((nlines yaml-block-literal-search-lines) 
-            (min-level (current-indentation))) 
-      (forward-line -1) 
-      (while (and (/= nlines 0) 
-                  (/= min-level 0) 
-                  (not (looking-at yaml-block-literal-re)) 
-                  (not (bobp))) 
-        (set 'nlines (1- nlines)) 
-        (unless (looking-at yaml-blank-line-re) 
-          (set 'min-level (min min-level (current-indentation)))) 
-        (forward-line -1)) 
-      (cond
-       ((and (< (current-indentation) min-level)
-             (looking-at yaml-block-literal-re))
+      (let ((nlines yaml-block-literal-search-lines)
+            (min-level (current-indentation)))
+        (forward-line -1)
+        (while (and (/= nlines 0)
+                    (/= min-level 0)
+                    (not (looking-at yaml-block-literal-re))
+                    (not (bobp)))
+          (set 'nlines (1- nlines))
+          (unless (looking-at yaml-blank-line-re)
+            (set 'min-level (min min-level (current-indentation))))
+          (forward-line -1))
+        (cond
+         ((and (< (current-indentation) min-level)
+               (looking-at yaml-block-literal-re))
           (goto-char end) (set-match-data (list begin end)) t)
-         ((progn 
+         ((progn
             (goto-char begin)
             (re-search-forward (concat yaml-block-literal-re
                                        " *\\(.*\\)\n")
@@ -334,8 +339,8 @@ back-dent the line by `yaml-indent-offset' spaces.  On reaching column
       (if (and (equal last-command this-command) (/= ci 0))
           (indent-to (* (/ (- ci 1) yaml-indent-offset) yaml-indent-offset))
         (indent-to need)))
-      (if (< (current-column) (current-indentation))
-          (forward-to-indentation 0))))
+    (if (< (current-column) (current-indentation))
+        (forward-to-indentation 0))))
 
 (defun yaml-electric-backspace (arg)
   "Delete characters or back-dent the current line.
@@ -350,7 +355,7 @@ immediately previous multiple of `yaml-indent-offset' spaces."
       (indent-to (* (/ (- ci (* arg yaml-indent-offset))
                        yaml-indent-offset)
                     yaml-indent-offset)))))
-  
+
 (defun yaml-electric-bar-and-angle (arg)
   "Insert the bound key and possibly begin a block literal.
 Inserts the bound key.  If inserting the bound key causes the current
@@ -381,6 +386,16 @@ margin."
     (beginning-of-line)
     (if (and (not arg) (looking-at yaml-document-delimiter-re))
         (delete-horizontal-space))))
+
+
+(defun yaml-set-imenu-generic-expression ()
+  (make-local-variable 'imenu-generic-expression)
+  (make-local-variable 'imenu-create-index-function)
+  (setq imenu-create-index-function 'imenu-default-create-index-function)
+  (setq imenu-generic-expression yaml-imenu-generic-expression))
+
+(add-hook 'yaml-mode-hook 'yaml-set-imenu-generic-expression)
+
 
 (defun yaml-mode-version ()
   "Diplay version of `yaml-mode'."
