@@ -15,8 +15,8 @@
 
 (setq topfunky-js-imenu-generic-expression
       '(("Named Function" "function\\s-+\\(\\w+\\)\\s-*(" 1)
-        ("Hash Method"  "^\\s-*\\(\\w+\\): function (" 1)
-        ("Instance Method" "this\.\\(\\w+\\) = function (" 1)
+        ("Hash Method"  "^\\s-*\\(\\w+\\):\\s-*function\\s-*(" 1)
+        ("Instance Method" "this\.\\(\\w+\\)\\s-*=\\s-*function\\s-*(" 1)
         ))
 
 (add-hook 'javascript-mode-hook
