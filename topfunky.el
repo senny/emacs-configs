@@ -83,13 +83,24 @@
 ;; Python
 ;; Live cyclomatic complexity script from @garybernhardt
 ;; http://blog.extracheese.org/2009/11/refactoring_a_cyclomatic_complexity_script.html
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/pycomplexity"))
+;; (add-to-list 'load-path (concat dotfiles-dir "/vendor/pycomplexity"))
+;; (require 'linum)
+;; (require 'pycomplexity)
+;; (add-hook 'python-mode-hook
+;;           (function (lambda ()
+;;                       (flymake-mode)
+;;                       (linum-mode)
+;;                       (pycomplexity-mode))))
+
+;; ruby-mode
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))
 (require 'linum)
-(require 'pycomplexity)
-(add-hook 'python-mode-hook
+(require 'ruby-complexity)
+(add-hook 'ruby-mode-hook
           (function (lambda ()
-                      (pycomplexity-mode)
-                      (linum-mode))))
+                      (flymake-mode)
+                      (linum-mode)
+                      (ruby-complexity-mode))))
 
 ;; Javascript
 (setq js2-basic-offset 2)
