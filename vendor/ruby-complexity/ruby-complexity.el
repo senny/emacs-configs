@@ -144,6 +144,8 @@
 (defun ruby-complexity-on-change-force (&optional beg end len)
   (ruby-complexity-on-change beg end len t))
 
+;; TODO: Should use built-in emacs timer as shown here:
+;; http://github.com/technomancy/dotfiles/blob/master/.emacs.old/idle-highlight.el
 (defun ruby-complexity-on-change (&optional beg end len force)
   (let ((since-last-change (- (float-time) complexity-last-change)))
     (when (or (> since-last-change ruby-complexity-delay) force)
