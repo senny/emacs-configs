@@ -171,7 +171,13 @@
 
 ;; org-mode
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(global-set-key [(control meta return)] 'org-insert-heading)
+(add-hook 'org-mode-hook
+          (lambda()
+            (local-set-key [(control meta return)] 'org-insert-heading)
+            (local-set-key [(control shift left)] 'previous-buffer)
+            (local-set-key [(control shift right)] 'next-buffer)
+            ))
+
 
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
@@ -264,9 +270,7 @@
 (global-set-key [(meta shift left)] 'magit-status)
 
 (global-set-key [(control shift left)] 'previous-buffer)
-(define-key org-mode-map [(control shift left)] 'previous-buffer)
 (global-set-key [(control shift right)] 'next-buffer)
-(define-key org-mode-map [(control shift right)] 'next-buffer)
 
 (global-set-key [(meta H)] 'delete-other-windows)
 
