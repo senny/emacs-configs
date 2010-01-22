@@ -264,7 +264,9 @@
 (global-set-key [(meta shift left)] 'magit-status)
 
 (global-set-key [(control shift left)] 'previous-buffer)
+(define-key org-mode-map [(control shift left)] 'previous-buffer)
 (global-set-key [(control shift right)] 'next-buffer)
+(define-key org-mode-map [(control shift right)] 'next-buffer)
 
 (global-set-key [(meta H)] 'delete-other-windows)
 
