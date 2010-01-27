@@ -93,6 +93,7 @@
 ;;                       (pycomplexity-mode))))
 
 ;; ruby-mode
+(require 'topfunky-sinatra)
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))
 (require 'linum)
 (require 'ruby-complexity)
@@ -100,7 +101,8 @@
           (function (lambda ()
                       (flymake-mode)
                       (linum-mode)
-                      (ruby-complexity-mode))))
+                      (ruby-complexity-mode)
+                      )))
 
 ;; Javascript
 (setq js2-basic-offset 2)
