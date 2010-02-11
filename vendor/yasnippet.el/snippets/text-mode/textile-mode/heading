@@ -1,0 +1,11 @@
+#name : PeepCode Blog metadata
+# --
+heading: $1
+heading-color: ${2:#1d1e20}
+heading-background: ${3:#f2f2f2}
+read more: ${4:Read more...}
+categories: ${5:javascript html5}
+summary: $6
+format: ${7:haml}
+published: ${8:December 30 2010 at 12pm}
+${9:public-draft: true}

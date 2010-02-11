@@ -1,5 +1,5 @@
-#name: Anonymous function.
+#name: Named function.
 # --
-function ($1) {
+function $1 ($2) {
   $0
 }
