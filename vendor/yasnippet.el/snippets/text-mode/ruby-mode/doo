@@ -1,0 +1,5 @@
+#name : do |obj| ... end
+# --
+do |${1:obj}|
+  $1.$0
+end

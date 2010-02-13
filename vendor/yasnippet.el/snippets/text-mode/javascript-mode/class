@@ -1,0 +1,8 @@
+#name: Simple class.
+# --
+function ${1:Bacon}($2) {
+  if ( !(this instanceof arguments.callee) )
+      return new arguments.callee(arguments);
+
+  this.$0;
+}
