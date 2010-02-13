@@ -1,0 +1,3 @@
+#name : @property
+# --
+@property (${1:nonatomic}, ${2:retain}) $3 ${4:*} $0;

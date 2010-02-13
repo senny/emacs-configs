@@ -1,0 +1,3 @@
+# Call inside a class function to insure that "new" was called.
+if ( !(this instanceof arguments.callee) )
+    return new arguments.callee(arguments);

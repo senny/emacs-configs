@@ -1,0 +1,9 @@
+- (id)${1:init}
+{
+    if (![super ${2:init}])
+        return nil;
+
+    $0;
+
+    return self;
+}

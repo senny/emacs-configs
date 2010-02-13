@@ -1,0 +1,19 @@
+require 'rubygems'
+require 'sinatra/base'
+
+class ${1:My}App < Sinatra::Base
+
+  # configure do
+  # end
+
+  # helpers do
+  # end
+
+  # before do
+  # end
+
+  get "/?" do
+    $0
+  end
+
+end

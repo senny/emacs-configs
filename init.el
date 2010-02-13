@@ -45,7 +45,7 @@
 
 (require 'package)
 (package-initialize)
-(require 'starter-kit-elpa)
+;;(require 'starter-kit-elpa)
 
 ;; (load "elpa-to-submit/nxhtml/autostart")
 
@@ -61,6 +61,7 @@
 (require 'starter-kit-ruby)
 (require 'starter-kit-js)
 (require 'starter-kit-java)
+;; (require 'starter-kit-js)
 
 (regen-autoloads)
 (load custom-file 'noerror)
@@ -78,5 +79,5 @@
 (if (file-exists-p private-config-dir)
   (mapc #'load (directory-files private-config-dir nil ".*el$")))
 
-;;; init.el ends here
 (put 'narrow-to-region 'disabled nil)
+(provide 'init)

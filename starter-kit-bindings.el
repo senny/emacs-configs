@@ -9,7 +9,7 @@
 (global-set-key (kbd "C-x \\") 'align-regexp)
 
 ;; Completion that uses many different methods to find options.
-(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "M-=") 'dabbrev-expand)
 
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
@@ -81,6 +81,7 @@
 (global-set-key (kbd "C-c J") 'jabber-send-presence)
 (global-set-key (kbd "C-c M-j") 'jabber-disconnect)
 (global-set-key (kbd "C-x g") 'magit-status)
+
 
 ;; This is a little hacky since VC doesn't support git add internally
 (eval-after-load 'vc
