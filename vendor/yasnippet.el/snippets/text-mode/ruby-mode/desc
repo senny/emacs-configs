@@ -1,6 +1,0 @@
-#name : desc "..." task :name do ... end
-# --
-desc "${1:description}"
-task ${2:name} do
-  $0
-end

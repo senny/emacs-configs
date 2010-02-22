@@ -1,6 +1,0 @@
-#name : Create Objective-J method definition
-# --
-- (${1:void})${2:methodName}
-{
-    $0
-}

@@ -1,5 +1,0 @@
-#name: Anonymous function.
-# --
-function ($1) {
-  $0
-}
