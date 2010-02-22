@@ -1,0 +1,22 @@
+@import ../page_util
+
+!base_color = ${1:#000000}
+
+//+debug
+
+body.${2:page-name}
+  :background-color = !base_color
+
+  //+masthead-reset
+
+  .row.top
+    :background-color = !base_color
+
+    h1
+      :background-image url(/stylesheets/$2.png) 
+
+    .heading
+    .article
+    .page-date
+
+  $0  

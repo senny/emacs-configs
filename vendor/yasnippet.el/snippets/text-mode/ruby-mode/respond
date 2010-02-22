@@ -1,0 +1,7 @@
+#name : respond_to
+# --
+respond_to do |format|
+  format.${1:html} do
+    $0
+  end
+end

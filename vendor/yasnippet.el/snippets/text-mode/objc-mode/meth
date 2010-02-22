@@ -1,0 +1,3 @@
+#name : Create Objective-C method header
+# --
+- (${1:void}) $0;
