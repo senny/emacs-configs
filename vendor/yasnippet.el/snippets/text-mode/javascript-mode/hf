@@ -1,5 +1,0 @@
-#name: Anonymous function in a hash.
-# --
-${1:method_name}: function (${2:args}) {
-  $0
-}$3

@@ -1,8 +1,0 @@
-@implementation ${1:Class} : ${2:CPObject}
-{
-
-}
-
-$0
-
-@end

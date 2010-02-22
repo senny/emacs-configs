@@ -1,3 +1,0 @@
-# name: Cocoa NSLog()
-# --
-NSLog("$0")
