@@ -1,6 +1,3 @@
-;; (require 'winsize)
-;; (global-set-key (kbd "<f12>") 'resize-windows)
-
 ;;;; MISC
 (global-hl-line-mode t)
 (column-number-mode t)
@@ -100,11 +97,6 @@
 ;;;; Cucumber
 (add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))
 (load "feature-mode")
-
-(vendor 'magit)
-
-;;;; YAML Mode
-(require 'yaml-mode)
 
 ;;;; Better Registers
 (require 'better-registers)
