@@ -9,6 +9,8 @@
                                    'gist
                                    'nxml-mode
                                    'ruby-compilation
+                                   'rspec-mode
+                                   'log4j-mode
                                    'rinari)
   "Libraries that should be installed by default.")
 
