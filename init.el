@@ -45,7 +45,7 @@
 
 (require 'package)
 (package-initialize)
-;;(require 'starter-kit-elpa)
+(require 'starter-kit-elpa)
 
 ;; (load "elpa-to-submit/nxhtml/autostart")
 
