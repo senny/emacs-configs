@@ -138,3 +138,5 @@
 
 ;;;; KEYMAPS
 (define-key ido-file-dir-completion-map (kbd "C-x C-r") 'senny-ido-rgrep)
+
+(global-set-key (kbd "C-c C-k") 'comment-or-uncomment-region-or-line)
