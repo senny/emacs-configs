@@ -18,8 +18,10 @@
 (global-set-key [\M-up] 'move-text-up)
 
 ;; TODO: make movement keys working in ido
-;; (define-key ido-completion-map (kbd "M-l") 'ido-next-match)
-;; (define-key ido-completion-map (kbd "M-j") 'ido-prev-match)
+(define-key ido-common-completion-map (kbd "M-l") 'ido-next-match)
+(define-key ido-common-completion-map (kbd "M-j") 'ido-prev-match)
+(define-key ido-common-completion-map (kbd "M-i") 'ido-prev-match)
+(define-key ido-common-completion-map (kbd "M-k") 'ido-next-match)
 
 (global-unset-key (kbd "M-b")) ; backward-word
 (global-unset-key (kbd "M-f")) ; forward-word
@@ -117,6 +119,7 @@
 (global-set-key (kbd "TAB") 'senny-indent-or-complete)
 
 ;; Searching
+(global-unset-key (kbd "C-M-r")) ;; isearch-backwards
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)
 (define-key isearch-mode-map (kbd "M-s") 'move-cursor-next-pane)
 
