@@ -32,6 +32,7 @@
 ;; Make emacs act like textmate
 (vendor 'textmate)
 (textmate-mode 1)
+(define-key *textmate-mode-map* (kbd "M-p") 'textmate-goto-symbol)
 
 ;; whitespace mode
 (vendor 'whitespace)
@@ -95,14 +96,6 @@
 ;;;; Sunrise Commander
 (require 'sunrise-commander)
 (define-key sr-mode-map (kbd "<backtab>") 'sr-follow-file-other)
-
-;;;; RSpec
-(vendor 'rspec-mode)
-
-;;;; Ruby Block Mode
-;; (vendor 'ruby-block)
-;; (setq ruby-block-highlight-toggle t)
-;; (setq ruby-block-delay nil)
 
 ;;;; Cucumber
 (add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))

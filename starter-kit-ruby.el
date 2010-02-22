@@ -61,61 +61,34 @@ exec-to-string command, but it works and seems fast"
 
 ;;; Flymake
 
-(eval-after-load 'ruby-mode
-  '(progn
-     (require 'flymake)
+;; (eval-after-load 'ruby-mode
+;;   '(progn
+;;      (require 'flymake)
 
-     ;; Invoke ruby with '-c' to get syntax checking
-     (defun flymake-ruby-init ()
-       (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                          'flymake-create-temp-inplace))
-              (local-file (file-relative-name
-                           temp-file
-                           (file-name-directory buffer-file-name))))
-         (list "ruby" (list "-c" local-file))))
+;;      ;; Invoke ruby with '-c' to get syntax checking
+;;      (defun flymake-ruby-init ()
+;;        (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;                           'flymake-create-temp-inplace))
+;;               (local-file (file-relative-name
+;;                            temp-file
+;;                            (file-name-directory buffer-file-name))))
+;;          (list "ruby" (list "-c" local-file))))
 
-     (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
-     (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
+;;      (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
+;;      (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
 
-     (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)
-           flymake-err-line-patterns)
+;;      (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)
+;;            flymake-err-line-patterns)
 
-     (add-hook 'ruby-mode-hook
-               (lambda ()
-                 (when (and buffer-file-name
-                            (file-writable-p
-                             (file-name-directory buffer-file-name))
-                            (file-writable-p buffer-file-name)
-                            (not (subsetp
-                                  (list (current-buffer))
-                                  (tramp-list-remote-buffers))))
-                   (local-set-key (kbd "C-c d")
-                                  'flymake-display-err-menu-for-current-line))))))
-
-(defun ruby-flymake-mode ()
-  (interactive)
-  (setq *ruby-flymake-mode* (not *ruby-flymake-mode*))
-  (let ((flymake-hook '(lambda ()
-                         (flymake-mode 1)
-                         )))
-    (if *ruby-flymake-mode*
-        (progn
-          (add-hook 'ruby-mode-hook flymake-hook)
-          (flymake-mode 1)
-          (message "Ruby-Flymake-Mode activated"))
-      (progn
-        (remove-hook 'ruby-mode-hook flymake-hook)
-        (flymake-mode 0)
-        (message "Ruby-Flymake-Mode deactivated")))))
-
-;; Rinari (Minor Mode for Ruby On Rails)
-(setq rinari-major-modes
-      (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
-            'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
-            (add-to-list 'load-path (concat dotfiles-dir "vendor/rhtml-mode"))
-                 (require 'rhtml-mode)
-                 (add-hook 'rhtml-mode-hook
-                 	  (lambda () (rinari-launch)))
+;;      (add-hook 'ruby-mode-hook
+;;                (lambda ()
+;;                  (when (and buffer-file-name
+;;                             (file-writable-p
+;;                              (file-name-directory buffer-file-name))
+;;                             (file-writable-p buffer-file-name))
+;;                    (local-set-key (kbd "C-c d")
+;;                                   'flymake-display-err-menu-for-current-line)
+;;                    (flymake-mode t))))))
 
 ;; TODO: set up ri
 ;; TODO: electric
