@@ -23,6 +23,7 @@
 (define-key ido-common-completion-map (kbd "M-i") 'ido-prev-match)
 (define-key ido-common-completion-map (kbd "M-k") 'ido-next-match)
 
+
 (global-unset-key (kbd "M-b")) ; backward-word
 (global-unset-key (kbd "M-f")) ; forward-word
 (global-set-key (kbd "M-u") 'backward-word)
