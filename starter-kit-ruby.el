@@ -92,15 +92,6 @@ exec-to-string command, but it works and seems fast"
 
 ;; TODO: set up ri
 ;; TODO: electric
-(defun ruby-open-gem ()
-  (interactive)
-  (let ((gem-dir "/Library/Ruby/Gems/1.8/gems/"))
-    (find-file (ido-open-find-directory-files
-                (concat gem-dir (ido-completing-read "Gem: "
-                                                     (directory-files gem-dir nil "^[^.]")))))))
-
-(global-set-key (kbd "C-h r") 'ri)
-(global-set-key (kbd "C-c C-r g") 'ruby-open-gem)
 
 (provide 'starter-kit-ruby)
 ;; starter-kit-ruby.el ends here

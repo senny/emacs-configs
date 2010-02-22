@@ -17,12 +17,11 @@
 (global-set-key [\M-down] 'move-text-down)
 (global-set-key [\M-up] 'move-text-up)
 
-;; TODO: make movement keys working in ido
 (define-key ido-common-completion-map (kbd "M-l") 'ido-next-match)
 (define-key ido-common-completion-map (kbd "M-j") 'ido-prev-match)
 (define-key ido-common-completion-map (kbd "M-i") 'ido-prev-match)
 (define-key ido-common-completion-map (kbd "M-k") 'ido-next-match)
-
+(define-key isearch-mode-map (kbd "M-v") 'isearch-yank-kill)
 
 (global-unset-key (kbd "M-b")) ; backward-word
 (global-unset-key (kbd "M-f")) ; forward-word

@@ -106,9 +106,7 @@
 ;;;; YAML Mode
 (require 'yaml-mode)
 
-;;;; iSearch
-(define-key isearch-mode-map (kbd "M-v") 'isearch-yank-kill)
-
+;;;; Better Registers
 (require 'better-registers)
 (better-registers t)
 (better-registers-install-save-registers-hook)
