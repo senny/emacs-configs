@@ -5,10 +5,13 @@
 (defvar starter-kit-packages (list 'idle-highlight
                                    'ruby-mode
                                    'inf-ruby
-                                   'js2-mode
                                    'css-mode
                                    'gist
-                                   'nxml-mode)
+                                   'nxml-mode
+                                   'ruby-compilation
+                                   'rspec-mode
+                                   'log4j-mode
+                                   'rinari)
   "Libraries that should be installed by default.")
 
 (defun starter-kit-elpa-install ()

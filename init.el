@@ -60,7 +60,6 @@
 (require 'starter-kit-perl)
 (require 'starter-kit-ruby)
 (require 'starter-kit-js)
-(require 'starter-kit-java)
 
 (regen-autoloads)
 (load custom-file 'noerror)
@@ -78,5 +77,5 @@
 (if (file-exists-p private-config-dir)
   (mapc #'load (directory-files private-config-dir nil ".*el$")))
 
-;;; init.el ends here
 (put 'narrow-to-region 'disabled nil)
+(provide 'init)
