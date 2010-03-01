@@ -9,11 +9,11 @@
   (set-pairs '("(" "{" "[" "\""))
   (setq ac-sources '(ac-source-symbols ac-source-emacs-lisp-features))
   (setq ac-auto-start t)
-  ;; (auto-complete-mode t)
-  (setq company-idle-delay 0.1)
-  (setq company-backends '(company-elisp
-                           company-dabbrev-code))
-  (company-mode t)
+  (auto-complete-mode t)
+  ;; (setq company-idle-delay 0.1)
+  ;; (setq company-backends '(company-elisp
+  ;;                          company-dabbrev-code))
+  ;; (company-mode t)
   )
 
 (defun default-java-mode-hook ()
@@ -32,9 +32,6 @@
 
 (defun default-css-mode-hook ()
   (set-pairs '("(" "[" "\"" "\'"))
-  (setq company-backends '(company-css company-keywords company-dabbrev))
-  (setq company-idle-delay 0)
-  ;; (company-mode t)
   (setq senny-completion-function 'auto-complete)
   (setq ac-sources '(ac-source-css-keywords))
   (setq ac-auto-start t)

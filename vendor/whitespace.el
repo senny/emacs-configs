@@ -361,7 +361,7 @@
 
 ;;; code:
 
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; User Variables:
 
@@ -381,7 +381,7 @@
   '(tabs spaces trailing lines space-before-tab newline
 	 indentation empty space-after-tab
 	 space-mark tab-mark newline-mark)
-  "*Specify which kind of blank is visualized.
+  "Specify which kind of blank is visualized.
 
 It's a list containing some or all of the following values:
 
@@ -508,7 +508,7 @@ See also `whitespace-display-mappings' for documentation."
 
 
 (defcustom whitespace-space 'whitespace-space
-  "*Symbol face used to visualize SPACE.
+  "Symbol face used to visualize SPACE.
 
 Used when `whitespace-style' includes the value `spaces'."
   :type 'face
@@ -526,7 +526,7 @@ Used when `whitespace-style' includes the value `spaces'."
 
 
 (defcustom whitespace-hspace 'whitespace-hspace
-  "*Symbol face used to visualize HARD SPACE.
+  "Symbol face used to visualize HARD SPACE.
 
 Used when `whitespace-style' includes the value `spaces'."
   :type 'face
@@ -544,7 +544,7 @@ Used when `whitespace-style' includes the value `spaces'."
 
 
 (defcustom whitespace-tab 'whitespace-tab
-  "*Symbol face used to visualize TAB.
+  "Symbol face used to visualize TAB.
 
 Used when `whitespace-style' includes the value `tabs'."
   :type 'face
@@ -562,7 +562,7 @@ Used when `whitespace-style' includes the value `tabs'."
 
 
 (defcustom whitespace-newline 'whitespace-newline
-  "*Symbol face used to visualize NEWLINE char mapping.
+  "Symbol face used to visualize NEWLINE char mapping.
 
 See `whitespace-display-mappings'.
 
@@ -585,7 +585,7 @@ See `whitespace-display-mappings'."
 
 
 (defcustom whitespace-trailing 'whitespace-trailing
-  "*Symbol face used to visualize trailing blanks.
+  "Symbol face used to visualize trailing blanks.
 
 Used when `whitespace-style' includes the value `trailing'."
   :type 'face
@@ -600,7 +600,7 @@ Used when `whitespace-style' includes the value `trailing'."
 
 
 (defcustom whitespace-line 'whitespace-line
-  "*Symbol face used to visualize \"long\" lines.
+  "Symbol face used to visualize \"long\" lines.
 
 See `whitespace-line-column'.
 
@@ -619,7 +619,7 @@ See `whitespace-line-column'."
 
 
 (defcustom whitespace-space-before-tab 'whitespace-space-before-tab
-  "*Symbol face used to visualize SPACEs before TAB.
+  "Symbol face used to visualize SPACEs before TAB.
 
 Used when `whitespace-style' includes the value `space-before-tab'."
   :type 'face
@@ -634,7 +634,7 @@ Used when `whitespace-style' includes the value `space-before-tab'."
 
 
 (defcustom whitespace-indentation 'whitespace-indentation
-  "*Symbol face used to visualize 8 or more SPACEs at beginning of line.
+  "Symbol face used to visualize 8 or more SPACEs at beginning of line.
 
 Used when `whitespace-style' includes the value `indentation'."
   :type 'face
@@ -649,7 +649,7 @@ Used when `whitespace-style' includes the value `indentation'."
 
 
 (defcustom whitespace-empty 'whitespace-empty
-  "*Symbol face used to visualize empty lines at beginning and/or end of buffer.
+  "Symbol face used to visualize empty lines at beginning and/or end of buffer.
 
 Used when `whitespace-style' includes the value `empty'."
   :type 'face
@@ -664,7 +664,7 @@ Used when `whitespace-style' includes the value `empty'."
 
 
 (defcustom whitespace-space-after-tab 'whitespace-space-after-tab
-  "*Symbol face used to visualize 8 or more SPACEs after TAB.
+  "Symbol face used to visualize 8 or more SPACEs after TAB.
 
 Used when `whitespace-style' includes the value `space-after-tab'."
   :type 'face
@@ -680,7 +680,7 @@ Used when `whitespace-style' includes the value `space-after-tab'."
 
 (defcustom whitespace-hspace-regexp
   "\\(\\(\xA0\\|\x8A0\\|\x920\\|\xE20\\|\xF20\\)+\\)"
-  "*Specify HARD SPACE characters regexp.
+  "Specify HARD SPACE characters regexp.
 
 If you're using `mule' package, there may be other characters besides:
 
@@ -708,7 +708,7 @@ Used when `whitespace-style' includes `spaces'."
 
 
 (defcustom whitespace-space-regexp "\\( +\\)"
-  "*Specify SPACE characters regexp.
+  "Specify SPACE characters regexp.
 
 If you're using `mule' package, there may be other characters
 besides \" \" that should be considered SPACE.
@@ -730,7 +730,7 @@ Used when `whitespace-style' includes `spaces'."
 
 
 (defcustom whitespace-tab-regexp "\\(\t+\\)"
-  "*Specify TAB characters regexp.
+  "Specify TAB characters regexp.
 
 If you're using `mule' package, there may be other characters
 besides \"\\t\" that should be considered TAB.
@@ -753,7 +753,7 @@ Used when `whitespace-style' includes `tabs'."
 
 (defcustom whitespace-trailing-regexp
   "\\(\\(\t\\| \\|\xA0\\|\x8A0\\|\x920\\|\xE20\\|\xF20\\)+\\)$"
-  "*Specify trailing characters regexp.
+  "Specify trailing characters regexp.
 
 If you're using `mule' package, there may be other characters besides:
 
@@ -771,7 +771,7 @@ Used when `whitespace-style' includes `trailing'."
 
 
 (defcustom whitespace-space-before-tab-regexp "\\( +\\)\\(\t+\\)"
-  "*Specify SPACEs before TAB regexp.
+  "Specify SPACEs before TAB regexp.
 
 If you're using `mule' package, there may be other characters besides:
 
@@ -789,7 +789,7 @@ Used when `whitespace-style' includes `space-before-tab',
 (defcustom whitespace-indentation-regexp
   '("^\t*\\(\\( \\{%d\\}\\)+\\)[^\n\t]"
     . "^ *\\(\t+\\)[^\n]")
-  "*Specify regexp for 8 or more SPACEs at beginning of line.
+  "Specify regexp for 8 or more SPACEs at beginning of line.
 
 It is a cons where the cons car is used for SPACEs visualization
 and the cons cdr is used for TABs visualization.
@@ -809,7 +809,7 @@ Used when `whitespace-style' includes `indentation',
 
 
 (defcustom whitespace-empty-at-bob-regexp "\\`\\(\\([ \t]*\n\\)+\\)"
-  "*Specify regexp for empty lines at beginning of buffer.
+  "Specify regexp for empty lines at beginning of buffer.
 
 If you're using `mule' package, there may be other characters besides:
 
@@ -824,7 +824,7 @@ Used when `whitespace-style' includes `empty'."
 
 
 (defcustom whitespace-empty-at-eob-regexp "^\\([ \t\n]+\\)\\'"
-  "*Specify regexp for empty lines at end of buffer.
+  "Specify regexp for empty lines at end of buffer.
 
 If you're using `mule' package, there may be other characters besides:
 
@@ -841,7 +841,7 @@ Used when `whitespace-style' includes `empty'."
 (defcustom whitespace-space-after-tab-regexp
   '("\t+\\(\\( \\{%d\\}\\)+\\)"
     . "\\(\t+\\) +")
-  "*Specify regexp for 8 or more SPACEs after TAB.
+  "Specify regexp for 8 or more SPACEs after TAB.
 
 It is a cons where the cons car is used for SPACEs visualization
 and the cons cdr is used for TABs visualization.
@@ -860,7 +860,7 @@ Used when `whitespace-style' includes `space-after-tab',
 
 
 (defcustom whitespace-line-column 80
-  "*Specify column beyond which the line is highlighted.
+  "Specify column beyond which the line is highlighted.
 
 Used when `whitespace-style' includes `lines' or `lines-tail'."
   :type '(integer :tag "Line Length")
@@ -869,57 +869,29 @@ Used when `whitespace-style' includes `lines' or `lines-tail'."
 
 ;; Hacked from `visible-whitespace-mappings' in visws.el
 (defcustom whitespace-display-mappings
-  (if (>= emacs-major-version 23)
-      ;; Emacs 23 and higher:
-      '(
-	(space-mark   ?\     [?\xB7]       [?.]) ; space - centered dot
-	(space-mark   ?\xA0  [?\xA4]       [?_]) ; hard space - currency
-	(space-mark   ?\x8A0 [?\x8A4]      [?_]) ; hard space - currency
-	(space-mark   ?\x920 [?\x924]      [?_]) ; hard space - currency
-	(space-mark   ?\xE20 [?\xE24]      [?_]) ; hard space - currency
-	(space-mark   ?\xF20 [?\xF24]      [?_]) ; hard space - currency
-	;; NEWLINE is displayed using the face `whitespace-newline'
-	(newline-mark ?\n    [?$ ?\n])	; eol - dollar sign
-	;; (newline-mark ?\n    [?\u21B5 ?\n] [?$ ?\n])	; eol - downwards arrow
-	;; (newline-mark ?\n    [?\xB6 ?\n]   [?$ ?\n])	; eol - pilcrow
-	;; (newline-mark ?\n    [?\x8AF ?\n]  [?$ ?\n])	; eol - overscore
-	;; (newline-mark ?\n    [?\x8AC ?\n]  [?$ ?\n])	; eol - negation
-	;; (newline-mark ?\n    [?\x8B0 ?\n]  [?$ ?\n])	; eol - grade
-	;;
-	;; WARNING: the mapping below has a problem.
-	;; When a TAB occupies exactly one column, it will display the
-	;; character ?\xBB at that column followed by a TAB which goes to
-	;; the next TAB column.
-	;; If this is a problem for you, please, comment the line below.
-	(tab-mark     ?\t    [?\xBB ?\t]   [?\\ ?\t]) ; tab - left quote mark
-	)
-    ;; Emacs 21 and 22:
-    ;; Due to limitations of glyph representation, the char code can not
-    ;; be above ?\x1FFFF.  Probably, this will be fixed after Emacs
-    ;; unicode merging.
-    '(
-      (space-mark   ?\     [?\xB7]       [?.]) ; space - centered dot
-      (space-mark   ?\xA0  [?\xA4]       [?_]) ; hard space - currency
-      (space-mark   ?\x8A0 [?\x8A4]      [?_]) ; hard space - currency
-      (space-mark   ?\x920 [?\x924]      [?_]) ; hard space - currency
-      (space-mark   ?\xE20 [?\xE24]      [?_]) ; hard space - currency
-      (space-mark   ?\xF20 [?\xF24]      [?_]) ; hard space - currency
-      ;; NEWLINE is displayed using the face `whitespace-newline'
-      (newline-mark ?\n    [?$ ?\n])	; eol - dollar sign
-      ;; (newline-mark ?\n    [?\u21B5 ?\n] [?$ ?\n])	; eol - downwards arrow
-      ;; (newline-mark ?\n    [?\xB6 ?\n]   [?$ ?\n])	; eol - pilcrow
-      ;; (newline-mark ?\n    [?\x8AF ?\n]  [?$ ?\n])	; eol - overscore
-      ;; (newline-mark ?\n    [?\x8AC ?\n]  [?$ ?\n])	; eol - negation
-      ;; (newline-mark ?\n    [?\x8B0 ?\n]  [?$ ?\n])	; eol - grade
-      ;;
-      ;; WARNING: the mapping below has a problem.
-      ;; When a TAB occupies exactly one column, it will display the
-      ;; character ?\xBB at that column followed by a TAB which goes to
-      ;; the next TAB column.
-      ;; If this is a problem for you, please, comment the line below.
-      (tab-mark     ?\t    [?\xBB ?\t]   [?\\ ?\t]) ; tab - left quote mark
-      ))
-  "*Specify an alist of mappings for displaying characters.
+  '(
+    (space-mark   ?\     [?\xB7]       [?.])		; space - centered dot
+    (space-mark   ?\xA0  [?\xA4]       [?_])		; hard space - currency
+    (space-mark   ?\x8A0 [?\x8A4]      [?_])		; hard space - currency
+    (space-mark   ?\x920 [?\x924]      [?_])		; hard space - currency
+    (space-mark   ?\xE20 [?\xE24]      [?_])		; hard space - currency
+    (space-mark   ?\xF20 [?\xF24]      [?_])		; hard space - currency
+    ;; NEWLINE is displayed using the face `whitespace-newline'
+    (newline-mark ?\n    [?$ ?\n])			; eol - dollar sign
+    ;; (newline-mark ?\n    [?\u21B5 ?\n] [?$ ?\n])	; eol - downwards arrow
+    ;; (newline-mark ?\n    [?\xB6 ?\n]   [?$ ?\n])	; eol - pilcrow
+    ;; (newline-mark ?\n    [?\x8AF ?\n]  [?$ ?\n])	; eol - overscore
+    ;; (newline-mark ?\n    [?\x8AC ?\n]  [?$ ?\n])	; eol - negation
+    ;; (newline-mark ?\n    [?\x8B0 ?\n]  [?$ ?\n])	; eol - grade
+    ;;
+    ;; WARNING: the mapping below has a problem.
+    ;; When a TAB occupies exactly one column, it will display the
+    ;; character ?\xBB at that column followed by a TAB which goes to
+    ;; the next TAB column.
+    ;; If this is a problem for you, please, comment the line below.
+    (tab-mark     ?\t    [?\xBB ?\t]   [?\\ ?\t])	; tab - left quote mark
+    )
+  "Specify an alist of mappings for displaying characters.
 
 Each element has the following form:
 
@@ -964,7 +936,7 @@ Used when `whitespace-style' includes `tab-mark', `space-mark' or
 
 
 (defcustom whitespace-global-modes t
-  "*Modes for which global `whitespace-mode' is automagically turned on.
+  "Modes for which global `whitespace-mode' is automagically turned on.
 
 Global `whitespace-mode' is controlled by the command
 `global-whitespace-mode'.
@@ -995,7 +967,7 @@ C++ modes only."
 
 
 (defcustom whitespace-action nil
-  "*Specify which action is taken when a buffer is visited or written.
+  "Specify which action is taken when a buffer is visited or written.
 
 It's a list containing some or all of the following values:
 
@@ -1033,7 +1005,7 @@ Any other value is treated as nil."
 			  (const :tag "Warn If Read-Only" warn-if-read-only))))
   :group 'whitespace)
 
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; User commands - Local mode
 
@@ -1087,7 +1059,7 @@ See also `whitespace-newline' and `whitespace-display-mappings'."
     ;; sync states (running a batch job)
     (setq whitespace-newline-mode whitespace-mode)))
 
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; User commands - Global mode
 
@@ -1112,20 +1084,14 @@ See also `whitespace-style', `whitespace-newline' and
     (setq global-whitespace-mode nil))
    (global-whitespace-mode		; global-whitespace-mode on
     (save-excursion
-      (add-hook (if (boundp 'find-file-hook)
-		    'find-file-hook
-		  'find-file-hooks)
-		'whitespace-turn-on-if-enabled)
+      (add-hook 'find-file-hook 'whitespace-turn-on-if-enabled)
       (dolist (buffer (buffer-list))	; adjust all local mode
 	(set-buffer buffer)
 	(unless whitespace-mode
 	  (whitespace-turn-on-if-enabled)))))
    (t					; global-whitespace-mode off
     (save-excursion
-      (remove-hook (if (boundp 'find-file-hook)
-		       'find-file-hook
-		     'find-file-hooks)
-		   'whitespace-turn-on-if-enabled)
+      (remove-hook 'find-file-hook 'whitespace-turn-on-if-enabled)
       (dolist (buffer (buffer-list))	; adjust all local mode
 	(set-buffer buffer)
 	(unless whitespace-mode
@@ -1179,7 +1145,7 @@ See also `whitespace-newline' and `whitespace-display-mappings'."
     ;; sync states (running a batch job)
     (setq global-whitespace-newline-mode global-whitespace-mode)))
 
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; User commands - Toggle
 
@@ -1409,7 +1375,7 @@ See `whitespace-style' and `indent-tabs-mode' for documentation."
     (global-whitespace-mode 0)
     (global-whitespace-mode 1)))
 
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; User commands - Cleanup
 
@@ -1641,7 +1607,7 @@ See also `tab-width'."
     (goto-char (match-end index))
     (funcall action (match-beginning index) (match-end index))))
 
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; User command - report
 
@@ -1890,7 +1856,7 @@ cleaning up these problems."
 	      (whitespace-display-window (current-buffer)))))
 	has-bogus))))
 
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Internal functions
 
@@ -2327,7 +2293,7 @@ resultant list will be returned."
     ;; restore original font lock state
     (font-lock-mode whitespace-font-lock-mode)))
 
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Hacked from visws.el (Miles Bader <miles@gnu.org>)
 
@@ -2339,16 +2305,10 @@ resultant list will be returned."
       (memq 'newline-mark whitespace-active-style)))
 
 
-(defalias 'whitespace-characterp
-  (if (fboundp 'characterp)
-      'characterp
-    'char-valid-p))
-
-
 (defsubst whitespace-char-valid-p (char)
   ;; This check should be improved!!!
   (or (< char 256)
-      (whitespace-characterp char)))
+      (characterp char)))
 
 
 (defun whitespace-display-vector-p (vec)
@@ -2390,13 +2350,7 @@ resultant list will be returned."
 	      ;; obstruction of other faces like TABs and (HARD) SPACEs
 	      ;; faces, font-lock faces, etc.
 	      (dotimes (i (length vec))
-		;; Only for Emacs 21 and 22:
-		;; Due to limitations of glyph representation, the char
-		;; code can not be above ?\x1FFFF.  Probably, this will
-		;; be fixed after Emacs unicode merging.
 		(or (eq (aref vec i) ?\n)
-		    (and (< emacs-major-version 23)
-			 (> (aref vec i) #x1FFFF))
 		    (aset vec i
 			  (make-glyph-code (aref vec i)
 					   whitespace-newline)))))
@@ -2412,7 +2366,7 @@ resultant list will be returned."
        (setq whitespace-display-table-was-local nil
 	     buffer-display-table whitespace-display-table)))
 
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Hook
 
@@ -2442,7 +2396,7 @@ It should be added buffer-locally to `write-file-functions'."
   (when (memq 'warn-if-read-only whitespace-action)
     (message "Can't %s: %s is read-only" msg (buffer-name))))
 
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 

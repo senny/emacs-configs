@@ -1,6 +1,3 @@
-;; (require 'winsize)
-;; (global-set-key (kbd "<f12>") 'resize-windows)
-
 ;;;; MISC
 (global-hl-line-mode t)
 (column-number-mode t)
@@ -32,6 +29,7 @@
 ;; Make emacs act like textmate
 (vendor 'textmate)
 (textmate-mode 1)
+(define-key *textmate-mode-map* (kbd "M-p") 'textmate-goto-symbol)
 
 ;; whitespace mode
 (vendor 'whitespace)
@@ -97,26 +95,11 @@
 (require 'sunrise-commander)
 (define-key sr-mode-map (kbd "<backtab>") 'sr-follow-file-other)
 
-;;;; RSpec
-(vendor 'rspec-mode)
-
-;;;; Ruby Block Mode
-;; (vendor 'ruby-block)
-;; (setq ruby-block-highlight-toggle t)
-;; (setq ruby-block-delay nil)
-
 ;;;; Cucumber
 (add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))
 (load "feature-mode")
 
-(vendor 'magit)
-
-;;;; YAML Mode
-(require 'yaml-mode)
-
-;;;; iSearch
-(define-key isearch-mode-map (kbd "M-v") 'isearch-yank-kill)
-
+;;;; Better Registers
 (require 'better-registers)
 (better-registers t)
 (better-registers-install-save-registers-hook)
