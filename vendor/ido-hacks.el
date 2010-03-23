@@ -42,12 +42,12 @@ argument is a function (which ido can't handle)."
   ;; initial-input hist def inherit-input-method)
   (if (or  ido-hacks-completing-read-recursive
            (and (listp collection)
-                (equal '("dummy" . 1)	;call from ido-read-internal
+                (equal '("dummy" . 1) ;call from ido-read-internal
                        (car collection)))
            (symbolp collection)
            inherit-input-method
            (eq (get this-command 'ido) 'ignore))
-      
+
       ad-do-it
     ;; copied from ido-completing-read
     (let ((ido-hacks-completing-read-recursive t)
@@ -72,7 +72,7 @@ history, instead of the incomplete input."
   (let (history-add-new-input
         (hook  (intern (format "ido-make-%s-list-hook" item)))
         (fix-default (get this-command 'ido-hacks-fix-default)))
-    
+
     (clrhash ido-hacks-flex-narrowed-matches-hash)
     (if (or fix-default
             (and prompt
@@ -88,7 +88,7 @@ history, instead of the incomplete input."
          (t
           (apply 'add-hook hook
                  (list 'ido-hacks-fix-default-hook)))))
-    
+
     ad-do-it
 
     (apply 'remove-hook hook (list 'ido-hacks-fix-default-hook))
@@ -113,19 +113,19 @@ history, instead of the incomplete input."
   ;; (defun ido-set-matches-1 (items &optional do-full)
   (cond
    ;;    ((and (eq ido-cur-item 'list)
-   ;; 	 (equal ido-text ""))
+   ;;    (equal ido-text ""))
    ;;     (setq ad-return-value ido-choice-list))
    (t
     (cond
      ((not ido-enable-flex-matching)
       ad-do-it)
      (t
-      (let (ido-enable-flex-matching) 
+      (let (ido-enable-flex-matching)
         ad-do-it
         (when  (and (null ad-return-value)
                     (> (length ido-text) 1)
                     (not ido-enable-regexp))
-          
+
           (let* ((re (mapconcat #'regexp-quote (split-string ido-text "" t) ".*"))
                  longest-prefix valid new-hash)
             (maphash
@@ -135,7 +135,7 @@ history, instead of the incomplete input."
                    (setq longest-prefix k)
                    (setq valid v)))
              ido-hacks-flex-narrowed-matches-hash)
-            
+
             (if ido-enable-prefix
                 (setq re (concat "\\`" re)))
 
@@ -157,7 +157,7 @@ history, instead of the incomplete input."
                      (puthash item t new-hash)
                      (push item ad-return-value))))
              items)
-            
+
             (puthash ido-text
                      (cons new-hash
                            ido-enable-prefix) ;store current mode
@@ -275,7 +275,7 @@ is minibuffer. (Stolen from icomplete.)"
             (t "")))
           (ido-incomplete-regexp
            (concat " " (car comps)))
-          ((null (cdr comps))		;one match
+          ((null (cdr comps))   ;one match
            (concat (if (if (not ido-enable-regexp)
                            (= (length (ido-name (car comps))) (length name))
                          ;; We can't rely on the length of the input
@@ -290,7 +290,7 @@ is minibuffer. (Stolen from icomplete.)"
                              (ido-name (car comps))
                              (nth 5 ido-decorations)))
                    (if (not ido-use-faces) (nth 7 ido-decorations))))  ;; [Matched]
-          (t				;multiple matches
+          (t        ;multiple matches
            (let ((items (if (> ido-max-prospects 0) (1+ ido-max-prospects) 999))
                  alternatives)
 
@@ -308,7 +308,7 @@ is minibuffer. (Stolen from icomplete.)"
                        (put-text-property 0 (length str) 'face 'ido-subdir str))
                    (push str alternatives))))
              ;; ---------------------------
-             
+
              (concat
               ;; put in common completion item -- what you get by pressing tab
               (if (and (stringp ido-common-match-string)
