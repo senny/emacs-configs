@@ -133,7 +133,7 @@ completing filenames and symbols (`ido' by default)")
 	   (define-key map [(control shift tab)] 'textmate-shift-left)
 	   (define-key map [(control c)(control k)] 'comment-or-uncomment-region-or-line)
 	   (define-key map [(meta t)] 'textmate-goto-file)
-	   (define-key map [(meta shift l)] 'textmate-select-line)
+	   ;; (define-key map [(meta shift l)] 'textmate-select-line)
 	   (define-key map [(meta shift t)] 'textmate-goto-symbol)))
 	  map))
 

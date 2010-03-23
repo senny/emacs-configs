@@ -6,6 +6,8 @@
 (require 'browse-kill-ring)
 (require 'browse-kill-ring+)
 
+(require 'iedit)
+
 ;; Aspell + Flyspell
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "german")

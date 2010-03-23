@@ -18,7 +18,7 @@
 (eval-after-load 'ruby-mode
   '(progn
      ;;;; Additional Libraries
-     (vendor 'rspec-mode)
+     ;;(vendor 'rspec-mode)
 
      ;;;; Bindings
      (define-key ruby-mode-map (kbd "C-M-r") 'senny-ruby-compilation-this-buffer)
