@@ -79,3 +79,5 @@
 
 (put 'narrow-to-region 'disabled nil)
 (provide 'init)
+
+(put 'downcase-region 'disabled nil)

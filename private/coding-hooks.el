@@ -18,16 +18,16 @@
 
 (defun default-java-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'"))
-  (setq company-backends '(company-emacs-eclim))
-  (setq senny-completion-function 'company-complete)
+  ;; (setq company-backends '(company-emacs-eclim))
+  (setq senny-completion-function 'ac-complete)
   (setq senny-intellisense-completion-function 'eclim-complete)
-  (company-mode t)
+  ;; (company-mode t)
   (setq c-comment-continuation-stars "* ")
   (setq c-basic-offset 2)
   (setq ac-sources '(ac-source-eclim ac-source-words-in-same-mode-buffers))
   (yas/minor-mode t)
   ;; (java-mode-indent-annotations-setup)
-  ;; (auto-complete-mode t)
+  (auto-complete-mode t)
   )
 
 (defun default-css-mode-hook ()
@@ -68,6 +68,13 @@
 
 (defun default-textile-mode-hook ()
   (set-pairs '("[" "{")))
+
+(defun default-sql-mode-hook ()
+  (setq tab-width 4)
+  (sql-set-product 'oracle)
+  (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
+  (auto-complete-mode t)
+  (setq ac-auto-start t))
 
 ;; Objective C
 (add-hook 'objc-mode-hook
@@ -126,3 +133,5 @@
             ))
 
 (add-hook 'textile-mode-hook 'default-textile-mode-hook)
+
+(add-hook 'sql-mode-hook 'default-sql-mode-hook)
