@@ -1,19 +1,11 @@
 (make-variable-buffer-local 'senny-completion-function)
 (make-variable-buffer-local 'senny-intellisense-completion-function)
-(make-variable-buffer-local 'company-idle-delay)
-(make-variable-buffer-local 'company-backends)
-(make-variable-buffer-local 'ac-sources)
-(make-variable-buffer-local 'ac-auto-start)
 
 (defun default-lisp-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
   (setq ac-sources '(ac-source-symbols ac-source-emacs-lisp-features))
   (setq ac-auto-start t)
   (auto-complete-mode t)
-  ;; (setq company-idle-delay 0.1)
-  ;; (setq company-backends '(company-elisp
-  ;;                          company-dabbrev-code))
-  ;; (company-mode t)
   )
 
 (defun default-java-mode-hook ()
@@ -27,26 +19,28 @@
   (setq ac-sources '(ac-source-eclim ac-source-words-in-same-mode-buffers))
   (yas/minor-mode t)
   ;; (java-mode-indent-annotations-setup)
-  ;; (auto-complete-mode t)
   )
 
 (defun default-css-mode-hook ()
   (set-pairs '("(" "[" "\"" "\'"))
   (setq senny-completion-function 'auto-complete)
-  (setq ac-sources '(ac-source-css-keywords))
-  (setq ac-auto-start t)
-  (auto-complete-mode t)
+  ;; (setq ac-sources '(ac-source-dictionary))
+  ;; (setq ac-auto-start t)
+  ;; (auto-complete-mode t)
 
   (setq css-indent-level 2)
   (setq css-indent-offset 2))
 
 (defun default-ruby-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'" "|"))
-  (setq company-backends '(company-dabbrev-code))
+
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
   (setq ac-auto-start t)
-  ;; (company-mode t)
   (auto-complete-mode t)
+
+  (make-local-variable 'ac-ignores)
+  (add-to-list 'ac-ignores "end")
+
   (local-set-key (kbd "TAB") 'senny-indent-or-complete)
   (local-set-key [return] 'ruby-reindent-then-newline-and-indent))
 

@@ -26,4 +26,5 @@ tramp
 org-clock-save.el
 .org-id-locations
 \#*
-
+ac-comphist.dat
+slime/*
