@@ -6,6 +6,8 @@
 (require 'browse-kill-ring)
 (require 'browse-kill-ring+)
 
+(require 'iedit)
+
 ;; Aspell + Flyspell
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "german")
@@ -56,6 +58,7 @@
 (setq rng-nxml-auto-validate-flag t)
 (add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
+(add-to-list 'auto-mode-alist '("\\.tld$" . nxml-mode))
 
 ;; this function rebinds M-s and M-S to switch between the different windows
 (defun rebind-commands ()
