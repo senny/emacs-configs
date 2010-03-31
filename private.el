@@ -1,4 +1,5 @@
-(add-to-list 'load-path (concat dotfiles-dir "vendor"))
+(setq vendor-dir (concat dotfiles-dir "vendor"))
+(add-to-list 'load-path vendor-dir)
 
 ; for loading libraries in from the vendor directory
 (defun vendor (library)
