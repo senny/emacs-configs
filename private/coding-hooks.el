@@ -10,10 +10,10 @@
 
 (defun default-java-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'"))
-  (setq company-backends '(company-emacs-eclim))
-  (setq senny-completion-function 'company-complete)
+  ;; (setq company-backends '(company-emacs-eclim))
+  (setq senny-completion-function 'ac-complete)
   (setq senny-intellisense-completion-function 'eclim-complete)
-  (company-mode t)
+  ;; (company-mode t)
   (setq c-comment-continuation-stars "* ")
   (setq c-basic-offset 2)
   (setq ac-sources '(ac-source-eclim ac-source-words-in-same-mode-buffers))
@@ -30,6 +30,9 @@
 
   (setq css-indent-level 2)
   (setq css-indent-offset 2))
+
+(defun default-javascript-mode-hook ()
+  (set-pairs '("(" "{" "[")))
 
 (defun default-ruby-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'" "|"))
@@ -56,6 +59,16 @@
   (auto-fill-mode 1)
   ;; (setq ac-sources '(ac-source-org))
   (auto-complete-mode t))
+
+(defun default-textile-mode-hook ()
+  (set-pairs '("[" "{")))
+
+(defun default-sql-mode-hook ()
+  (setq tab-width 4)
+  (sql-set-product 'oracle)
+  (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
+  (auto-complete-mode t)
+  (setq ac-auto-start t))
 
 ;; Objective C
 (add-hook 'objc-mode-hook
@@ -95,6 +108,10 @@
 ;; CSS
 (add-hook 'css-mode-hook 'default-css-mode-hook)
 
+;; JavaScript
+(add-hook 'javascript-mode-hook 'default-javascript-mode-hook)
+(add-hook 'espresso-mode-hook 'default-javascript-mode-hook)
+
 ;; HTML
 (add-hook 'html-mode-hook 'default-html-mode-hook )
 (add-hook 'nxml-mode-hook
@@ -108,3 +125,7 @@
 (add-hook 'comint-mode-hook
           (lambda ()
             ))
+
+(add-hook 'textile-mode-hook 'default-textile-mode-hook)
+
+(add-hook 'sql-mode-hook 'default-sql-mode-hook)
