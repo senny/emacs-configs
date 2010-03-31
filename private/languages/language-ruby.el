@@ -23,8 +23,8 @@
      ;;;; Bindings
      (define-key ruby-mode-map (kbd "C-M-r") 'senny-ruby-compilation-this-buffer)
      (define-key ruby-mode-map (kbd "C-h r") 'ri)
-     (define-key ruby-mode-map (kbd "C-c C-r g") 'senny-ruby-open-gem)))
-     
+     (define-key ruby-mode-map (kbd "C-c C-r g") 'senny-ruby-open-gem)
+  ))
 
 ;;;; Ruby Block Mode
 ;; (vendor 'ruby-block)

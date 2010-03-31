@@ -32,17 +32,10 @@
 ;; (define-key company-active-map (kbd "TAB") 'company-complete)
 
 ;;;; auto-complete
-(when (vendor 'auto-complete)
-  (require 'auto-complete-config)
-  ;;(require 'auto-complete-yasnippet)
-  ;;(require 'auto-complete-ruby)
-  ;;(require 'auto-complete-css)
-  ;;(require 'ac-dabbrev)
+(vendor 'auto-complete)
+(add-to-list 'ac-dictionary-directories (concat vendor-dir "/auto-complete/dict"))
+(require 'auto-complete-config)
+(ac-config-default)
 
-  (define-key ac-complete-mode-map (kbd "TAB") 'ac-complete)
-  (define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
-  (define-key ac-complete-mode-map (kbd "M-k") 'ac-next)
-  (define-key ac-complete-mode-map (kbd "M-i") 'ac-previous)
-  (setq ac-auto-start nil)
-  (setq ac-dwim t)
-  (set-default 'ac-sources '(ac-source-yasnippet ac-source-words-in-same-mode-buffers)))
+(define-key ac-complete-mode-map (kbd "M-k") 'ac-next)
+(define-key ac-complete-mode-map (kbd "M-i") 'ac-previous)

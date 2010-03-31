@@ -29,7 +29,10 @@
 ;; Make emacs act like textmate
 (vendor 'textmate)
 (textmate-mode 1)
-(define-key *textmate-mode-map* (kbd "M-p") 'textmate-goto-symbol)
+(eval-after-load 'textmate-mode
+  '(progn
+     (define-key *textmate-mode-map* (kbd "M-p") 'textmate-goto-symbol)
+     (define-key *textmate-mode-map* (kbd "M-t") 'textmate-goto-file)))
 
 ;; whitespace mode
 (vendor 'whitespace)
@@ -53,9 +56,6 @@
 (setq rng-nxml-auto-validate-flag t)
 (add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
-
-;;js2-mode
-(setq js2-mirror-mode nil)
 
 ;; this function rebinds M-s and M-S to switch between the different windows
 (defun rebind-commands ()
