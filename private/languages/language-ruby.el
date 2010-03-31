@@ -1,3 +1,5 @@
+(vendor 'rhtml-mode)
+
 ;;;; Defuns
 
 (defun senny-ruby-compilation-this-buffer ()
@@ -6,7 +8,6 @@
   (let ((origin (current-buffer)))
     (ruby-compilation-this-buffer)
     (pop-to-buffer origin)))
-
 
 (defun senny-ruby-open-gem ()
   (interactive)
