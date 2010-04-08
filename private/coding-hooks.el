@@ -4,7 +4,6 @@
 (defun default-lisp-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
   (setq ac-sources '(ac-source-symbols ac-source-emacs-lisp-features))
-  (setq ac-auto-start t)
   (auto-complete-mode t)
   )
 
@@ -25,7 +24,6 @@
   (set-pairs '("(" "[" "\"" "\'"))
   (setq senny-completion-function 'auto-complete)
   ;; (setq ac-sources '(ac-source-dictionary))
-  ;; (setq ac-auto-start t)
   ;; (auto-complete-mode t)
 
   (setq css-indent-level 2)
@@ -38,7 +36,6 @@
   (set-pairs '("(" "{" "[" "\"" "\'" "|"))
 
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
-  (setq ac-auto-start t)
   (auto-complete-mode t)
 
   (make-local-variable 'ac-ignores)
@@ -67,8 +64,7 @@
   (setq tab-width 4)
   (sql-set-product 'oracle)
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
-  (auto-complete-mode t)
-  (setq ac-auto-start t))
+  (auto-complete-mode t))
 
 ;; Objective C
 (add-hook 'objc-mode-hook
