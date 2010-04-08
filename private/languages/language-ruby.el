@@ -1,5 +1,8 @@
 (vendor 'rhtml-mode)
 
+(require 'rvm)
+(rvm-use-default)
+
 ;;;; Defuns
 
 (defun senny-ruby-compilation-this-buffer ()
