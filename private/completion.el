@@ -36,6 +36,7 @@
 (add-to-list 'ac-dictionary-directories (concat vendor-dir "/auto-complete/dict"))
 (require 'auto-complete-config)
 (ac-config-default)
+(setq ac-auto-start nil)
 
 (define-key ac-complete-mode-map (kbd "M-k") 'ac-next)
 (define-key ac-complete-mode-map (kbd "M-i") 'ac-previous)
