@@ -33,8 +33,11 @@
 (textmate-mode 1)
 (eval-after-load 'textmate-mode
   '(progn
+     (global-unset-key (kbd "M-t"))
+     (global-unset-key (kbd "M-T"))
      (define-key *textmate-mode-map* (kbd "M-p") 'textmate-goto-symbol)
-     (define-key *textmate-mode-map* (kbd "M-t") 'textmate-goto-file)))
+     (define-key *textmate-mode-map* (kbd "M-t") 'textmate-goto-file)
+     (define-key *textmate-mode-map* (kbd "M-T") 'textmate-goto-symbol)))
 
 ;; whitespace mode
 (vendor 'whitespace)
