@@ -32,7 +32,8 @@
   (setq css-indent-offset 2))
 
 (defun default-javascript-mode-hook ()
-  (set-pairs '("(" "{" "[")))
+  (set-pairs '("(" "{" "["))
+  (add-to-list 'ac-sources 'ac-source-yasnippet))
 
 (defun default-ruby-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'" "|"))
