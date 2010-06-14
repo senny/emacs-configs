@@ -152,13 +152,6 @@
         (setq buffer (car list))))
     (switch-to-buffer buffer)))
 
-(defun alternate-completion ()
-  "this function is used for secondary completion beside tabkey2"
-  (interactive)
-  (let ((current-completion (assoc major-mode *alternate-completion-functions-alist*)))
-    (when (consp current-completion)
-      (funcall (cdr current-completion)))))
-
 (defun comment-or-uncomment-line (&optional lines)
   "Comment current line. Argument gives the number of lines
 forward to comment"
