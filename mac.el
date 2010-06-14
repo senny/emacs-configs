@@ -2,7 +2,7 @@
 (server-start)
 
 (setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin"))
-(setq exec-path (append exec-path '("/opt/local/bin" "/opt/local/bin/find")))
+(setq exec-path (cons "/opt/homebrew/bin" exec-path))
 (setq custom-file (concat private-config-dir
                           (cond ((string-match "aquamacs" (emacs-version)) "/custom/aquamacs-custom.el")
                                 ((string-match "carbon" (emacs-version)) "/custom/carbon-emacs-custom.el")
