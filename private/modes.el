@@ -116,7 +116,8 @@
 (defvar elpa-packages (list 'nxml-mode
                             'ruby-compilation
                             'rspec-mode
-                            'rinari)
+                            'rinari
+                            'rvm)
   "Libraries that should be installed by default.")
 
 (defun senny-elpa-install ()
