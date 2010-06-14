@@ -21,6 +21,10 @@
      ;;;; Additional Libraries
      (vendor 'rspec-mode)
 
+     ;; active the default ruby configured with rvm
+     (when (fboundp 'rvm-use-default)
+       (rvm-use-default))
+     
      ;;;; Bindings
      (global-set-key (kbd "C-h r") 'yari)
      (define-key ruby-mode-map (kbd "C-M-r") 'senny-ruby-compilation-this-buffer)
