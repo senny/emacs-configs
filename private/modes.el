@@ -31,12 +31,13 @@
 ;; Make emacs act like textmate
 (vendor 'textmate)
 (textmate-mode 1)
-(eval-after-load 'textmate-mode
+(eval-after-load 'textmate
   '(progn
      (global-unset-key (kbd "M-t"))
      (global-unset-key (kbd "M-T"))
      (define-key *textmate-mode-map* (kbd "M-p") 'textmate-goto-symbol)
      (define-key *textmate-mode-map* (kbd "M-t") 'textmate-goto-file)
+     (define-key *textmate-mode-map* (kbd "M-w") 'textmate-goto-symbol)
      (define-key *textmate-mode-map* (kbd "M-T") 'textmate-goto-symbol)))
 
 ;; whitespace mode
@@ -66,6 +67,7 @@
 ;; this function rebinds M-s and M-S to switch between the different windows
 (defun rebind-commands ()
   (interactive)
+  (local-unset-key (kbd "C-c C-k"))
   (local-unset-key (kbd "M-a"))
   (local-unset-key (kbd "M-s"))
   (local-unset-key (kbd "M-S"))
@@ -88,6 +90,7 @@
 (add-hook 'sr-start-hook 'rebind-commands)
 (add-hook 'comint-mode-hook 'rebind-commands)
 (add-hook 'inf-ruby-mode-hook 'rebind-commands)
+(add-hook 'erlang-mode-hook 'rebind-commands)
 
 ;;;; Flymake
 (require 'flymake-cursor) ;display error-messages when the curosr moves over the line
