@@ -19,11 +19,11 @@
 (eval-after-load 'ruby-mode
   '(progn
      ;;;; Additional Libraries
-     ;;(vendor 'rspec-mode)
+     (vendor 'rspec-mode)
 
      ;;;; Bindings
+     (global-set-key (kbd "C-h r") 'yari)
      (define-key ruby-mode-map (kbd "C-M-r") 'senny-ruby-compilation-this-buffer)
-     (define-key ruby-mode-map (kbd "C-h r") 'ri)
      (define-key ruby-mode-map (kbd "C-c C-r g") 'senny-ruby-open-gem)
   ))
 
@@ -31,5 +31,3 @@
 ;; (vendor 'ruby-block)
 ;; (setq ruby-block-highlight-toggle t)
 ;; (setq ruby-block-delay nil)
-
-(provide 'language-ruby)
