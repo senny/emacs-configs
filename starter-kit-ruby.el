@@ -15,13 +15,15 @@
 
 (global-set-key (kbd "C-h r") 'ri)
 
-;; Rake files are ruby, too, as are gemspecs, rackup files, and gemfiles.
+;; Rake files are ruby, too, as are gemspecs, rackup files, etc.
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.thor$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
 
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
@@ -57,38 +59,47 @@ exec-to-string command, but it works and seems fast"
      (ad-activate 'ruby-do-run-w/compilation)))
 
 (add-hook 'ruby-mode-hook 'run-coding-hook)
-(add-hook 'ruby-mode-hook 'idle-highlight)
 
 ;;; Flymake
 
-;; (eval-after-load 'ruby-mode
-;;   '(progn
-;;      (require 'flymake)
+(eval-after-load 'ruby-mode
+  '(progn
+     (require 'flymake)
 
-;;      ;; Invoke ruby with '-c' to get syntax checking
-;;      (defun flymake-ruby-init ()
-;;        (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;;                           'flymake-create-temp-inplace))
-;;               (local-file (file-relative-name
-;;                            temp-file
-;;                            (file-name-directory buffer-file-name))))
-;;          (list "ruby" (list "-c" local-file))))
+     ;; Invoke ruby with '-c' to get syntax checking
+     (defun flymake-ruby-init ()
+       (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                          'flymake-create-temp-inplace))
+              (local-file (file-relative-name
+                           temp-file
+                           (file-name-directory buffer-file-name))))
+         (list "ruby" (list "-c" local-file))))
 
-;;      (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
-;;      (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
+     (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
+     (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
 
-;;      (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)
-;;            flymake-err-line-patterns)
+     (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)
+           flymake-err-line-patterns)
 
-;;      (add-hook 'ruby-mode-hook
-;;                (lambda ()
-;;                  (when (and buffer-file-name
-;;                             (file-writable-p
-;;                              (file-name-directory buffer-file-name))
-;;                             (file-writable-p buffer-file-name))
-;;                    (local-set-key (kbd "C-c d")
-;;                                   'flymake-display-err-menu-for-current-line)
-;;                    (flymake-mode t))))))
+     (add-hook 'ruby-mode-hook
+               (lambda ()
+                 (when (and buffer-file-name
+                            (file-writable-p
+                             (file-name-directory buffer-file-name))
+                            (file-writable-p buffer-file-name)
+                            (if (fboundp 'tramp-list-remote-buffers)
+                                (not (subsetp
+                                      (list (current-buffer))
+                                      (tramp-list-remote-buffers)))
+                              t))
+                   (local-set-key (kbd "C-c d")
+                                  'flymake-display-err-menu-for-current-line)
+                   (flymake-mode t))))))
+
+;; Rinari (Minor Mode for Ruby On Rails)
+(setq rinari-major-modes
+      (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
+            'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
 
 ;; TODO: set up ri
 ;; TODO: electric

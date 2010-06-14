@@ -13,6 +13,7 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
+(ansi-color-for-comint-mode-on)
 
 (setq visible-bell t
       echo-keystrokes 0.1
@@ -20,10 +21,10 @@
       inhibit-startup-message t
       transient-mark-mode t
       color-theme-is-global t
-      delete-by-moving-to-trash t
       shift-select-mode nil
+      mouse-yank-at-point t
+      require-final-newline t
       truncate-partial-width-windows nil
-      delete-by-moving-to-trash nil
       uniquify-buffer-name-style 'forward
       whitespace-style '(trailing lines space-before-tab
                                   indentation space-after-tab)
@@ -101,10 +102,24 @@
 (add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
 
+(eval-after-load 'grep
+  '(when (boundp 'grep-find-ignored-files)
+    (add-to-list 'grep-find-ignored-files "target")
+    (add-to-list 'grep-find-ignored-files "*.class")))
+
 ;; Default to unified diffs
 (setq diff-switches "-u")
 
 ;; Cosmetics
+
+(set-face-background 'vertical-border "white")
+(set-face-foreground 'vertical-border "white")
+
+(eval-after-load 'diff-mode
+  '(progn
+     (set-face-foreground 'diff-added "green4")
+     (set-face-foreground 'diff-removed "red3")))
+
 (eval-after-load 'magit
   '(progn
      (set-face-foreground 'magit-diff-add "green3")
@@ -118,14 +133,16 @@
 ;; Platform-specific stuff
 (when (eq system-type 'darwin)
   ;; Work around a bug on OS X where system-name is FQDN
-  (setq system-name (car (split-string system-name "\\.")))
-  ;; Work around a bug where environment variables aren't set correctly
-  (require 'osx-plist)
-  (when (file-exists-p "~/.MacOSX/environment.plist")
-    (osx-plist-update-environment)))
+  (setq system-name (car (split-string system-name "\\."))))
 
 ;; make emacs use the clipboard
 (setq x-select-enable-clipboard t)
+
+;; Get around the emacswiki spam protection
+(add-hook 'oddmuse-mode-hook
+          (lambda ()
+            (unless (string-match "question" oddmuse-post)
+              (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
 
 (provide 'starter-kit-misc)
 ;;; starter-kit-misc.el ends here
