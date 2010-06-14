@@ -1,7 +1,7 @@
 (defun senny-mac-use-shell-path ()
-  (let ((path-from-shell 
-      (replace-regexp-in-string "[[:space:]\n]*$" "" 
-        (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))))
+  (let ((path-from-shell
+         (replace-regexp-in-string "[[:space:]\n]*$" ""
+                                   (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))))
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 
@@ -46,7 +46,7 @@
   (find-file
    (concat dotfiles-dir "/" (ido-completing-read "Config file: "
                                                  (append
-                                                  (mapcar (lambda (file)(concat "private/" file))
+                                                  (mapcar (lambda (file) (concat "private/" file))
                                                           (directory-files private-config-dir nil "^[^.]"))
                                                   (directory-files dotfiles-dir nil "^[^.]"))))))
 
@@ -258,38 +258,38 @@ is a comment, uncomment."
   (interactive)
   (other-window -1))
 
-(defun move-text-internal (arg) 
-   (cond 
-    ((and mark-active transient-mark-mode) 
-     (if (> (point) (mark)) 
-        (exchange-point-and-mark)) 
-     (let ((column (current-column)) 
-          (text (delete-and-extract-region (point) (mark)))) 
-       (forward-line arg) 
-       (move-to-column column t) 
-       (set-mark (point)) 
-       (insert text) 
-       (exchange-point-and-mark) 
-       (setq deactivate-mark nil))) 
-    (t 
-     (beginning-of-line) 
-     (when (or (> arg 0) (not (bobp))) 
-       (forward-line) 
-       (when (or (< arg 0) (not (eobp))) 
-        (transpose-lines arg)) 
-       (forward-line -1))))) 
+(defun move-text-internal (arg)
+  (cond
+   ((and mark-active transient-mark-mode)
+    (if (> (point) (mark))
+        (exchange-point-and-mark))
+    (let ((column (current-column))
+          (text (delete-and-extract-region (point) (mark))))
+      (forward-line arg)
+      (move-to-column column t)
+      (set-mark (point))
+      (insert text)
+      (exchange-point-and-mark)
+      (setq deactivate-mark nil)))
+   (t
+    (beginning-of-line)
+    (when (or (> arg 0) (not (bobp)))
+      (forward-line)
+      (when (or (< arg 0) (not (eobp)))
+        (transpose-lines arg))
+      (forward-line -1)))))
 
-(defun move-text-down (arg) 
-   "Move region (transient-mark-mode active) or current line 
-  arg lines down." 
-   (interactive "*p") 
-   (move-text-internal arg)) 
+(defun move-text-down (arg)
+  "Move region (transient-mark-mode active) or current line
+  arg lines down."
+  (interactive "*p")
+  (move-text-internal arg))
 
-(defun move-text-up (arg) 
-   "Move region (transient-mark-mode active) or current line 
-  arg lines up." 
-   (interactive "*p") 
-   (move-text-internal (- arg))) 
+(defun move-text-up (arg)
+  "Move region (transient-mark-mode active) or current line
+  arg lines up."
+  (interactive "*p")
+  (move-text-internal (- arg)))
 
 
 (defun senny-toggle-window-configuration-and-enlarged-window ()

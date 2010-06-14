@@ -37,6 +37,7 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (setq ac-auto-start nil)
+(add-to-list 'ac-modes 'erlang-mode)
 
 (define-key ac-complete-mode-map (kbd "M-k") 'ac-next)
 (define-key ac-complete-mode-map (kbd "M-i") 'ac-previous)

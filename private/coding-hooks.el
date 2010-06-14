@@ -9,10 +9,8 @@
 
 (defun default-java-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'"))
-  ;; (setq company-backends '(company-emacs-eclim))
   (setq senny-completion-function 'ac-complete)
   (setq senny-intellisense-completion-function 'eclim-complete)
-  ;; (company-mode t)
   (setq c-comment-continuation-stars "* ")
   (setq c-basic-offset 2)
   (setq ac-sources '(ac-source-eclim ac-source-words-in-same-mode-buffers))
@@ -39,14 +37,15 @@
   (auto-complete-mode t)
 
   (make-local-variable 'ac-ignores)
+  (make-local-variable 'ac-auto-start)
   (add-to-list 'ac-ignores "end")
+  (setq ac-auto-start nil)
 
   (local-set-key (kbd "TAB") 'senny-indent-or-complete)
   (local-set-key [return] 'ruby-reindent-then-newline-and-indent))
 
 (defun default-html-mode-hook ()
-  (set-pairs '("<" "{" "[" "\"" "\'"))
-  (setq company-backends '(company-dabbrev)))
+  (set-pairs '("<" "{" "[" "\"" "\'")))
 
 (defun default-org-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
@@ -66,14 +65,13 @@
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
   (auto-complete-mode t))
 
+(defun default-erlang-mode-hook ()
+  (setq ac-sources '(ac-source-dictionary ac-source-words-in-same-mode-buffers ac-source-yasnippet)))
+
 ;; Objective C
 (add-hook 'objc-mode-hook
           (lambda ()
             (set-pairs '("(" "{" "[" "\""))
-            (setq company-backends '(
-                                     company-dabbrev-code))
-            ;; (company-mode t)
-            ;; (setq ac-omni-completion-sources '(("\\.\\=" ac-source-rcodetools)))
             (auto-complete-mode t)
             (setq ac-sources '(ac-source-abbrev ac-source-symbols ac-source-words-in-buffer))) )
 
@@ -125,3 +123,5 @@
 (add-hook 'textile-mode-hook 'default-textile-mode-hook)
 
 (add-hook 'sql-mode-hook 'default-sql-mode-hook)
+
+(add-hook 'erlang-mode-hook 'default-erlang-mode-hook)
