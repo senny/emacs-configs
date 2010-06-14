@@ -112,3 +112,18 @@
 (better-registers t)
 (better-registers-install-save-registers-hook)
 (load better-registers-save-file)
+
+(defvar elpa-packages (list 'nxml-mode
+                            'ruby-compilation
+                            'rspec-mode
+                            'rinari)
+  "Libraries that should be installed by default.")
+
+(defun senny-elpa-install ()
+  "Install all starter-kit packages that aren't installed."
+  (interactive)
+  (dolist (package elpa-packages)
+    (unless (or (member package package-activated-list)
+                (functionp package))
+      (message "Installing %s" (symbol-name package))
+      (package-install package))))

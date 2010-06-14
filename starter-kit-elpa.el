@@ -10,11 +10,7 @@
                                    'css-mode
                                    'yaml-mode
                                    'magit
-                                   'gist
-                                   'nxml-mode
-                                   'ruby-compilation
-                                   'rspec-mode
-                                   'rinari)
+                                   'gist)
   "Libraries that should be installed by default.")
 
 (defun starter-kit-elpa-install ()
