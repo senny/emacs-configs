@@ -1,5 +1,4 @@
 ;; Adopting the ergonomic keybindings
-;; (load (concat dotfiles-dir "vendor/ergonomic_keybinding_qwerty"))
 (global-unset-key (kbd "C-b")) ; backward-char
 (global-unset-key (kbd "C-f")) ; forward-char
 (global-unset-key (kbd "C-p")) ; previous-line
@@ -12,7 +11,6 @@
 (global-set-key (kbd "M-K") 'scroll-up)
 (global-set-key (kbd "M-L") 'end-of-line)
 (global-set-key (kbd "M-J") 'beginning-of-line)
-
 
 (global-set-key [\M-down] 'move-text-down)
 (global-set-key [\M-up] 'move-text-up)
@@ -106,8 +104,6 @@
 (global-set-key (kbd "C-x n r") 'indirect-region)
 
 ;; Window management
-(global-unset-key (kbd "M-4"))
-(global-set-key (kbd "M-4") 'resize-windows)
 (global-set-key (kbd "C-+") 'increase-font-size) ; increase the font-size
 (global-set-key (kbd "C-_") 'decrease-font-size) ; decrease the font-size
 
@@ -125,11 +121,6 @@
 (define-key isearch-mode-map (kbd "M-s") 'move-cursor-next-pane)
 (define-key isearch-mode-map (kbd "M-v") 'isearch-yank-kill)
 
-;; no printing!
-(when (boundp 'osx-key-mode-map)
-  (define-key osx-key-mode-map (kbd "A-p")
-    '(lambda () (interactive) (message "noop"))))
-
 ;; no mailing!
 (global-unset-key (kbd "C-x m"))
 (global-unset-key "\C-z")
@@ -137,9 +128,10 @@
 ;; iEdit
 (global-set-key (kbd "C-;") 'iedit-mode)
 
-;; diff
+;; ediff
 (global-set-key (kbd "C-c d b") 'ediff-buffers)
-(global-set-key (kbd "C-c d b") 'ediff-files)
+(global-set-key (kbd "C-c d f") 'ediff-files)
+(global-set-key (kbd "C-c d d") 'ediff-directories)
 
 ;; Textmate
 ;;;; KEYMAPS
