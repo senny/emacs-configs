@@ -3,7 +3,7 @@
 
 (defun default-lisp-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
-  (setq ac-sources '(ac-source-symbols ac-source-emacs-lisp-features))
+  (setq ac-sources '(ac-source-symbols ac-source-emacs-lisp-features ac-source-dictionary))
   (auto-complete-mode t)
   )
 
@@ -14,7 +14,6 @@
   (setq c-comment-continuation-stars "* ")
   (setq c-basic-offset 2)
   (setq ac-sources '(ac-source-eclim ac-source-words-in-same-mode-buffers))
-  (yas/minor-mode t)
   ;; (java-mode-indent-annotations-setup)
   )
 
@@ -22,8 +21,6 @@
   (set-pairs '("(" "[" "\"" "\'"))
   (setq senny-completion-function 'auto-complete)
   ;; (setq ac-sources '(ac-source-dictionary))
-  ;; (auto-complete-mode t)
-
   (setq css-indent-level 2)
   (setq css-indent-offset 2))
 
@@ -66,8 +63,8 @@
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
   (auto-complete-mode t))
 
-(defun default-erlang-mode-hook ()
-  (setq ac-sources '(ac-source-dictionary ac-source-words-in-same-mode-buffers ac-source-yasnippet)))
+;; (defun default-erlang-mode-hook ()
+;;   (setq ac-sources '(ac-source-dictionary ac-source-words-in-same-mode-buffers ac-source-yasnippet)))
 
 ;; Objective C
 (add-hook 'objc-mode-hook
@@ -125,4 +122,4 @@
 
 (add-hook 'sql-mode-hook 'default-sql-mode-hook)
 
-(add-hook 'erlang-mode-hook 'default-erlang-mode-hook)
+;; (add-hook 'erlang-mode-hook 'default-erlang-mode-hook)
