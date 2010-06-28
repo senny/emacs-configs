@@ -64,7 +64,6 @@
 (defun defunkt-kill-word (arg)
   "Special version of kill-word which swallows spaces separate from words"
   (interactive "p")
-
   (let ((whitespace-regexp "\\s-+"))
     (kill-region (point)
                  (cond
@@ -79,7 +78,7 @@
       (kill-region (point) (progn (re-search-backward "\\S-") (forward-char 1) (point)))
     (backward-kill-word arg)))
 
-                                        ;duplicate the current line
+;; duplicate the current line
 (defun defunkt-duplicate-line ()
   (interactive)
   (beginning-of-line)
@@ -96,7 +95,6 @@
                                                (concat
                                                 "find \"" (expand-file-name directory)
                                                 "\" -type f -printf \"%P\\n\" | grep -v \"^\.git\""))))))
-
 
 (defun url-fetch-into-buffer (url)
   (interactive "sURL:")
