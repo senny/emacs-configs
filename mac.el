@@ -21,3 +21,11 @@
 (setq mac-emulate-three-button-mouse nil)
 
 ;; (vendor 'growl)
+(defun senny-open-file-browser (directory)
+  (interactive (list (file-name-directory (or (buffer-file-name) "~/"))))
+  (shell-command (concat "open " directory)))
+
+;;TODO: change the working directory of the new Terminal to the current directory.
+(defun senny-open-terminal (directory)
+  (interactive (list (file-name-directory (or (buffer-file-name) "~/"))))
+  (shell-command (concat "open -a Terminal /bin/zsh")))

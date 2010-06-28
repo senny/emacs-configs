@@ -231,14 +231,6 @@ is a comment, uncomment."
     (switch-to-buffer "*grep*" nil t)
     (keyboard-escape-quit)))
 
-(defun senny-w32-explorer-open ()
-  "Launch the windows explorer in the current directory and selects current file"
-  (interactive)
-  (w32-shell-execute
-   "open"
-   "explorer"
-   (concat "/e,/select," (convert-standard-filename buffer-file-name))))
-
 (defun move-cursor-next-pane ()
   "Move cursor to the next pane."
   (interactive)

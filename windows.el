@@ -26,5 +26,14 @@
           (lambda ()
             (define-prefix-command 'windows-key-map)
             (global-set-key (kbd "M-w") 'windows-key-map)
-            (define-key windows-key-map (kbd "e") 'senny-w32-explorer-open)
+            (define-key windows-key-map (kbd "e") 'senny-open-file-browser)
             (define-key windows-key-map (kbd "c") 'w32shell-cmd-here)))
+
+
+(defun senny-open-file-browser ()
+  "Launch the windows explorer in the current directory and selects current file"
+  (interactive)
+  (w32-shell-execute
+   "open"
+   "explorer"
+   (concat "/e,/select," (convert-standard-filename buffer-file-name))))
