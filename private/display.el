@@ -5,13 +5,10 @@
 
 ;; start maximized
 (vendor 'maxframe)
-(add-hook 'window-setup-hook 'maximize-frame t)
+(add-hook 'window-setup-hook 'x-maximize-frame t)
 
 ;; open new files in the same window
 (setq gnuserv-frame (car (frame-list)))
-
-;; Package to interactivly resize split screens
-;; (require 'winsize)
 
 ;; highlight the selected region
 (transient-mark-mode 1)
