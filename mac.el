@@ -1,8 +1,8 @@
 ;; start the server to use emacsclient from the console
 (server-start)
 
-(setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin"))
-(setq exec-path (cons "/opt/homebrew/bin" exec-path))
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setq exec-path (cons "/usr/local/bin" exec-path))
 (setq custom-file (concat private-config-dir
                           (cond ((string-match "aquamacs" (emacs-version)) "/custom/aquamacs-custom.el")
                                 ((string-match "carbon" (emacs-version)) "/custom/carbon-emacs-custom.el")
