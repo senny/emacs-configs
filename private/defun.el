@@ -1,3 +1,10 @@
+(defun senny-init-ecb ()
+  (interactive)
+  (add-to-list 'load-path (concat dotfiles-dir "/vendor/cedet-1.0pre7"))
+  (load "common/cedet.el")
+  (add-to-list 'load-path (concat dotfiles-dir "/vendor/ecb-2.40"))
+  (load "ecb.el"))
+
 (defun senny-mac-use-shell-path ()
   (let ((path-from-shell
          (replace-regexp-in-string "[[:space:]\n]*$" ""
