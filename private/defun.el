@@ -89,12 +89,15 @@
   (indent-according-to-mode))
 
 (defun ido-open-find-directory-files (directory)
-  (concat directory "/" (ido-completing-read (concat directory ":")
-                                             (split-string
-                                              (shell-command-to-string
-                                               (concat
-                                                "find \"" (expand-file-name directory)
-                                                "\" -type f -printf \"%P\\n\" | grep -v \"^\.git\""))))))
+  (let ((directory (concat (expand-file-name directory) "/")))
+    (concat directory (ido-completing-read (concat directory ": ")
+                                           (mapcar (lambda (path)
+                                                     (replace-regexp-in-string (concat "^" (regexp-quote directory) "/") "" path))
+                                                   (split-string
+                                                    (shell-command-to-string
+                                                     (concat
+                                                      "find \"" directory
+                                                      "\" -type f | grep -v \"/.git/\""))))))))
 
 (defun url-fetch-into-buffer (url)
   (interactive "sURL:")
