@@ -33,7 +33,7 @@
      (buffers-tab ((t (:background "black" :foreground "white"))))
 
      (light-background ((t (:background "#181818"))))
-     (dark-background ((t (:background "#080808"))))
+     (dark-background ((t (:background "#000000"))))
      (preprocessor ((t (:foreground "Aquamarine"))))
      (highlighted ((t (:background "#606060"))))
      (important-region ((t (:background "#000000"))))
@@ -95,7 +95,8 @@
      (diff-context ((t (:inherit font-lock-comment))))
      (diff-index ((t (:inherit font-lock-comment))))
      (diff-file-header ((t (:inherit font-lock-comment :bold t))))
-
+     (diff-refine-change ((t (:inherit dark-background))))
+     
      (jde-db-active-breakpoint-face ((t (:inherit diff-removed))))
      (jde-db-requested-breakpoint-face ((t (:inherit diff-changed))))
      (jde-db-spec-breakpoint-face ((t (:inherit diff-added))))
@@ -187,6 +188,8 @@
      (erb-out-face ((t (:inherit important-region))))
      (erb-out-delim-face ((t (:inherit preprocessor))))
 
+     (magit-item-highlight ((t (:inherit dark-background))))
+     
      (gui-element ((t (:background "#D4D0C8" :foreground "black"))))
      (region ((t (:background "#333333"))))
      (minibuffer-prompt ((t (:background "#141414" :foreground "cyan"))))
