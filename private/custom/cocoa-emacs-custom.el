@@ -23,6 +23,7 @@
  '(ns-alternate-modifier (quote none))
  '(ns-command-modifier (quote meta))
  '(ns-pop-up-frames nil)
+ '(sh-basic-offset 2)
  '(speedbar-use-images nil)
  '(visible-bell nil))
 (custom-set-faces
