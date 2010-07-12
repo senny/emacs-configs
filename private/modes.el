@@ -89,6 +89,7 @@
 
 (add-hook 'after-change-major-mode-hook 'rebind-commands)
 (add-hook 'sr-start-hook 'rebind-commands)
+(add-hook 'org-mode-hook 'rebind-commands)
 (add-hook 'comint-mode-hook 'rebind-commands)
 (add-hook 'inf-ruby-mode-hook 'rebind-commands)
 (add-hook 'erlang-mode-hook 'rebind-commands)
@@ -129,3 +130,9 @@
                 (functionp package))
       (message "Installing %s" (symbol-name package))
       (package-install package))))
+
+;;;; Magit
+(define-key magit-mode-map (kbd "C-1") 'magit-show-level-1-all)
+(define-key magit-mode-map (kbd "C-2") 'magit-show-level-2-all)
+(define-key magit-mode-map (kbd "C-3") 'magit-show-level-3-all)
+(define-key magit-mode-map (kbd "C-4") 'magit-show-level-4-all)

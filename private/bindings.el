@@ -133,6 +133,4 @@
 (global-set-key (kbd "C-c d f") 'ediff-files)
 (global-set-key (kbd "C-c d d") 'ediff-directories)
 
-;; Textmate
-;;;; KEYMAPS
 (global-set-key (kbd "C-c C-k") 'comment-or-uncomment-region-or-line)
