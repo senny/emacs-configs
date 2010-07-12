@@ -1,14 +1,18 @@
-;; setup Erlang environment
-(setq load-path (cons  "/usr/local/lib/erlang/lib/tools-2.6.6/emacs" load-path))
-(setq erlang-root-dir "/usr/local/lib/erlang")
-(setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
+(let* ((erlang-dir "/usr/local/lib/erlang")
+       (erlang-emacs-dir (concat erlang-dir "/lib/tools-2.6.6/emacs"))
+       (erlang-bin-dir (concat erlang-dir "/bin")))
+  (when (file-directory-p erlang-dir)
+    ;; setup Erlang environment
+    (setq load-path (cons erlang-emacs-dir load-path))
+    (setq erlang-root-dir erlang-dir)
+    (setq exec-path (cons erlang-bin-dir exec-path))
 
-;; customizations
-(eval-after-load 'erlang
-  (add-hook 'erlang-mode-hook
-            (lambda ()
-              (require 'erlang-flymake)
-              (local-set-key (kbd "C-c C-l") 'erlang-compile)
-              )))
+    ;; customizations
+    (eval-after-load 'erlang
+      (add-hook 'erlang-mode-hook
+                (lambda ()
+                  (require 'erlang-flymake)
+                  (local-set-key (kbd "C-c C-l") 'erlang-compile)
+                  )))
 
-(require 'erlang-start)
+    (require 'erlang-start)))
