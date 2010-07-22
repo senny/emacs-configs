@@ -63,6 +63,9 @@
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
   (auto-complete-mode t))
 
+(defun default-haml-mode-hook ()
+  (set-pairs '("[" "{" "(")))
+
 ;; (defun default-erlang-mode-hook ()
 ;;   (setq ac-sources '(ac-source-dictionary ac-source-words-in-same-mode-buffers ac-source-yasnippet)))
 
@@ -122,4 +125,5 @@
 
 (add-hook 'sql-mode-hook 'default-sql-mode-hook)
 
+(add-hook 'haml-mode-hook 'default-haml-mode-hook)
 ;; (add-hook 'erlang-mode-hook 'default-erlang-mode-hook)

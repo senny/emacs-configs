@@ -33,6 +33,8 @@
   '(progn
      (global-unset-key (kbd "M-t"))
      (global-unset-key (kbd "M-T"))
+     (define-key *textmate-mode-map* (kbd "M-<right>") 'textmate-shift-right)
+     (define-key *textmate-mode-map* (kbd "M-<left>") 'textmate-shift-left)
      (define-key *textmate-mode-map* (kbd "M-p") 'textmate-goto-symbol)
      (define-key *textmate-mode-map* (kbd "M-t") 'textmate-goto-file)
      (define-key *textmate-mode-map* (kbd "M-w") 'textmate-goto-symbol)
@@ -137,3 +139,5 @@
                            (define-key magit-mode-map (kbd "C-2") 'magit-show-level-2-all)
                            (define-key magit-mode-map (kbd "C-3") 'magit-show-level-3-all)
                            (define-key magit-mode-map (kbd "C-4") 'magit-show-level-4-all)))
+
+(require 'ibuffer)
