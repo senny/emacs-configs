@@ -11,7 +11,7 @@
  '(inhibit-startup-screen t)
  '(jde-jdk (quote ("CurrentJDK OS-X")))
  '(jde-jdk-registry (quote (("1.5" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.5") ("1.6" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.6") ("CurrentJDK OS-X" . "/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK"))))
- '(mf-display-padding-height 120)
+ '(mf-display-padding-height 0)
  '(ns-alternate-modifier (quote alt))
  '(ns-command-modifier (quote meta))
  '(visible-bell nil))
