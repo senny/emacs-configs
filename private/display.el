@@ -29,3 +29,6 @@
   (color-theme-initialize))
 (setq color-theme-is-global t)
 (color-theme-twilight)
+
+(require 'winring)
+(winring-initialize)
