@@ -103,10 +103,6 @@
 (setq ediff-merge-split-window-function 'split-window-horizontally)
 (setq ediff-split-window-function 'split-window-horizontally)
 
-;;;; Sunrise Commander
-;; (require 'sunrise-commander)
-;; (define-key sr-mode-map (kbd "<backtab>") 'sr-follow-file-other)
-
 ;;;; Cucumber
 ;; (add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))
 ;; (load "feature-mode")
@@ -116,22 +112,6 @@
 (better-registers t)
 (better-registers-install-save-registers-hook)
 (load better-registers-save-file)
-
-(defvar elpa-packages (list 'nxml-mode
-                            'ruby-compilation
-                            'rspec-mode
-                            'rinari
-                            'rvm)
-  "Libraries that should be installed by default.")
-
-(defun senny-elpa-install ()
-  "Install all starter-kit packages that aren't installed."
-  (interactive)
-  (dolist (package elpa-packages)
-    (unless (or (member package package-activated-list)
-                (functionp package))
-      (message "Installing %s" (symbol-name package))
-      (package-install package))))
 
 ;;;; Magit
 (eval-after-load 'magit '(progn
