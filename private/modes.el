@@ -90,7 +90,6 @@
   (local-unset-key (kbd "M-L")))
 
 (add-hook 'after-change-major-mode-hook 'rebind-commands)
-(add-hook 'sr-start-hook 'rebind-commands)
 (add-hook 'org-mode-hook 'rebind-commands)
 (add-hook 'comint-mode-hook 'rebind-commands)
 (add-hook 'inf-ruby-mode-hook 'rebind-commands)
