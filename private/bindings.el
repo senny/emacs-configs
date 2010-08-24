@@ -53,7 +53,7 @@
 (global-set-key (kbd "M-4") 'delete-other-windows)
 
 (global-unset-key (kbd "M-x")) ; execute-extended-command
-(global-set-key (kbd "M-a") 'execute-extended-command)
+(global-set-key (kbd "M-a") (if (fboundp 'smex) 'smex 'execute-extended-command))
 
 (global-set-key (kbd "M-s") 'move-cursor-next-pane)
 (global-set-key (kbd "M-S") 'move-cursor-previous-pane)
@@ -135,3 +135,7 @@
 (global-set-key (kbd "C-c d d") 'ediff-directories)
 
 (global-set-key (kbd "C-c C-k") 'comment-or-uncomment-region-or-line)
+
+
+;;;; Mode Maps
+(define-key isearch-mode-map (kbd "M-w") 'isearch-query-replace)
