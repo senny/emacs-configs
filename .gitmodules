@@ -1,3 +1,6 @@
 [submodule "vendor/auto-complete"]
 	path = vendor/auto-complete
 	url = http://github.com/m2ym/auto-complete.git
+[submodule "vendor/perspective.el"]
+	path = vendor/perspective.el
+	url = http://github.com/nex3/perspective-el.git
