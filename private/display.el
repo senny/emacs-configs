@@ -34,6 +34,9 @@
 ;; (winring-initialize)
 
 ;;;; Perspective
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/perspective.el"))
+(require 'perspective)
+(persp-mode)
 (defun senny-persp/jabber ()
   (interactive)
   (let ((initialize (not (gethash "Jabber" perspectives-hash))))
@@ -41,5 +44,5 @@
     (when initialize
       (jabber-connect-all)
       (call-interactively 'jabber-display-roster)
-      (switch-to-buffer jabber-roster-buffer)
+      (switch-to-buffer jabber-roster-buffer))))
 
