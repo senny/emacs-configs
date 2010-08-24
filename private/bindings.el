@@ -136,6 +136,8 @@
 
 (global-set-key (kbd "C-c C-k") 'comment-or-uncomment-region-or-line)
 
+(global-set-key (kbd "C-c k") 'kill-compilation)
+
 
 ;;;; Mode Maps
 (define-key isearch-mode-map (kbd "M-w") 'isearch-query-replace)
