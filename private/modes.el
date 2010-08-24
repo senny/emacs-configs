@@ -1,7 +1,3 @@
-;;;; MISC
-(global-hl-line-mode t)
-(column-number-mode t)
-
 ;; Browse Kill Ring
 (require 'browse-kill-ring)
 (require 'browse-kill-ring+)
@@ -26,7 +22,6 @@
 
 (autoload 'mode-compile-kill "mode-compile"
   "Command to kill a compilation launched by `mode-compile'" t)
-(global-set-key "\C-ck" 'mode-compile-kill)
 
 ;; Make emacs act like textmate
 (eval-after-load 'textmate

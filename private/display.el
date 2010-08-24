@@ -1,5 +1,5 @@
 ;; remove ui components
-                                        ;(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode 1))
 
@@ -18,6 +18,11 @@
 
 ;; highlight
 (show-paren-mode 1)
+(global-hl-line-mode t)
+
+
+(line-number-mode nil)
+(column-number-mode nil)
 
 ;; Use a vertical bar as cursor
 (blink-cursor-mode 1)
@@ -37,6 +42,7 @@
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/perspective.el"))
 (require 'perspective)
 (persp-mode)
+
 (defun senny-persp/jabber ()
   (interactive)
   (let ((initialize (not (gethash "Jabber" perspectives-hash))))
@@ -45,4 +51,13 @@
       (jabber-connect-all)
       (call-interactively 'jabber-display-roster)
       (switch-to-buffer jabber-roster-buffer))))
+
+(defun senny-persp/irc ()
+  (interactive)
+  (let ((initialize (not (gethash "IRC" perspectives-hash))))
+    (persp-switch "IRC")
+    (when initialize
+      (erc)
+      (dolist (channel '("emacs" "ruby" "cucumber"))
+        (erc-join-channel channel)))))
 
