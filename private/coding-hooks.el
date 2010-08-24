@@ -64,7 +64,7 @@
   (auto-complete-mode t))
 
 (defun default-haml-mode-hook ()
-  (set-pairs '("[" "{" "(")))
+  (set-pairs '("[" "{" "(" "\"" "'")))
 
 ;; (defun default-erlang-mode-hook ()
 ;;   (setq ac-sources '(ac-source-dictionary ac-source-words-in-same-mode-buffers ac-source-yasnippet)))
