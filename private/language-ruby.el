@@ -1,7 +1,8 @@
 (vendor 'rhtml-mode)
 
-;;;; Defuns
+(add-to-list 'auto-mode-alist '("\\.js.rjs$" . ruby-mode))
 
+;;;; Defuns
 (defun senny-ruby-compilation-this-buffer ()
   (interactive)
   (save-buffer)
