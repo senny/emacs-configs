@@ -2,13 +2,13 @@
 ;;
 ;; Part of the Emacs Starter Kit
 
-(when window-system
-  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-  (tooltip-mode -1)
-  (mouse-wheel-mode t)
-  (blink-cursor-mode -1))
+;; (when window-system
+;;   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+;;   (tooltip-mode -1)
+;;   (mouse-wheel-mode t)
+;;   (blink-cursor-mode -1))
 
-(add-hook 'before-make-frame-hook 'turn-off-tool-bar)
+;; (add-hook 'before-make-frame-hook 'turn-off-tool-bar)
 
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -112,23 +112,23 @@
 
 ;; Cosmetics
 
-(set-face-background 'vertical-border "white")
-(set-face-foreground 'vertical-border "white")
+;; (set-face-background 'vertical-border "white")
+;; (set-face-foreground 'vertical-border "white")
 
-(eval-after-load 'diff-mode
-  '(progn
-     (set-face-foreground 'diff-added "green4")
-     (set-face-foreground 'diff-removed "red3")))
+;; (eval-after-load 'diff-mode
+;;   '(progn
+;;      (set-face-foreground 'diff-added "green4")
+;;      (set-face-foreground 'diff-removed "red3")))
 
-(eval-after-load 'magit
-  '(progn
-     (set-face-foreground 'magit-diff-add "green3")
-     (set-face-foreground 'magit-diff-del "red3")))
+;; (eval-after-load 'magit
+;;   '(progn
+;;      (set-face-foreground 'magit-diff-add "green3")
+;;      (set-face-foreground 'magit-diff-del "red3")))
 
-(eval-after-load 'mumamo
-  '(eval-after-load 'zenburn
-     '(ignore-errors (set-face-background
-                      'mumamo-background-chunk-submode "gray22"))))
+;; (eval-after-load 'mumamo
+;;   '(eval-after-load 'zenburn
+;;      '(ignore-errors (set-face-background
+;;                       'mumamo-background-chunk-submode "gray22"))))
 
 ;; Platform-specific stuff
 (when (eq system-type 'darwin)
