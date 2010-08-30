@@ -25,7 +25,7 @@
   (setq css-indent-offset 2))
 
 (defun default-javascript-mode-hook ()
-  (set-pairs '("(" "{" "["))
+  (set-pairs '("(" "{" "[" "\"" "'"))
   (add-to-list 'ac-sources 'ac-source-yasnippet))
 
 (defun default-ruby-mode-hook ()
@@ -109,9 +109,7 @@
 
 ;; HTML
 (add-hook 'html-mode-hook 'default-html-mode-hook )
-(add-hook 'nxml-mode-hook
-          (lambda ()
-            (default-html-mode-hook)) )
+(add-hook 'nxml-mode-hook 'default-html-mode-hook)
 
 ;; Org-mode
 (add-hook 'org-mode-hook 'default-org-mode-hook)
