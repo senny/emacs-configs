@@ -50,6 +50,7 @@
 
 (defun senny-ido-find-config ()
   (interactive)
+  (senny-persp/emacs)
   (find-file
    (concat dotfiles-dir "/" (ido-completing-read "Config file: "
                                                  (append
@@ -59,9 +60,11 @@
 
 (defun senny-ido-find-project ()
   (interactive)
-  (find-file (ido-open-find-directory-files
-              (concat "~/Projects/" (ido-completing-read "Project: "
-                                                         (directory-files "~/Projects/" nil "^[^.]"))))))
+  (let ((project-name (ido-completing-read "Project: "
+                                           (directory-files "~/Projects/" nil "^[^.]"))))
+    (senny-persp project-name)
+    (find-file (ido-open-find-directory-files
+                (concat "~/Projects/" project-name)))))
 
 (defun senny-open-task-file ()
   (interactive)
