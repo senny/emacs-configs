@@ -92,7 +92,7 @@
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
 (global-set-key (kbd "C-c C-m") 'execute-extended-command)
 (global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x p") 'senny-ido-find-project)
+(global-set-key (kbd "C-c o") 'senny-ido-find-project)
 (global-set-key (kbd "C-x w") 'senny-ispell-buffer)
 (global-set-key (kbd "C-c p") 'senny-ido-find-config)
 (global-set-key (kbd "C-f p") 'senny-open-task-file)
@@ -141,3 +141,10 @@
 
 ;;;; Mode Maps
 (define-key isearch-mode-map (kbd "M-w") 'isearch-query-replace)
+
+
+;; perspective
+(global-set-key (kbd "C-x p p") 'senny-persp/main)
+(global-set-key (kbd "C-x p m") 'senny-persp/main)
+(global-set-key (kbd "C-x p j") 'senny-persp/jabber)
+(global-set-key (kbd "C-x p i") 'senny-persp/irc)
