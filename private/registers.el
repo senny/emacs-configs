@@ -13,5 +13,10 @@
              (?r (file . ,(concat dotfiles-dir "starter-kit-registers.el")))))
   (set-register (car r) (cadr r)))
 
-(provide 'starter-kit-registers)
-;;; starter-kit-registers.el ends here
+;;;; Better Registers
+(require 'better-registers)
+(better-registers t)
+(better-registers-install-save-registers-hook)
+(load better-registers-save-file)
+
+(provide 'senny-registers)

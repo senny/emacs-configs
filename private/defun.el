@@ -323,3 +323,5 @@ major mode for the newly created buffer."
   "Remove duplicate adjacent lines in the current buffer."
   (interactive)
   (uniquify-region-lines (point-min) (point-max)))
+
+(provide 'senny-defuns)

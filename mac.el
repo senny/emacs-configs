@@ -29,3 +29,8 @@
 (defun senny-open-terminal (directory)
   (interactive (list (file-name-directory (or (buffer-file-name) "~/"))))
   (shell-command (concat "open -a Terminal /bin/zsh")))
+
+;; Platform-specific stuff
+(when (eq system-type 'darwin)
+  ;; Work around a bug on OS X where system-name is FQDN
+  (setq system-name (car (split-string system-name "\\."))))

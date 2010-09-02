@@ -125,3 +125,5 @@
 
 (add-hook 'haml-mode-hook 'default-haml-mode-hook)
 ;; (add-hook 'erlang-mode-hook 'default-erlang-mode-hook)
+
+(provide 'senny-coding-hooks)

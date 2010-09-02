@@ -9,9 +9,14 @@
 (setq ispell-dictionary "german")
 
 ;; ido
-(ido-mode t)
-(setq ido-enable-flex-matching t)
-(setq ido-use-filename-at-point nil)
+(when (> emacs-major-version 21)
+  (ido-mode t)
+  (setq ido-enable-prefix nil
+        ido-enable-flex-matching t
+        ido-create-new-buffer 'always
+        ido-use-filename-at-point 'guess
+        ido-max-prospects 10))
+
 (vendor 'ido-hacks)
 (ido-hacks-mode 1)
 
@@ -98,14 +103,8 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 
 ;;;; Cucumber
-;; (add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))
-;; (load "feature-mode")
-
-;;;; Better Registers
-(require 'better-registers)
-(better-registers t)
-(better-registers-install-save-registers-hook)
-(load better-registers-save-file)
+(add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))
+(load "feature-mode")
 
 ;;;; Magit
 (eval-after-load 'magit '(progn
@@ -126,3 +125,19 @@
          (:network-server . "talk.google.com")
          (:connection-type . ssl))))
 
+
+;;;; rvm.el
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/rvm.el"))
+(require 'rvm)
+
+;;;; smex
+(smex-initialize)
+
+;;;; oddmuse
+;; Get around the emacswiki spam protection
+(add-hook 'oddmuse-mode-hook
+          (lambda ()
+            (unless (string-match "question" oddmuse-post)
+              (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
+
+(provide 'senny-modes)

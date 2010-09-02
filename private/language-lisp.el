@@ -67,5 +67,4 @@
                                                (match-end 1) "ƒ")
                                nil))))))
 
-(provide 'starter-kit-lisp)
-;; starter-kit-lisp.el ends here
+(provide 'senny-lisp)

@@ -7,3 +7,5 @@
             (require 'javadoc-help)
             (require 'java-mode-indent-annotations)
             ))
+
+(provide 'senny-java)
