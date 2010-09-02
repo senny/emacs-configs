@@ -44,20 +44,9 @@
 (require 'ansi-color)
 (require 'recentf)
 
-;; backport some functionality to Emacs 22 if needed
-(require 'dominating-file)
-
 ;; Load up starter kit customizations
 
 (require 'starter-kit-defuns)
-(require 'starter-kit-bindings)
-(require 'starter-kit-misc)
-(require 'starter-kit-registers)
-(require 'starter-kit-eshell)
-(require 'starter-kit-lisp)
-(require 'starter-kit-perl)
-(require 'starter-kit-ruby)
-(require 'starter-kit-js)
 
 (regen-autoloads)
 (load custom-file 'noerror)
@@ -74,6 +63,24 @@
 (if (file-exists-p user-specific-config) (load user-specific-config))
 (if (file-exists-p private-config-dir)
   (mapc #'load (directory-files private-config-dir nil ".*el$")))
+
+(require 'senny-elpa)
+(require 'senny-defuns)
+(require 'senny-bindings)
+(require 'senny-registers)
+(require 'senny-completion)
+(require 'senny-display)
+(require 'senny-modes)
+(require 'senny-misc)
+(require 'senny-perspectives)
+(require 'senny-coding-hooks)
+
+(require 'senny-lisp)
+(require 'senny-ruby)
+(require 'senny-javascript)
+(require 'senny-java)
+(require 'senny-erlang)
+(require 'senny-perl)
 
 (put 'narrow-to-region 'disabled nil)
 (put 'downcase-region 'disabled nil)

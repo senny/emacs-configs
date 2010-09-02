@@ -16,3 +16,5 @@
                   )))
 
     (require 'erlang-start)))
+
+(provide 'senny-erlang)
