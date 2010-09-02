@@ -148,3 +148,4 @@
 (global-set-key (kbd "C-p m") 'senny-persp/main)
 (global-set-key (kbd "C-p j") 'senny-persp/jabber)
 (global-set-key (kbd "C-p i") 'senny-persp/irc)
+(global-set-key (kbd "C-p s") 'persp-switch)
