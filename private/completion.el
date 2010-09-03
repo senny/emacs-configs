@@ -1,5 +1,4 @@
 (set-default 'senny-completion-function 'auto-complete)
-(set-default 'senny-intellisense-completion-function 'auto-complete)
 
 ;;;; Yasnippet
 (vendor 'yasnippet)

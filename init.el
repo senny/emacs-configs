@@ -19,10 +19,23 @@
 
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
+(setq private-config-dir (concat dotfiles-dir "private"))
+(setq vendor-dir (concat dotfiles-dir "vendor"))
+
+; for loading libraries in from the vendor directory
+(defun vendor (library)
+  (let* ((file (symbol-name library)) 
+         (normal (concat dotfiles-dir "vendor/" file)) 
+         (suffix (concat normal ".el")))
+    (cond 
+     ((file-directory-p normal) (add-to-list 'load-path normal) (require library))
+     ((file-directory-p suffix) (add-to-list 'load-path suffix) (require library))
+     ((file-exists-p suffix) (require library)))))
 
 ;; Load up ELPA, the package manager
 
 (add-to-list 'load-path dotfiles-dir)
+(add-to-list 'load-path private-config-dir)
 
 (require 'package)
 (package-initialize)
@@ -44,9 +57,25 @@
 (require 'ansi-color)
 (require 'recentf)
 
-;; Load up starter kit customizations
+(add-to-list 'load-path vendor-dir)
 
-(require 'starter-kit-defuns)
+(require 'senny-defuns "defun")
+(require 'senny-bindings "bindings")
+(require 'senny-registers "registers")
+(require 'senny-completion "completion")
+(require 'senny-display "display")
+(require 'senny-modes "modes")
+(require 'senny-misc "misc")
+(require 'senny-git "git")
+(require 'senny-perspectives "perspectives")
+(require 'senny-coding-hooks "coding-hooks")
+
+(require 'senny-lisp "language-lisp")
+(require 'senny-ruby "language-ruby")
+(require 'senny-javascript "language-javascript")
+(require 'senny-java "language-java")
+(require 'senny-erlang "language-erlang")
+(require 'senny-perl "language-perl")
 
 (regen-autoloads)
 (load custom-file 'noerror)
@@ -54,33 +83,11 @@
 ;; You can keep system- or user-specific customizations here
 (setq system-specific-config (concat dotfiles-dir "machines/" system-name ".el")
       user-specific-config (concat dotfiles-dir user-login-name ".el")
-      private-config-dir (concat dotfiles-dir "private")
       private-config (concat private-config-dir ".el"))
-(add-to-list 'load-path private-config-dir)
 
 (if (file-exists-p private-config) (load private-config))
 (if (file-exists-p system-specific-config) (load system-specific-config))
 (if (file-exists-p user-specific-config) (load user-specific-config))
-(if (file-exists-p private-config-dir)
-  (mapc #'load (directory-files private-config-dir nil ".*el$")))
-
-(require 'senny-elpa)
-(require 'senny-defuns)
-(require 'senny-bindings)
-(require 'senny-registers)
-(require 'senny-completion)
-(require 'senny-display)
-(require 'senny-modes)
-(require 'senny-misc)
-(require 'senny-perspectives)
-(require 'senny-coding-hooks)
-
-(require 'senny-lisp)
-(require 'senny-ruby)
-(require 'senny-javascript)
-(require 'senny-java)
-(require 'senny-erlang)
-(require 'senny-perl)
 
 (put 'narrow-to-region 'disabled nil)
 (put 'downcase-region 'disabled nil)

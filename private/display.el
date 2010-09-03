@@ -41,6 +41,7 @@
 (when (fboundp 'color-theme-initialize)
   (color-theme-initialize))
 (setq color-theme-is-global t)
+(require 'color-theme-twilight)
 (color-theme-twilight)
 
 (eval-after-load 'diff-mode

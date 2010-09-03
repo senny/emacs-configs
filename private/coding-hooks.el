@@ -1,5 +1,4 @@
 (make-variable-buffer-local 'senny-completion-function)
-(make-variable-buffer-local 'senny-intellisense-completion-function)
 
 (defun default-lisp-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
@@ -9,17 +8,27 @@
 
 (defun default-java-mode-hook ()
   (set-pairs '("(" "{" "[" "\"" "\'"))
-  (setq senny-completion-function 'ac-complete)
-  (setq senny-intellisense-completion-function 'eclim-complete)
   (setq c-comment-continuation-stars "* ")
   (setq c-basic-offset 2)
   (setq ac-sources '(ac-source-eclim ac-source-words-in-same-mode-buffers))
   ;; (java-mode-indent-annotations-setup)
   )
 
+(defun default-jde-mode-hook ()
+  (local-unset-key (kbd "M-j"))
+  (local-unset-key (kbd "C-c C-a"))
+  (global-unset-key (kbd "C-c C-a"))
+  (default-java-mode-hook)
+  (setq jde-complete-insert-method-signature nil)
+  ;; No "final" when auto creating methods and variables.
+  (setq jde-gen-final-arguments nil)
+  (setq jde-gen-final-methods nil)
+
+  ;; Don't use JDE's builtin abbrevs.
+  (setq jde-enable-abbrev-mode nil))
+
 (defun default-css-mode-hook ()
   (set-pairs '("(" "[" "\"" "\'"))
-  (setq senny-completion-function 'auto-complete)
   ;; (setq ac-sources '(ac-source-dictionary))
   (setq css-indent-level 2)
   (setq css-indent-offset 2))
@@ -59,38 +68,27 @@
 
 (defun default-sql-mode-hook ()
   (setq tab-width 4)
-  (sql-set-product 'oracle)
+  (sql-set-product 'mysql)
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
   (auto-complete-mode t))
 
 (defun default-haml-mode-hook ()
   (set-pairs '("[" "{" "(" "\"" "'")))
 
+(defun default-objc-mode-hook ()
+  (set-pairs '("(" "{" "[" "\""))
+  (auto-complete-mode t)
+  (setq ac-sources '(ac-source-abbrev ac-source-symbols ac-source-words-in-buffer)))
+
 ;; (defun default-erlang-mode-hook ()
 ;;   (setq ac-sources '(ac-source-dictionary ac-source-words-in-same-mode-buffers ac-source-yasnippet)))
 
 ;; Objective C
-(add-hook 'objc-mode-hook
-          (lambda ()
-            (set-pairs '("(" "{" "[" "\""))
-            (auto-complete-mode t)
-            (setq ac-sources '(ac-source-abbrev ac-source-symbols ac-source-words-in-buffer))) )
+(add-hook 'objc-mode-hook 'defaut-objc-mode-hook)
 
 ;; Java
 (add-hook 'java-mode-hook 'default-java-mode-hook )
-(add-hook 'jde-mode-hook
-          (lambda ()
-            (local-unset-key (kbd "M-j"))
-            (local-unset-key (kbd "C-c C-a"))
-            (global-unset-key (kbd "C-c C-a"))
-            (default-java-mode-hook)
-            (setq jde-complete-insert-method-signature nil)
-            ;; No "final" when auto creating methods and variables.
-            (setq jde-gen-final-arguments nil)
-            (setq jde-gen-final-methods nil)
-
-            ;; Don't use JDE's builtin abbrevs.
-            (setq jde-enable-abbrev-mode nil)) )
+(add-hook 'jde-mode-hook 'default-jde-mode-hook)
 
 ;; Ruby
 (add-hook 'ruby-mode-hook 'default-ruby-mode-hook)
@@ -113,11 +111,6 @@
 
 ;; Org-mode
 (add-hook 'org-mode-hook 'default-org-mode-hook)
-
-;; Comint
-(add-hook 'comint-mode-hook
-          (lambda ()
-            ))
 
 (add-hook 'textile-mode-hook 'default-textile-mode-hook)
 
