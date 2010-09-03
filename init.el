@@ -26,7 +26,7 @@
 
 (require 'package)
 (package-initialize)
-(require 'starter-kit-elpa)
+(require 'senny-elpa "elpa")
 
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
 

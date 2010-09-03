@@ -1,22 +1,23 @@
-;;; starter-kit-elpa.el --- Install a base set of packages automatically.
-;;
-;; Part of the Emacs Starter Kit
-
-(require 'cl)
-
-(defvar starter-kit-packages (list 'idle-highlight
-                                   'ruby-mode
-                                   'inf-ruby
-                                   'css-mode
-                                   'yaml-mode
-                                   'magit
-                                   'gist)
+(defvar elpa-packages (list 'idle-highlight
+                            'ruby-mode
+                            'inf-ruby
+                            'css-mode
+                            'yaml-mode
+                            'magit
+                            'gist
+                            'ruby-compilation
+                            'rspec-mode
+                            'rinari
+                            'yari
+                            'haml-mode
+                            'smex
+                            'sass-mode)
   "Libraries that should be installed by default.")
 
-(defun starter-kit-elpa-install ()
-  "Install all starter-kit packages that aren't installed."
+(defun senny-elpa-install ()
+  "Install all packages that aren't installed."
   (interactive)
-  (dolist (package starter-kit-packages)
+  (dolist (package elpa-packages)
     (unless (or (member package package-activated-list)
                 (functionp package))
       (message "Installing %s" (symbol-name package))
@@ -39,7 +40,7 @@ just have to assume it's online."
 ;; On your first run, this should pull in all the base packages.
 (when (esk-online?)
   (unless package-archive-contents (package-refresh-contents))
-  (starter-kit-elpa-install))
+  (senny-elpa-install))
 
 ;; Workaround for an ELPA bug that people are reporting but I've been
 ;; unable to reproduce:
@@ -48,4 +49,4 @@ just have to assume it's online."
 ;; Workaround for bug in the ELPA package for yaml-mode
 (autoload 'yaml-mode "yaml-mode" "" t)
 
-(provide 'starter-kit-elpa)
+(provide 'senny-elpa)
