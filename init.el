@@ -24,10 +24,10 @@
 
 ; for loading libraries in from the vendor directory
 (defun vendor (library)
-  (let* ((file (symbol-name library)) 
-         (normal (concat dotfiles-dir "vendor/" file)) 
+  (let* ((file (symbol-name library))
+         (normal (concat dotfiles-dir "vendor/" file))
          (suffix (concat normal ".el")))
-    (cond 
+    (cond
      ((file-directory-p normal) (add-to-list 'load-path normal) (require library))
      ((file-directory-p suffix) (add-to-list 'load-path suffix) (require library))
      ((file-exists-p suffix) (require library)))))
@@ -82,10 +82,16 @@
 
 ;; You can keep system- or user-specific customizations here
 (setq system-specific-config (concat dotfiles-dir "machines/" system-name ".el")
-      user-specific-config (concat dotfiles-dir user-login-name ".el")
-      private-config (concat private-config-dir ".el"))
+      user-specific-config (concat dotfiles-dir user-login-name ".el"))
 
-(if (file-exists-p private-config) (load private-config))
+(cond
+  ((string-match "nt" system-configuration)
+   (load "windows")
+  )
+  ((string-match "apple" system-configuration)
+    (load "mac")
+  ))
+(if (file-exists-p (concat dotfiles-dir "local.el")) (load "local") )
 (if (file-exists-p system-specific-config) (load system-specific-config))
 (if (file-exists-p user-specific-config) (load user-specific-config))
 
