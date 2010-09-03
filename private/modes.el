@@ -65,7 +65,6 @@
 (add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.tld$" . nxml-mode))
 
-;; this function rebinds M-s and M-S to switch between the different windows
 (defun rebind-commands ()
   (interactive)
   (local-unset-key (kbd "C-c C-k"))
@@ -102,14 +101,8 @@
 
 ;;;; Cucumber
 (add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))
-(load "feature-mode")
+(require 'feature-mode)
 
-;;;; Magit
-(eval-after-load 'magit '(progn
-                           (define-key magit-mode-map (kbd "C-1") 'magit-show-level-1-all)
-                           (define-key magit-mode-map (kbd "C-2") 'magit-show-level-2-all)
-                           (define-key magit-mode-map (kbd "C-3") 'magit-show-level-3-all)
-                           (define-key magit-mode-map (kbd "C-4") 'magit-show-level-4-all)))
 
 (require 'ibuffer)
 

@@ -123,7 +123,6 @@
 (global-set-key (kbd "C-ö") 'backward-buffer)
 
 ;; Completion
-(global-set-key (kbd "C-SPC") 'senny-intelisense-complete)
 (global-set-key (kbd "TAB") 'senny-indent-or-complete)
 
 ;;;; Searching

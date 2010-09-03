@@ -12,12 +12,6 @@
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 
-(defun senny-intelisense-complete ()
-  (interactive)
-  (if senny-intellisense-completion-function
-      (funcall senny-intellisense-completion-function)
-    (message "no intellisense completion function defined!")))
-
 (defun senny-complete ()
   (interactive)
   (if senny-completion-function
@@ -323,5 +317,98 @@ major mode for the newly created buffer."
   "Remove duplicate adjacent lines in the current buffer."
   (interactive)
   (uniquify-region-lines (point-min) (point-max)))
+
+(defun untabify-buffer ()
+  (interactive)
+  (untabify (point-min) (point-max)))
+
+(defun indent-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
+
+(defun cleanup-buffer ()
+  "Perform a bunch of operations on the whitespace content of a buffer."
+  (interactive)
+  (indent-buffer)
+  (untabify-buffer)
+  (delete-trailing-whitespace))
+
+(defun sudo-edit (&optional arg)
+  (interactive "p")
+  (if (or arg (not buffer-file-name))
+      (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
+(defun lorem ()
+  "Insert a lorem ipsum."
+  (interactive)
+  (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
+          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim"
+          "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+          "aliquip ex ea commodo consequat. Duis aute irure dolor in "
+          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
+          "culpa qui officia deserunt mollit anim id est laborum."))
+
+(defun recompile-init ()
+  "Byte-compile all your dotfiles again."
+  (interactive)
+  (byte-recompile-directory dotfiles-dir 0)
+  (byte-recompile-directory private-config-dir 0)
+  ;; TODO: remove elpa-to-submit once everything's submitted.
+  (byte-recompile-directory (concat dotfiles-dir "elpa-to-submit/") 0))
+
+(defun recentf-ido-find-file ()
+  "Find a recent file using ido."
+  (interactive)
+  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
+    (when file
+      (find-file file))))
+
+(defun view-url ()
+  "Open a new buffer containing the contents of URL."
+  (interactive)
+  (let* ((default (thing-at-point-url-at-point))
+         (url (read-from-minibuffer "URL: " default)))
+    (switch-to-buffer (url-retrieve-synchronously url))
+    (rename-buffer url t)
+    ;; TODO: switch to nxml/nxhtml mode
+    (cond ((search-forward "<?xml" nil t) (xml-mode))
+          ((search-forward "<html" nil t) (html-mode)))))
+
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
+(defun regen-autoloads (&optional force-regen)
+  "Regenerate the autoload definitions file if necessary and load it."
+  (interactive "P")
+  (let ((autoload-dir (concat dotfiles-dir "/elpa-to-submit"))
+        (generated-autoload-file autoload-file))
+    (when (or force-regen
+              (not (file-exists-p autoload-file))
+              (some (lambda (f) (file-newer-than-file-p f autoload-file))
+                    (directory-files autoload-dir t "\\.el$")))
+      (message "Updating autoloads...")
+      (let (emacs-lisp-mode-hook)
+        (update-directory-autoloads autoload-dir))))
+  (load autoload-file))
+
+(defun insert-date ()
+  "Insert a time-stamp according to locale's date and time format."
+  (interactive)
+  (insert (format-time-string "%c" (current-time))))
+
+(defun esk-paredit-nonlisp ()
+  "Turn on paredit mode for non-lisps."
+  (set (make-local-variable 'paredit-space-delimiter-chars)
+       (list ?\"))
+  (paredit-mode 1))
 
 (provide 'senny-defuns)
