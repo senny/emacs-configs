@@ -155,9 +155,6 @@
 (global-unset-key (kbd "C-x m"))
 (global-unset-key "\C-z")
 
-;; iEdit
-(global-set-key (kbd "C-;") 'iedit-mode)
-
 ;; ediff
 (global-set-key (kbd "C-c d b") 'ediff-buffers)
 (global-set-key (kbd "C-c d f") 'ediff-files)
