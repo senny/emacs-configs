@@ -1,5 +1,6 @@
 loaddefs.el*
 backups/*
+backups.*
 machines/*
 server/*
 tutorial/*
