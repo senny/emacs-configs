@@ -19,6 +19,3 @@
 
 (define-key ac-complete-mode-map (kbd "M-k") 'ac-next)
 (define-key ac-complete-mode-map (kbd "M-i") 'ac-previous)
-
-
-(provide 'senny-completion)

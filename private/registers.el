@@ -18,5 +18,3 @@
 (better-registers t)
 (better-registers-install-save-registers-hook)
 (load better-registers-save-file)
-
-(provide 'senny-registers)

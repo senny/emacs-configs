@@ -34,5 +34,3 @@
 (defun senny-persp/main ()
   (interactive)
   (senny-persp "main"))
-
-(provide 'senny-perspectives)

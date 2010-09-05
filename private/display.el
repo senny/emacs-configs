@@ -41,7 +41,10 @@
 (when (fboundp 'color-theme-initialize)
   (color-theme-initialize))
 (setq color-theme-is-global t)
-(require 'color-theme-twilight)
+(setq theme-dir (concat private-config-dir "/themes"))
+(if (file-exists-p theme-dir)
+  (mapc #'load (directory-files theme-dir t ".*elc?$")))
+(message theme-dir)
 (color-theme-twilight)
 
 (eval-after-load 'diff-mode
@@ -58,6 +61,3 @@
   '(eval-after-load 'zenburn
      '(ignore-errors (set-face-background
                       'mumamo-background-chunk-submode "gray22"))))
-
-
-(provide 'senny-display)

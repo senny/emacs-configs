@@ -410,5 +410,3 @@ major mode for the newly created buffer."
   (set (make-local-variable 'paredit-space-delimiter-chars)
        (list ?\"))
   (paredit-mode 1))
-
-(provide 'senny-defuns)
