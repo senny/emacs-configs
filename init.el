@@ -15,6 +15,11 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
+;; Platform-specific stuff
+(when (eq system-type 'darwin)
+  ;; Work around a bug on OS X where system-name is FQDN
+  (setq system-name (car (split-string system-name "\\."))))
+
 ;; Load path etc.
 
 (setq dotfiles-dir (file-name-directory
@@ -22,7 +27,7 @@
 (setq private-config-dir (concat dotfiles-dir "private"))
 (setq vendor-dir (concat dotfiles-dir "vendor"))
 
-; for loading libraries in from the vendor directory
+                                        ; for loading libraries in from the vendor directory
 (defun vendor (library)
   (let* ((file (symbol-name library))
          (normal (concat dotfiles-dir "vendor/" file))
@@ -45,7 +50,6 @@
 
 (setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
-(setq custom-file (concat dotfiles-dir "custom.el"))
 
 ;; These should be loaded on startup rather than autoloaded on demand
 ;; since they are likely to be used in every session
@@ -59,6 +63,7 @@
 
 (add-to-list 'load-path vendor-dir)
 
+(load "private/customize")
 (require 'senny-defuns "defun")
 (require 'senny-bindings "bindings")
 (require 'senny-registers "registers")
@@ -85,12 +90,13 @@
       user-specific-config (concat dotfiles-dir user-login-name ".el"))
 
 (cond
-  ((string-match "nt" system-configuration)
-   (load "windows")
+ ((string-match "nt" system-configuration)
+  (load "windows")
   )
-  ((string-match "apple" system-configuration)
-    (load "mac")
+ ((string-match "apple" system-configuration)
+  (load "mac")
   ))
+
 (if (file-exists-p (concat dotfiles-dir "local.el")) (load "local") )
 (if (file-exists-p system-specific-config) (load system-specific-config))
 (if (file-exists-p user-specific-config) (load user-specific-config))

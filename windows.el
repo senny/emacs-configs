@@ -1,10 +1,6 @@
 ;; start the server to use emacsclient from the console
 (server-start)
 
-;; custom place to save customizations
-(setq custom-file (concat private-config-dir "/custom/w32-custom.el"))
-(load custom-file)
-
 ;; use dos-encoding in windows environments
 (set-default-coding-systems 'iso-latin-1-dos)
 
