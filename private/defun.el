@@ -367,8 +367,7 @@ major mode for the newly created buffer."
   (interactive)
   (byte-recompile-directory dotfiles-dir 0)
   (byte-recompile-directory private-config-dir 0)
-  ;; TODO: remove elpa-to-submit once everything's submitted.
-  (byte-recompile-directory (concat dotfiles-dir "elpa-to-submit/") 0))
+  (byte-recompile-directory (concat dotfiles-dir "vendor/") 0))
 
 (defun recentf-ido-find-file ()
   "Find a recent file using ido."
@@ -401,7 +400,7 @@ major mode for the newly created buffer."
 (defun regen-autoloads (&optional force-regen)
   "Regenerate the autoload definitions file if necessary and load it."
   (interactive "P")
-  (let ((autoload-dir (concat dotfiles-dir "/elpa-to-submit"))
+  (let ((autoload-dir (concat dotfiles-dir "vendor"))
         (generated-autoload-file autoload-file))
     (when (or force-regen
               (not (file-exists-p autoload-file))
