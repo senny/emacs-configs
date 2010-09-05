@@ -15,34 +15,15 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-;; Platform-specific stuff
-(when (eq system-type 'darwin)
-  ;; Work around a bug on OS X where system-name is FQDN
-  (setq system-name (car (split-string system-name "\\."))))
-
 ;; Load path etc.
-(setq dotfiles-dir (file-name-directory
-                    (or (buffer-file-name) load-file-name)))
-(setq private-config-dir (concat dotfiles-dir "private"))
-(setq vendor-dir (concat dotfiles-dir "vendor"))
+(setq dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name))
+      private-config-dir (concat dotfiles-dir "private")
+      vendor-dir (concat dotfiles-dir "vendor"))
 
 (add-to-list 'load-path dotfiles-dir)
-(add-to-list 'load-path private-config-dir)
 (add-to-list 'load-path vendor-dir)
 
-;; for loading libraries in from the vendor directory
-(defun vendor (library)
-  (let* ((file (symbol-name library))
-         (normal (concat dotfiles-dir "vendor/" file))
-         (suffix (concat normal ".el")))
-    (cond
-     ((file-directory-p normal) (add-to-list 'load-path normal) (require library))
-     ((file-directory-p suffix) (add-to-list 'load-path suffix) (require library))
-     ((file-exists-p suffix) (require library)))))
-
 ;; Load up ELPA, the package manager
-
-
 (require 'package)
 (package-initialize)
 (load "private/elpa")
@@ -54,7 +35,6 @@
 
 ;; These should be loaded on startup rather than autoloaded on demand
 ;; since they are likely to be used in every session
-
 (require 'cl)
 (require 'saveplace)
 (require 'ffap)
@@ -82,24 +62,23 @@
 (load "private/languages/perl")
 
 (regen-autoloads)
-(load custom-file 'noerror)
+
+(cond
+ ((string-match "nt" system-configuration)
+  (load "private/platforms/windows"))
+ ((string-match "apple" system-configuration)
+  (load "private/platforms/mac")))
 
 ;; You can keep system- or user-specific customizations here
 (setq system-specific-config (concat dotfiles-dir "machines/" system-name ".el")
       user-specific-config (concat dotfiles-dir user-login-name ".el"))
 
-(cond
- ((string-match "nt" system-configuration)
-  (load "windows")
-  )
- ((string-match "apple" system-configuration)
-  (load "mac")
-  ))
-
 (if (file-exists-p (concat dotfiles-dir "local.el")) (load "local") )
 (if (file-exists-p system-specific-config) (load system-specific-config))
 (if (file-exists-p user-specific-config) (load user-specific-config))
 
+
+;; activate disabled features
 (put 'narrow-to-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
