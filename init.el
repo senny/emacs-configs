@@ -21,13 +21,16 @@
   (setq system-name (car (split-string system-name "\\."))))
 
 ;; Load path etc.
-
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
 (setq private-config-dir (concat dotfiles-dir "private"))
 (setq vendor-dir (concat dotfiles-dir "vendor"))
 
-                                        ; for loading libraries in from the vendor directory
+(add-to-list 'load-path dotfiles-dir)
+(add-to-list 'load-path private-config-dir)
+(add-to-list 'load-path vendor-dir)
+
+;; for loading libraries in from the vendor directory
 (defun vendor (library)
   (let* ((file (symbol-name library))
          (normal (concat dotfiles-dir "vendor/" file))
@@ -39,12 +42,10 @@
 
 ;; Load up ELPA, the package manager
 
-(add-to-list 'load-path dotfiles-dir)
-(add-to-list 'load-path private-config-dir)
 
 (require 'package)
 (package-initialize)
-(require 'senny-elpa "elpa")
+(load "private/elpa")
 
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
 
@@ -60,8 +61,6 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
-
-(add-to-list 'load-path vendor-dir)
 
 (load "private/customize")
 (load "private/defun")
