@@ -3,11 +3,6 @@
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (cons "/usr/local/bin" exec-path))
-(setq custom-file (concat private-config-dir
-                          (cond ((string-match "aquamacs" (emacs-version)) "/custom/aquamacs-custom.el")
-                                ((string-match "carbon" (emacs-version)) "/custom/carbon-emacs-custom.el")
-                                (t "/custom/cocoa-emacs-custom.el"))))
-(load custom-file)
 
 ;; use emacs keybindings.
 (setq mac-pass-command-to-system nil)
@@ -29,8 +24,3 @@
 (defun senny-open-terminal (directory)
   (interactive (list (file-name-directory (or (buffer-file-name) "~/"))))
   (shell-command (concat "open -a Terminal /bin/zsh")))
-
-;; Platform-specific stuff
-(when (eq system-type 'darwin)
-  ;; Work around a bug on OS X where system-name is FQDN
-  (setq system-name (car (split-string system-name "\\."))))
