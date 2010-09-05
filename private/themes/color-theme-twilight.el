@@ -96,7 +96,7 @@
      (diff-index ((t (:inherit font-lock-comment))))
      (diff-file-header ((t (:inherit font-lock-comment :bold t))))
      (diff-refine-change ((t (:inherit dark-background))))
-     
+
      (jde-db-active-breakpoint-face ((t (:inherit diff-removed))))
      (jde-db-requested-breakpoint-face ((t (:inherit diff-changed))))
      (jde-db-spec-breakpoint-face ((t (:inherit diff-added))))
@@ -180,7 +180,7 @@
      (ido-subdir ((t (:inherit constant))))
 
      (mac-ts-caret-position ((t (:inherit dark-background))))
-     
+
      (erb-comment-face ((t (:inherit comment))))
      (erb-comment-delim-face ((t (:inherit comment))))
      (erb-exec-face ((t (:inherit important-region))))
@@ -189,7 +189,7 @@
      (erb-out-delim-face ((t (:inherit preprocessor))))
 
      (magit-item-highlight ((t (:inherit dark-background))))
-     
+
      (gui-element ((t (:background "#D4D0C8" :foreground "black"))))
      (region ((t (:background "#333333"))))
      (minibuffer-prompt ((t (:background "#141414" :foreground "cyan"))))
@@ -200,5 +200,3 @@
      (left-margin ((t (nil))))
      (text-cursor ((t (:background "yellow" :foreground "black"))))
      (toolbar ((t (nil)))))))
-
-(provide 'color-theme-twilight)

@@ -124,9 +124,6 @@ exec-to-string command, but it works and seems fast"
 
 (add-hook 'ruby-mode-hook 'run-coding-hook)
 
-
-(provide 'senny-ruby)
-
 ;; TODO Temporary addition
 (defun ruby-reindent-then-newline-and-indent ()
   (interactive "*")

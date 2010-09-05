@@ -127,5 +127,3 @@
 (defun run-coding-hook ()
   "Enable things that are convenient across all coding buffers."
   (run-hooks 'coding-hook))
-
-(provide 'senny-misc)
