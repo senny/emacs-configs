@@ -1,3 +1,0 @@
-#name : expect - be_undefined
-# --
-expect(${1:actual}).to(be_undefined);

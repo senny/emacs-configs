@@ -1,5 +1,0 @@
-#name : before(function() {...});
-# --
-before(function() {
-  $0
-});

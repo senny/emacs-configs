@@ -54,12 +54,8 @@
 (load "private/perspectives")
 (load "private/coding-hooks")
 
-(load "private/languages/lisp")
-(load "private/languages/ruby")
-(load "private/languages/javascript")
-(load "private/languages/java")
-(load "private/languages/erlang")
-(load "private/languages/perl")
+;; load language configurations
+(mapc #'load (directory-files (concat private-config-dir "/languages") t ".*elc?$"))
 
 (regen-autoloads)
 
@@ -76,7 +72,6 @@
 (if (file-exists-p (concat dotfiles-dir "local.el")) (load "local") )
 (if (file-exists-p system-specific-config) (load system-specific-config))
 (if (file-exists-p user-specific-config) (load user-specific-config))
-
 
 ;; activate disabled features
 (put 'narrow-to-region 'disabled nil)

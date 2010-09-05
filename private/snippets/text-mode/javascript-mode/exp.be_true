@@ -1,3 +1,0 @@
-#name : expect - be_true
-# --
-expect(${1:actual}).to(be_true);

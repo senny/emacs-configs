@@ -110,6 +110,7 @@
 (global-set-key (kbd "C-c g") 'grep)
 (global-set-key (kbd "C-x n r") 'indirect-region)
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
+(global-set-key (kbd "C-h r") 'yari)
 
 ;; Window management
 (global-set-key (kbd "C-+") 'increase-font-size) ; increase the font-size

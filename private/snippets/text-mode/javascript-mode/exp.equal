@@ -1,3 +1,0 @@
-#name : expect - equal
-# --
-expect(${1:actual}).to(equal, ${3:expected});

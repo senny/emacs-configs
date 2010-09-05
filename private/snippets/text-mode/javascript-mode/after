@@ -1,5 +1,0 @@
-#name : after(function(){...});
-# --
-after(function() {
-  $0
-});

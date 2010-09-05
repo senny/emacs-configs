@@ -1,7 +1,5 @@
 (defvar *ruby-flymake-mode* nil)
 
-(vendor 'rhtml-mode)
-
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.thor$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
@@ -42,11 +40,10 @@ exec-to-string command, but it works and seems fast"
     (ruby-compilation-this-buffer)
     (pop-to-buffer origin)))
 
-(global-set-key (kbd "C-h r") 'ri)
-
 ;;;; Flymake
 (eval-after-load 'ruby-mode
   '(progn
+     ;; Libraries
      (require 'flymake)
 
      ;; Invoke ruby with '-c' to get syntax checking
@@ -87,7 +84,8 @@ exec-to-string command, but it works and seems fast"
      (add-hook 'ruby-mode-hook 'inf-ruby-keys)
 
      ;;;; Additional Libraries
-     (vendor 'rspec-mode)
+     (require 'rspec-mode)
+     (vendor 'rhtml-mode)
 
      ;; active the default ruby configured with rvm
      (when (fboundp 'rvm-use-default)
@@ -121,8 +119,24 @@ exec-to-string command, but it works and seems fast"
       (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
             'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
 
+;; Hooks
+(defun default-ruby-mode-hook ()
+  (set-pairs '("(" "{" "[" "\"" "\'" "|"))
+
+  (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
+
+  (make-local-variable 'ac-ignores)
+  (make-local-variable 'ac-auto-start)
+  (add-to-list 'ac-ignores "end")
+  (setq ac-auto-start nil)
+
+  (local-set-key (kbd "TAB") 'senny-indent-or-complete)
+  (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
+
+  (ruby-electric-mode t))
 
 (add-hook 'ruby-mode-hook 'run-coding-hook)
+(add-hook 'ruby-mode-hook 'default-ruby-mode-hook)
 
 ;; TODO Temporary addition
 (defun ruby-reindent-then-newline-and-indent ()

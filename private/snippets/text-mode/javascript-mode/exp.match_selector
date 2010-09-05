@@ -1,3 +1,0 @@
-#name : expect - match_selector
-# --
-expect(${1:actual}).to(match_selector, ${2:css-selector});

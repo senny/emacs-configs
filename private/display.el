@@ -26,7 +26,6 @@
 ;; Highlight the current line
 (global-hl-line-mode t)
 
-
 (line-number-mode nil)
 (column-number-mode nil)
 
