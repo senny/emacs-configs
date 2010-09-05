@@ -1,3 +1,13 @@
+;; for loading libraries in from the vendor directory
+(defun vendor (library)
+  (let* ((file (symbol-name library))
+         (normal (concat dotfiles-dir "vendor/" file))
+         (suffix (concat normal ".el")))
+    (cond
+     ((file-directory-p normal) (add-to-list 'load-path normal) (require library))
+     ((file-directory-p suffix) (add-to-list 'load-path suffix) (require library))
+     ((file-exists-p suffix) (require library)))))
+
 (defun senny-init-ecb ()
   (interactive)
   (add-to-list 'load-path (concat dotfiles-dir "/vendor/cedet-1.0pre7"))
