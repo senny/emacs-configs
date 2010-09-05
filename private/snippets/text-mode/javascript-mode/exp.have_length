@@ -1,3 +1,0 @@
-#name : expect - have_length
-# --
-expect(${1:actual}).to(have_length, ${2:length});

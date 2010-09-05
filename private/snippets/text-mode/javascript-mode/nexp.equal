@@ -1,3 +1,0 @@
-#name : expect - not equal
-# --
-expect(${1:actual}).to_not(equal, ${3:expected});

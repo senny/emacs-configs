@@ -1,3 +1,0 @@
-#name : expect - not contain_selector
-# --
-expect(${1:actual}).to_not(contain_selector, ${2:css-selector});

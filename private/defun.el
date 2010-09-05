@@ -58,8 +58,10 @@
   (find-file
    (concat dotfiles-dir "/" (ido-completing-read "Config file: "
                                                  (append
-                                                  (mapcar (lambda (file) (concat "private/" file))
-                                                          (directory-files private-config-dir nil "^[^.]"))
+                                                  (apply 'append (mapcar (lambda (base)
+                                                            (mapcar (lambda (file) (concat base file))
+                                                                    (directory-files (concat dotfiles-dir base) nil "^[^.]")))
+                                                          '("private/" "private/languages/" "private/themes/" "private/custom/")))
                                                   (directory-files dotfiles-dir nil "^[^.]"))))))
 
 (defun senny-ido-find-project ()

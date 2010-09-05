@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# contributor : Yves Senn <yves.senn@gmx.ch>
-# name: <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-# --
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>

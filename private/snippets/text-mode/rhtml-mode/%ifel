@@ -1,6 +1,0 @@
-#name : <% if  ...  -%> $. <% else -%> <% end -%>
-# --
-<% if ${condition} -%>
-$0
-<% else -%>
-<% end -%>

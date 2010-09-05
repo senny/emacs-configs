@@ -1,3 +1,0 @@
-#name : expect - match (RegEx)
-# --
-expect(${1:actual}).to(match, ${2:regex});
