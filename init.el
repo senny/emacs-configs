@@ -24,6 +24,7 @@
 (add-to-list 'load-path vendor-dir)
 
 ;; Load up ELPA, the package manager
+(require 'cl)
 (require 'package)
 (package-initialize)
 (load "private/elpa")
@@ -33,7 +34,6 @@
 
 ;; These should be loaded on startup rather than autoloaded on demand
 ;; since they are likely to be used in every session
-(require 'cl)
 (require 'saveplace)
 (require 'ffap)
 (require 'uniquify)

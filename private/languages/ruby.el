@@ -126,6 +126,7 @@ exec-to-string command, but it works and seems fast"
 
 ;; Hooks
 (defun default-ruby-mode-hook ()
+  (ruby-electric-mode t)
   (set-pairs '("(" "{" "[" "\"" "\'" "|"))
 
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
@@ -137,8 +138,7 @@ exec-to-string command, but it works and seems fast"
 
   (local-set-key (kbd "TAB") 'senny-indent-or-complete)
   (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
-
-  (ruby-electric-mode t))
+  )
 
 (add-hook 'ruby-mode-hook 'run-coding-hook)
 (add-hook 'ruby-mode-hook 'default-ruby-mode-hook)
