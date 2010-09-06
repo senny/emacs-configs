@@ -100,7 +100,7 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 
 ;;;; Cucumber
-(add-to-list 'load-path (concat dotfiles-dir "vendor/cucumber.el"))
+(add-to-list 'load-path (concat vendor-dir "/cucumber.el"))
 (require 'feature-mode)
 
 
@@ -118,7 +118,7 @@
 
 
 ;;;; rvm.el
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/rvm.el"))
+(add-to-list 'load-path (concat vendor-dir "/rvm.el"))
 (require 'rvm)
 
 ;;;; smex
