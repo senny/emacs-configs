@@ -53,7 +53,8 @@
 (global-set-key (kbd "M-4") 'delete-other-windows)
 
 (global-unset-key (kbd "M-x")) ; execute-extended-command
-(global-set-key (kbd "M-a") (if (featurep 'smex) 'smex 'execute-extended-command))
+(global-set-key (kbd "M-a") 'execute-extended-command)
+(global-set-key (kbd "M-e") 'shell-command)
 
 (global-set-key (kbd "M-s") 'move-cursor-next-pane)
 (global-set-key (kbd "M-S") 'move-cursor-previous-pane)

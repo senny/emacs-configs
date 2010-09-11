@@ -12,7 +12,6 @@
                             'rinari
                             'yari
                             'haml-mode
-                            'smex
                             'sass-mode)
   "Libraries that should be installed by default.")
 
