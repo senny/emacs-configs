@@ -13,7 +13,11 @@
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
 
-;;; Rake
+;;; defuns
+
+(defun senny-ruby-eval-buffer ()
+  (interactive)
+  (ruby-send-region-and-go (point-min) (point-max)))
 
 (defun pcomplete/rake ()
   "Completion rules for the `ssh' command."
@@ -92,6 +96,7 @@ exec-to-string command, but it works and seems fast"
        (rvm-use-default))
 
      ;;;; Bindings
+     (define-key ruby-mode-map (kbd "C-c v") 'senny-ruby-eval-buffer)
      (define-key ruby-mode-map (kbd "C-M-r") 'senny-ruby-compilation-this-buffer)
      (define-key ruby-mode-map (kbd "C-c C-r g") 'rvm-open-gem)
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
