@@ -121,9 +121,6 @@
 (add-to-list 'load-path (concat vendor-dir "/rvm.el"))
 (require 'rvm)
 
-;;;; smex
-(smex-initialize)
-
 ;;;; oddmuse
 ;; Get around the emacswiki spam protection
 (add-hook 'oddmuse-mode-hook
