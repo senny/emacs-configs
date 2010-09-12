@@ -9,6 +9,7 @@
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.js.rjs$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.xml.builder$" . ruby-mode))
 
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
@@ -43,6 +44,16 @@ exec-to-string command, but it works and seems fast"
   (let ((origin (current-buffer)))
     (ruby-compilation-this-buffer)
     (pop-to-buffer origin)))
+
+(defun senny-open-spec-other-buffer ()
+  (interactive)
+  (when (featurep 'rspec-mode)
+    (let ((source-buffer (current-buffer))
+          (other-buffer (progn
+                          (rspec-toggle-spec-and-target)
+                          (current-buffer))))
+      (switch-to-buffer source-buffer)
+      (pop-to-buffer other-buffer))))
 
 ;;;; Flymake
 (eval-after-load 'ruby-mode
@@ -118,6 +129,12 @@ exec-to-string command, but it works and seems fast"
            (with-current-buffer comp-buffer-name
              (delete-region (point-min) (point-max))))))
      (ad-activate 'ruby-do-run-w/compilation)))
+
+(eval-after-load 'rspec-mode
+  '(progn
+     (define-key ruby-mode-map (kbd "C-c , o") 'senny-open-spec-other-buffer)
+     (define-key ruby-mode-map (kbd "C-c , ,") 'senny-open-spec-other-buffer)))
+
 
 ;; Rinari (Minor Mode for Ruby On Rails)
 (setq rinari-major-modes
