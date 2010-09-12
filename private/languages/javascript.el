@@ -3,8 +3,13 @@
 (add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
 (setq espresso-indent-level 2)
 
+(defun senny-js-send-buffer ()
+  (interactive)
+  (moz-send-region (point-min) (point-max)))
+
 (eval-after-load 'espresso
   '(progn
+     (define-key espresso-mode-map (kbd "C-c v") 'senny-js-send-buffer)
      ;; fixes problem with pretty function font-lock
      (define-key espresso-mode-map (kbd ",") 'self-insert-command)
      (font-lock-add-keywords 'espresso-mode
