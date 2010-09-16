@@ -171,6 +171,7 @@
 
 ;; perspective
 (global-set-key (kbd "C-p e") 'senny-persp/emacs)
+(global-set-key (kbd "C-p t") 'senny-persp/terminal)
 (global-set-key (kbd "C-p p") 'senny-persp-last)
 (global-set-key (kbd "C-p m") 'senny-persp/main)
 (global-set-key (kbd "C-p j") 'senny-persp/jabber)
