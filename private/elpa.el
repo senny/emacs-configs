@@ -8,7 +8,6 @@
                             'magit
                             'gist
                             'ruby-compilation
-                            'rspec-mode
                             'rinari
                             'yari
                             'haml-mode

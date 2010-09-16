@@ -99,7 +99,7 @@ exec-to-string command, but it works and seems fast"
      (add-hook 'ruby-mode-hook 'inf-ruby-keys)
 
      ;;;; Additional Libraries
-     (require 'rspec-mode)
+     (vendor 'rspec-mode)
      (vendor 'rhtml-mode)
 
      ;; active the default ruby configured with rvm
