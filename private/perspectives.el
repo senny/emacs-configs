@@ -45,6 +45,12 @@ Has no effect when `persp-show-modestring' is nil."
                (dolist (channel '("emacs" "ruby" "cucumber"))
                  (erc-join-channel channel))))
 
+(defun senny-persp/terminal ()
+  (interactive)
+  (senny-persp "@terminal"
+               (multi-term-next)
+               (jone-term-binding-fix)))
+
 (defun senny-persp/emacs ()
   (interactive)
   (senny-persp "@Emacs"))
