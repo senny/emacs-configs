@@ -136,8 +136,6 @@
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 (global-unset-key (kbd "C-M-r")) ;; isearch-backwards
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)
-(define-key isearch-mode-map (kbd "M-s") 'move-cursor-next-pane)
-(define-key isearch-mode-map (kbd "M-v") 'isearch-yank-kill)
 
 ;; Activate occur easily inside isearch
 (define-key isearch-mode-map (kbd "C-o")
@@ -167,7 +165,16 @@
 
 
 ;;;; Mode Maps
+(define-key isearch-mode-map (kbd "M-s") 'move-cursor-next-pane)
+(define-key isearch-mode-map (kbd "M-v") 'isearch-yank-kill)
 (define-key isearch-mode-map (kbd "M-w") 'isearch-query-replace)
+(define-key isearch-mode-map (kbd "M-o") 'isearch-yank-word)
+(define-key isearch-mode-map (kbd "M-l") 'isearch-yank-char)
+(define-key isearch-mode-map (kbd "M-j") 'isearch-delete-char)
+;; TODO: find a suitable binding to use the search ring
+;; (define-key isearch-mode-map (kbd "C-i") 'isearch-ring-retreat)
+;; (define-key isearch-mode-map (kbd "C-k") 'isearch-ring-advance)
+
 
 ;; perspective
 (global-set-key (kbd "C-p e") 'senny-persp/emacs)
