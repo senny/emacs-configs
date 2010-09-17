@@ -31,8 +31,6 @@
 
 (global-unset-key (kbd "C-<backspace>")) ; backward-kill-word
 (global-unset-key (kbd "M-d")) ; kill-word
-(global-set-key (kbd "M-e") 'backward-kill-word)
-(global-set-key (kbd "M-r") 'kill-word)
 
 (global-unset-key (kbd "C-d")) ; delete-char
 (global-set-key (kbd "M-d") 'delete-backward-char)
@@ -103,9 +101,8 @@
 (global-set-key (kbd "C-x w") 'senny-ispell-buffer)
 (global-set-key (kbd "C-c p") 'senny-ido-find-config)
 (global-set-key (kbd "C-f p") 'senny-open-task-file)
+(global-set-key (kbd "M-r") 'replace-string)
 (global-set-key [C-return] 'defunkt-duplicate-line)
-(global-set-key "\C-x\C-g" 'github-ido-find-file)
-(global-set-key "\C-R" 'replace-string)
 (global-set-key (kbd "C-$") 'senny-kill-buffer)
 (global-set-key (kbd "C-c i") 'indent-buffer)
 (global-set-key (kbd "C-c g") 'grep)
@@ -137,12 +134,6 @@
 (global-unset-key (kbd "C-M-r")) ;; isearch-backwards
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)
 
-;; Activate occur easily inside isearch
-(define-key isearch-mode-map (kbd "C-o")
-  (lambda () (interactive)
-    (let ((case-fold-search isearch-case-fold-search))
-      (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
-
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
@@ -164,7 +155,7 @@
 (global-set-key (kbd "C-c k") 'kill-compilation)
 
 
-;;;; Mode Maps
+;;;; isearch
 (define-key isearch-mode-map (kbd "M-s") 'move-cursor-next-pane)
 (define-key isearch-mode-map (kbd "M-v") 'isearch-yank-kill)
 (define-key isearch-mode-map (kbd "M-w") 'isearch-query-replace)
@@ -175,6 +166,11 @@
 ;; (define-key isearch-mode-map (kbd "C-i") 'isearch-ring-retreat)
 ;; (define-key isearch-mode-map (kbd "C-k") 'isearch-ring-advance)
 
+;; Activate occur easily inside isearch
+(define-key isearch-mode-map (kbd "C-o")
+  (lambda () (interactive)
+    (let ((case-fold-search isearch-case-fold-search))
+      (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
 
 ;; perspective
 (global-set-key (kbd "C-p e") 'senny-persp/emacs)
