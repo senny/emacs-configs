@@ -3,31 +3,31 @@
 (global-unset-key (kbd "C-f")) ; forward-char
 (global-unset-key (kbd "C-p")) ; previous-line
 (global-unset-key (kbd "C-n")) ; next-line
+(global-unset-key (kbd "C-M-i"))
 (global-set-key (kbd "M-j") 'backward-char)
 (global-set-key (kbd "M-l") 'forward-char)
 (global-set-key (kbd "M-i") 'previous-line)
-(global-set-key (kbd "M-I") 'scroll-down)
+(global-set-key (kbd "M-S-i") 'scroll-down)
+(global-set-key (kbd "M-C-i") 'scroll-down)
 (global-set-key (kbd "M-k") 'next-line)
-(global-set-key (kbd "M-K") 'scroll-up)
-(global-set-key (kbd "M-L") 'end-of-line)
-(global-set-key (kbd "M-J") 'beginning-of-line)
+(global-set-key (kbd "M-S-k") 'scroll-up)
+(global-set-key (kbd "M-C-k") 'scroll-up)
+(global-set-key (kbd "M-S-l") 'end-of-line)
+(global-set-key (kbd "M-C-l") 'end-of-line)
+(global-set-key (kbd "M-S-j") 'beginning-of-line)
+(global-set-key (kbd "M-C-j") 'beginning-of-line)
 
 (global-set-key [\M-down] 'move-text-down)
 (global-set-key [\M-up] 'move-text-up)
-
-;; (define-key ido-common-completion-map (kbd "M-l") 'ido-next-match)
-;; (define-key ido-common-completion-map (kbd "M-j") 'ido-prev-match)
-;; (define-key ido-common-completion-map (kbd "M-i") 'ido-prev-match)
-;; (define-key ido-common-completion-map (kbd "M-k") 'ido-next-match)
-;; (define-key ido-file-dir-completion-map (kbd "C-x C-r") 'senny-ido-rgrep)
 
 (global-unset-key (kbd "M-b")) ; backward-word
 (global-unset-key (kbd "M-f")) ; forward-word
 (global-set-key (kbd "M-u") 'backward-word)
 (global-set-key (kbd "M-o") 'forward-word)
-
-(global-set-key (kbd "M-U") 'backward-paragraph)
-(global-set-key (kbd "M-O") 'forward-paragraph)
+(global-set-key (kbd "M-S-u") 'backward-paragraph)
+(global-set-key (kbd "M-S-o") 'forward-paragraph)
+(global-set-key (kbd "M-C-o") 'forward-paragraph)
+(global-set-key (kbd "M-C-u") 'backward-paragraph)
 
 (global-unset-key (kbd "C-<backspace>")) ; backward-kill-word
 (global-unset-key (kbd "M-d")) ; kill-word
@@ -60,7 +60,6 @@
 
 (global-unset-key (kbd "C-/")) ; undo
 (global-unset-key (kbd "C-_")) ; undo
-(global-set-key (kbd "M-Z") 'redo)
 (global-set-key (kbd "M-z") 'undo)
 
 (global-unset-key (kbd "C-SPC")) ; set-mark-command
@@ -109,6 +108,8 @@
 (global-set-key (kbd "C-x n r") 'indirect-region)
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 (global-set-key (kbd "C-h r") 'yari)
+(global-set-key (kbd "C-c C-k") 'comment-or-uncomment-region-or-line)
+(global-set-key (kbd "C-c k") 'kill-compilation)
 
 ;; Window management
 (global-set-key (kbd "C-+") 'increase-font-size) ; increase the font-size
@@ -127,19 +128,15 @@
 ;;;; Searching
 
 ;; Use regex searches by default.
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "\C-r") 'isearch-backward-regexp)
-(global-set-key (kbd "C-M-s") 'isearch-forward)
-(global-set-key (kbd "C-M-r") 'isearch-backward)
 (global-unset-key (kbd "C-M-r")) ;; isearch-backwards
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-d") 'isearch-backward-regexp)
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 (global-set-key (kbd "C-c r") 'revert-buffer)
-(global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; no mailing!
 (global-unset-key (kbd "C-x m"))
@@ -149,11 +146,6 @@
 (global-set-key (kbd "C-c d b") 'ediff-buffers)
 (global-set-key (kbd "C-c d f") 'ediff-files)
 (global-set-key (kbd "C-c d d") 'ediff-directories)
-
-(global-set-key (kbd "C-c C-k") 'comment-or-uncomment-region-or-line)
-
-(global-set-key (kbd "C-c k") 'kill-compilation)
-
 
 ;;;; isearch
 (define-key isearch-mode-map (kbd "M-s") 'move-cursor-next-pane)
@@ -175,8 +167,8 @@
 ;; perspective
 (global-set-key (kbd "C-p e") 'senny-persp/emacs)
 (global-set-key (kbd "C-p t") 'senny-persp/terminal)
-(global-set-key (kbd "C-p p") 'senny-persp-last)
 (global-set-key (kbd "C-p m") 'senny-persp/main)
 (global-set-key (kbd "C-p j") 'senny-persp/jabber)
 (global-set-key (kbd "C-p i") 'senny-persp/irc)
 (global-set-key (kbd "C-p s") 'persp-switch)
+(global-set-key (kbd "C-p p") 'senny-persp-last)
