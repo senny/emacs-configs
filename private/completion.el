@@ -17,3 +17,4 @@
 
 (define-key ac-complete-mode-map (kbd "M-k") 'ac-next)
 (define-key ac-complete-mode-map (kbd "M-i") 'ac-previous)
+(define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
