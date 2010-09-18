@@ -1,3 +1,3 @@
 # Emacs Configuration
 
-## Environment
+## Languages
