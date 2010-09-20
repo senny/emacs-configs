@@ -110,6 +110,7 @@
 (global-set-key (kbd "C-h r") 'yari)
 (global-set-key (kbd "C-c C-k") 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "C-c k") 'kill-compilation)
+(global-set-key (kbd "C-x t") 'senny-terminal)
 
 ;; Window management
 (global-set-key (kbd "C-+") 'increase-font-size) ; increase the font-size
