@@ -1,5 +1,5 @@
 ;; term
-
+(require 'multi-term)
 (setq multi-term-program "/bin/zsh")
 
 (defun jone/term-kill-word ()
