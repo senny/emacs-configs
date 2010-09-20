@@ -2,6 +2,11 @@
 (require 'multi-term)
 (setq multi-term-program "/bin/zsh")
 
+(defun senny-terminal ()
+  (interactive)
+  (multi-term)
+  (jone-term-binding-fix))
+
 (defun jone/term-kill-word ()
   "Kills the word by sending C-d to the term (zsh config)"
   (interactive)
