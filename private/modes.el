@@ -126,3 +126,7 @@
           (lambda ()
             (unless (string-match "question" oddmuse-post)
               (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
+
+;;;; whitespace-mode
+(setq whitespace-line-column 80)
+(global-whitespace-mode t)
