@@ -404,7 +404,7 @@ major mode for the newly created buffer."
         (generated-autoload-file autoload-file))
     (when (or force-regen
               (not (file-exists-p autoload-file))
-              (some (lambda (f) (file-newer-than-file-p f autoload-file))
+              (some (lambda (f) (and (not (file-directory-p f)) (file-newer-than-file-p f autoload-file)))
                     (directory-files autoload-dir t "\\.el$")))
       (message "Updating autoloads...")
       (let (emacs-lisp-mode-hook)
