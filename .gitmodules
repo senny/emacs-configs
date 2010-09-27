@@ -10,3 +10,9 @@
 [submodule "vendor/rspec-mode"]
 	path = vendor/rspec-mode
 	url = http://github.com/pezra/rspec-mode.git
+[submodule "vendor/theme-roller"]
+	path = vendor/theme-roller
+	url = git@github.com:senny/emacs-theme-roller.git
+[submodule "vendor/theme-roller.el"]
+	path = vendor/theme-roller.el
+	url = git@github.com:senny/theme-roller.el.git

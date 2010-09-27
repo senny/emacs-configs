@@ -34,15 +34,7 @@
 (setq-default cursor-type '(bar . 2))
 (setq-default indicate-empty-lines t)
 
-(global-font-lock-mode t)
-(require 'color-theme)
-(when (fboundp 'color-theme-initialize)
-  (color-theme-initialize))
-(setq color-theme-is-global t)
-(setq theme-dir (concat private-config-dir "/themes"))
-(if (file-exists-p theme-dir)
-  (mapc #'load (directory-files theme-dir t ".*elc?$")))
-
+(vendor 'theme-roller)
 (color-theme-twilight)
 
 (eval-after-load 'magit
