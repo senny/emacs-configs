@@ -115,9 +115,10 @@ exec-to-string command, but it works and seems fast"
      (define-key ruby-mode-map (kbd "C-c l") "lambda")
 
      ;; fix syntax highlighting for Cucumber Step Definition regexps
-     (add-to-list 'ruby-font-lock-syntactic-keywords '("\\(\\(\\)\\(\\)\\|Given\\|When\\|Then\\)\\s *\\(/\\)[^/\n\\\\]*\\(\\\\.[^/\n\\\\]*\\)*\\(/\\)"
-                                                       (4 (7 . ?/))
-                                                       (6 (7 . ?/))))
+     (add-to-list 'ruby-font-lock-syntactic-keywords
+                  '("\\(\\(\\)\\(\\)\\|Given\\|When\\|Then\\)\\s *\\(/\\)[^/\n\\\\]*\\(\\\\.[^/\n\\\\]*\\)*\\(/\\)"
+                    (4 (7 . ?/))
+                    (6 (7 . ?/))))
      ))
 
 ;; Clear the compilation buffer between test runs.

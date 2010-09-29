@@ -1,14 +1,21 @@
+(defvar *senny-main-mode* nil)
+
 ;; for loading libraries in from the vendor directory
 (defun vendor (library)
   (let* ((file (symbol-name library))
          (normal (concat dotfiles-dir "vendor/" file))
          (suffix (concat normal ".el")))
     (cond
-     ((file-directory-p normal) (add-to-list 'load-path normal) (require library))
-     ((file-directory-p suffix) (add-to-list 'load-path suffix) (require library))
-     ((file-exists-p suffix) (require library)))))
+     ((file-directory-p normal)
+      (add-to-list 'load-path normal)
+      (require library))
+     ((file-directory-p suffix)
+      (add-to-list 'load-path suffix)
+      (require library))
+     ((file-exists-p suffix)
+      (require library)))))
 
-(defun senny-init-ecb ()
+(defun senny-ecb-init ()
   (interactive)
   (add-to-list 'load-path (concat dotfiles-dir "/vendor/cedet-1.0pre7"))
   (load "common/cedet.el")
@@ -17,8 +24,9 @@
 
 (defun senny-mac-use-shell-path ()
   (let ((path-from-shell
-         (replace-regexp-in-string "[[:space:]\n]*$" ""
-                                   (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))))
+         (replace-regexp-in-string
+          "[[:space:]\n]*$" ""
+          (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))))
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 
@@ -59,9 +67,9 @@
    (concat dotfiles-dir "/" (ido-completing-read "Config file: "
                                                  (append
                                                   (apply 'append (mapcar (lambda (base)
-                                                            (mapcar (lambda (file) (concat base file))
-                                                                    (directory-files (concat dotfiles-dir base) nil "^[^.]")))
-                                                          '("private/" "private/languages/" "private/themes/" "private/custom/")))
+                                                                           (mapcar (lambda (file) (concat base file))
+                                                                                   (directory-files (concat dotfiles-dir base) nil "^[^.]")))
+                                                                         '("private/" "private/languages/" "private/custom/")))
                                                   (directory-files dotfiles-dir nil "^[^.]"))))))
 
 (defun senny-ido-find-project ()
@@ -240,7 +248,10 @@ is a comment, uncomment."
 (defun senny-ido-rgrep ()
   (interactive)
   (let ((enable-recursive-minibuffers t))
-    (grep (concat "grep -rnH " (read-string "Pattern: ") " " (directory-file-name ido-current-directory)))
+    (grep (concat "grep -rnH "
+                  (read-string "Pattern: ")
+                  " "
+                  (directory-file-name ido-current-directory)))
     (switch-to-buffer "*grep*" nil t)
     (keyboard-escape-quit)))
 
@@ -404,7 +415,9 @@ major mode for the newly created buffer."
         (generated-autoload-file autoload-file))
     (when (or force-regen
               (not (file-exists-p autoload-file))
-              (some (lambda (f) (and (not (file-directory-p f)) (file-newer-than-file-p f autoload-file)))
+              (some (lambda (f) (and
+                            (not (file-directory-p f))
+                            (file-newer-than-file-p f autoload-file)))
                     (directory-files autoload-dir t "\\.el$")))
       (message "Updating autoloads...")
       (let (emacs-lisp-mode-hook)
@@ -421,3 +434,17 @@ major mode for the newly created buffer."
   (set (make-local-variable 'paredit-space-delimiter-chars)
        (list ?\"))
   (paredit-mode 1))
+
+(defun senny-edit-region-with-mode (mode)
+  (interactive (list (ido-completing-read "Major Mode: "
+                                          (mapcar (lambda (option)
+                                                    (symbol-name option))
+                                                  ac-modes))))
+  (setq *senny-main-mode* major-mode)
+  (funcall (intern mode))
+  (call-interactively 'narrow-to-region))
+
+(defun senny-exit-edit-region-with-mode ()
+  (interactive)
+  (widen)
+  (funcall *senny-main-mode*))
