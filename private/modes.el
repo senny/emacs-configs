@@ -40,9 +40,6 @@
 (vendor 'textmate)
 (textmate-mode 1)
 
-;; whitespace mode
-(vendor 'whitespace)
-
 ;; org mode
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (setq org-log-done t)
@@ -53,7 +50,8 @@
 
 (org-clock-persistence-insinuate)
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-(setq org-agenda-clockreport-parameter-plist (quote (:link nil :maxlevel 4 :emphasize t)))
+(setq org-agenda-clockreport-parameter-plist
+      (quote (:link nil :maxlevel 4 :emphasize t)))
 (setq org-clock-persist t)
 (setq org-clock-out-when-done nil)
 
@@ -92,7 +90,7 @@
 (add-hook 'erlang-mode-hook 'rebind-commands)
 
 ;;;; Flymake
-(require 'flymake-cursor) ;display error-messages when the curosr moves over the line
+(require 'flymake-cursor) ;;display error-messages without mouse
 
 ;;;; Ediff
 (setq ediff-merge-split-window-function 'split-window-horizontally)
@@ -128,5 +126,7 @@
               (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
 
 ;;;; whitespace-mode
-(setq whitespace-line-column 80)
+(setq whitespace-line-column 80
+      whitespace-style '(tabs trailing lines-tail))
+
 (global-whitespace-mode t)
