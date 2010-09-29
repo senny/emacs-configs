@@ -23,6 +23,9 @@
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path vendor-dir)
 
+;; stop emacs from placing files all over the place
+(load "private/backup")
+
 ;; Load up ELPA, the package manager
 (require 'cl)
 (require 'package)
