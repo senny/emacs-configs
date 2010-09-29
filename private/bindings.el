@@ -163,7 +163,8 @@
 (define-key isearch-mode-map (kbd "C-o")
   (lambda () (interactive)
     (let ((case-fold-search isearch-case-fold-search))
-      (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
+      (occur (if isearch-regexp isearch-string
+               (regexp-quote isearch-string))))))
 
 ;; perspective
 (global-set-key (kbd "C-p e") 'senny-persp/emacs)
@@ -173,3 +174,8 @@
 (global-set-key (kbd "C-p i") 'senny-persp/irc)
 (global-set-key (kbd "C-p s") 'persp-switch)
 (global-set-key (kbd "C-p p") 'senny-persp-last)
+
+;; narrowing
+(global-unset-key (kbd "M-m"))
+(global-set-key (kbd "M-m m") 'senny-edit-region-with-mode)
+(global-set-key (kbd "M-m n") 'senny-exit-edit-region-with-mode)

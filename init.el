@@ -56,7 +56,8 @@
 (load "private/coding-hooks")
 
 ;; load language configurations
-(mapc #'load (directory-files (concat private-config-dir "/languages") t ".*elc?$"))
+(mapc #'load
+      (directory-files (concat private-config-dir "/languages") t ".*elc?$"))
 
 (regen-autoloads)
 

@@ -13,7 +13,17 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (setq ac-auto-start nil
-      ac-modes '(erlang-mode espresso-mode sql-mode ruby-mode css-mode lisp-interaction-mode emacs-lisp-mode css-mode))
+      ac-modes '(erlang-mode
+                 espresso-mode
+                 js2-mode
+                 sql-mode
+                 ruby-mode
+                 haml-mode
+                 sass-mode
+                 css-mode
+                 lisp-interaction-mode
+                 emacs-lisp-mode
+                 css-mode))
 
 (define-key ac-complete-mode-map (kbd "M-k") 'ac-next)
 (define-key ac-complete-mode-map (kbd "M-i") 'ac-previous)
