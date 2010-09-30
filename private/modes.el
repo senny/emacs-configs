@@ -113,11 +113,6 @@
          (:network-server . "talk.google.com")
          (:connection-type . ssl))))
 
-
-;;;; rvm.el
-(add-to-list 'load-path (concat vendor-dir "/rvm.el"))
-(require 'rvm)
-
 ;;;; oddmuse
 ;; Get around the emacswiki spam protection
 (add-hook 'oddmuse-mode-hook

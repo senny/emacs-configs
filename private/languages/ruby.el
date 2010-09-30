@@ -101,6 +101,7 @@ exec-to-string command, but it works and seems fast"
      ;;;; Additional Libraries
      (vendor 'rspec-mode)
      (vendor 'rhtml-mode)
+     (vendor 'rvm)
 
      ;; active the default ruby configured with rvm
      (when (fboundp 'rvm-use-default)
