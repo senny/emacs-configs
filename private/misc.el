@@ -84,6 +84,8 @@
   (setq save-place t))
 
 (defun turn-on-whitespace ()
+  (setq whitespace-line-column 80
+        whitespace-style '(tabs trailing lines-tail))
   (whitespace-mode t))
 
 (defun turn-on-paredit ()
@@ -107,6 +109,7 @@
 (add-hook 'coding-hook 'local-comment-auto-fill)
 (add-hook 'coding-hook 'turn-on-hl-line-mode)
 (add-hook 'coding-hook 'turn-on-save-place-mode)
+(add-hook 'coding-hook 'turn-on-whitespace)
 (add-hook 'coding-hook 'pretty-lambdas)
 (add-hook 'coding-hook 'add-watchwords)
 (add-hook 'coding-hook 'idle-highlight)
