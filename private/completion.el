@@ -1,10 +1,10 @@
-(set-default 'senny-completion-function 'auto-complete)
+(set-default 'senny-completion-function 'yas/expand)
 
 ;;;; Yasnippet
 (setq yas/root-directory (concat private-config-dir "/snippets"))
 (setq yas/prompt-functions '(yas/dropdown-prompt yas/ido-prompt))
 (yas/load-directory yas/root-directory)
-(setq yas/fallback-behavior 'call-other-command)
+(setq yas/fallback-behavior '(apply auto-complete))
 ;; (yas/initialize)
 
 ;;;; auto-complete
