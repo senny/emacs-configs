@@ -80,6 +80,8 @@
   (local-unset-key (kbd "M-k"))
   (local-unset-key (kbd "M-K"))
   (local-unset-key (kbd "M-l"))
+  (local-unset-key (kbd "M-o"))
+  (local-unset-key (kbd "M-u"))
   (local-unset-key (kbd "M-J"))
   (local-unset-key (kbd "M-L")))
 
@@ -88,6 +90,7 @@
 (add-hook 'comint-mode-hook 'rebind-commands)
 (add-hook 'inf-ruby-mode-hook 'rebind-commands)
 (add-hook 'erlang-mode-hook 'rebind-commands)
+(add-hook 'diff-mode 'rebind-commands)
 
 ;;;; Flymake
 (require 'flymake-cursor) ;;display error-messages without mouse

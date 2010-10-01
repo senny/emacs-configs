@@ -49,6 +49,7 @@
 (global-set-key (kbd "M-2") 'split-window-vertically)
 (global-set-key (kbd "M-3") 'split-window-horizontally)
 (global-set-key (kbd "M-4") 'delete-other-windows)
+(global-set-key (kbd "M-5") 'balance-windows)
 
 (global-unset-key (kbd "M-x")) ; execute-extended-command
 (global-set-key (kbd "M-a") 'execute-extended-command)
@@ -155,6 +156,7 @@
 (define-key isearch-mode-map (kbd "M-o") 'isearch-yank-word)
 (define-key isearch-mode-map (kbd "M-l") 'isearch-yank-char)
 (define-key isearch-mode-map (kbd "M-j") 'isearch-delete-char)
+(define-key isearch-mode-map (kbd "M-u") 'isearch-delete-char)
 ;; TODO: find a suitable binding to use the search ring
 ;; (define-key isearch-mode-map (kbd "C-i") 'isearch-ring-retreat)
 ;; (define-key isearch-mode-map (kbd "C-k") 'isearch-ring-advance)
