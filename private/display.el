@@ -35,4 +35,4 @@
 (setq-default indicate-empty-lines t)
 
 (vendor 'theme-roller)
-(color-theme-twilight)
+(color-theme-lazy)
