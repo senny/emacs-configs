@@ -40,7 +40,9 @@
   (interactive)
   (if (looking-at "\\_>")
       (senny-complete)
-    (indent-according-to-mode)))
+    (if (region-active-p)
+        (call-interactively 'indent-region)
+      (indent-according-to-mode))))
 
 (defun senny-kill-buffer ()
   (interactive)
