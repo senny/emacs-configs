@@ -181,3 +181,7 @@
 (global-unset-key (kbd "M-m"))
 (global-set-key (kbd "M-m m") 'senny-edit-region-with-mode)
 (global-set-key (kbd "M-m n") 'senny-exit-edit-region-with-mode)
+
+;; registers
+(global-unset-key (kbd "C-j"))
+(global-set-key (kbd "C-j") 'jump-to-register)
