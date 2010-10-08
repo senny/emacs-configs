@@ -12,7 +12,7 @@
   (setq ido-enable-prefix nil
         ido-enable-flex-matching t
         ido-create-new-buffer 'always
-        ido-use-filename-at-point 'guess
+        ido-use-filename-at-point nil
         ido-max-prospects 10)
   (vendor 'ido-hacks)
   (ido-hacks-mode 1))
