@@ -1,7 +1,8 @@
 (autoload 'espresso-mode "espresso" "Start espresso-mode" t)
 (add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
-(setq espresso-indent-level 2)
+(setq espresso-indent-level 2
+      javascript-indent-level 2)
 
 (defun senny-js-send-buffer ()
   (interactive)

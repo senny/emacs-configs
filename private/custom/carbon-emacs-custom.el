@@ -13,8 +13,7 @@
  '(jde-jdk-registry (quote (("1.5" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.5") ("1.6" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.6") ("CurrentJDK OS-X" . "/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK"))))
  '(mf-display-padding-height 0)
  '(ns-alternate-modifier (quote alt))
- '(ns-command-modifier (quote meta))
- '(visible-bell nil))
+ '(ns-command-modifier (quote meta)))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
