@@ -155,9 +155,8 @@ exec-to-string command, but it works and seems fast"
   (add-to-list 'ac-ignores "end")
   (setq ac-auto-start nil)
 
-  (local-set-key (kbd "TAB") 'senny-indent-or-complete)
-  (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
-  )
+  (local-set-key (kbd "TAB") 'yas/expand)
+  (local-set-key [return] 'ruby-reindent-then-newline-and-indent))
 
 (add-hook 'ruby-mode-hook 'run-coding-hook)
 (add-hook 'ruby-mode-hook 'default-ruby-mode-hook)

@@ -125,7 +125,7 @@
 (global-set-key (kbd "C-ö") 'backward-buffer)
 
 ;; Completion
-(global-set-key (kbd "TAB") 'senny-indent-or-complete)
+(global-set-key (kbd "TAB") 'yas/expand)
 
 ;;;; Searching
 

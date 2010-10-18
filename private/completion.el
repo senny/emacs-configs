@@ -5,7 +5,7 @@
 (setq yas/prompt-functions '(yas/dropdown-prompt yas/ido-prompt))
 (yas/load-directory yas/root-directory)
 (set-default 'yas/fallback-behavior '(apply senny-indent-or-complete))
-;; (yas/initialize)
+(yas/initialize)
 
 ;;;; auto-complete
 (vendor 'auto-complete)

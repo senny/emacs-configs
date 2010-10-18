@@ -37,7 +37,6 @@
 
 (vendor 'pastie)
 
-
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
