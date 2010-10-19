@@ -59,8 +59,6 @@
 (mapc #'load
       (directory-files (concat private-config-dir "/languages") t ".*elc?$"))
 
-(regen-autoloads)
-
 (cond
  ((string-match "nt" system-configuration)
   (load "private/platforms/windows"))
