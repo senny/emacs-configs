@@ -40,21 +40,6 @@
 (vendor 'textmate)
 (textmate-mode 1)
 
-;; org mode
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(setq org-log-done t)
-(defun org-summary-todo (n-done n-not-done)
-  "Switch entry to DONE when all subentries are done, to TODO otherwise."
-  (let (org-log-done org-log-states)    ; turn off logging
-    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
-
-(org-clock-persistence-insinuate)
-(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-(setq org-agenda-clockreport-parameter-plist
-      (quote (:link nil :maxlevel 4 :emphasize t)))
-(setq org-clock-persist t)
-(setq org-clock-out-when-done nil)
-
 ;; nxml
 (add-hook 'nxml-completion-hook 'rng-complete nil t)
 (setq rng-nxml-auto-validate-flag t)
@@ -99,26 +84,4 @@
 (setq ediff-merge-split-window-function 'split-window-horizontally)
 (setq ediff-split-window-function 'split-window-horizontally)
 
-;;;; Cucumber
-(add-to-list 'load-path (concat vendor-dir "/cucumber.el"))
-(require 'feature-mode)
-
-
 (require 'ibuffer)
-
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/emacs-jabber-0.8.0"))
-(require 'jabber-autoloads)
-(setq jabber-account-list
-      '(("yves.senn@gmail.com"
-         (:network-server . "talk.google.com")
-         (:connection-type . ssl))
-        ("senny.restorm@gmail.com"
-         (:network-server . "talk.google.com")
-         (:connection-type . ssl))))
-
-;;;; oddmuse
-;; Get around the emacswiki spam protection
-(add-hook 'oddmuse-mode-hook
-          (lambda ()
-            (unless (string-match "question" oddmuse-post)
-              (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
