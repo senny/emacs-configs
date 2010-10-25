@@ -16,3 +16,6 @@
 [submodule "vendor/theme-roller.el"]
 	path = vendor/theme-roller.el
 	url = git@github.com:senny/theme-roller.el.git
+[submodule "vendor/cucumber.el"]
+	path = vendor/cucumber.el
+	url = http://github.com/michaelklishin/cucumber.el.git
