@@ -2,8 +2,7 @@
 (when window-system
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (tooltip-mode -1)
-  (mouse-wheel-mode t)
-  (blink-cursor-mode -1))
+  (mouse-wheel-mode t))
 
 (setq use-dialog-box nil)
 
@@ -26,8 +25,8 @@
 ;; Highlight the current line
 (global-hl-line-mode t)
 
-(line-number-mode nil)
-(column-number-mode nil)
+(line-number-mode t)
+(column-number-mode t)
 
 ;; Use a vertical bar as cursor
 (blink-cursor-mode 1)
