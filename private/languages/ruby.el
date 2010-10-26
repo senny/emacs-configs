@@ -1,5 +1,3 @@
-(defvar *ruby-flymake-mode* nil)
-
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.thor$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
@@ -13,12 +11,6 @@
 
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
-
-;;; defuns
-
-(defun senny-ruby-eval-buffer ()
-  (interactive)
-  (ruby-send-region-and-go (point-min) (point-max)))
 
 ;;;; Defuns
 (defun senny-ruby-compilation-this-buffer ()
@@ -37,6 +29,10 @@
                           (current-buffer))))
       (switch-to-buffer source-buffer)
       (pop-to-buffer other-buffer))))
+
+(defun senny-ruby-eval-buffer ()
+  (interactive)
+  (ruby-send-region-and-go (point-min) (point-max)))
 
 ;;;; Flymake
 (eval-after-load 'ruby-mode

@@ -11,6 +11,7 @@
   '(progn
      (add-to-list 'mode-compile-modes-alist '(espresso-mode . (senny-jslint-compile kill-compilation)))))
 
+;; Defuns
 (defun senny-js-send-buffer ()
   (interactive)
   (moz-send-region (point-min) (point-max)))
