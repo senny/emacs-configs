@@ -24,7 +24,8 @@
                  css-mode
                  lisp-interaction-mode
                  emacs-lisp-mode
-                 css-mode))
+                 css-mode
+                 sql-interactive-mode))
 
 (define-key ac-complete-mode-map (kbd "M-k") 'ac-next)
 (define-key ac-complete-mode-map (kbd "M-i") 'ac-previous)
