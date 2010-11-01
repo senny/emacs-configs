@@ -57,6 +57,7 @@
 
 (global-set-key (kbd "M-s") 'move-cursor-next-pane)
 (global-set-key (kbd "M-S") 'move-cursor-previous-pane)
+(global-set-key (kbd "<f5>") 'ns-toggle-fullscreen)
 (windmove-default-keybindings) ;; Shift+direction
 
 (global-unset-key (kbd "C-/")) ; undo
