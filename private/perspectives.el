@@ -5,9 +5,11 @@
 
 ;; Perspective Setup
 (defmacro senny-persp (name &rest body)
-  `(let ((initialize (not (gethash ,name perspectives-hash))))
+  `(let ((initialize (not (gethash ,name perspectives-hash)))
+         (current-perspective persp-curr))
      (persp-switch ,name)
-     (when initialize ,@body)))
+     (when initialize ,@body)
+     (setq persp-last current-perspective)))
 
 (defun persp-format-name (name)
   "Format the perspective name given by NAME for display in `persp-modestring'."
