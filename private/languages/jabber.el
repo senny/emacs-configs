@@ -6,4 +6,6 @@
 (setq jabber-account-list
       '(("yves.senn@gmail.com"
          (:network-server . "talk.google.com")
-         (:connection-type . ssl))))
+         (:connection-type . ssl)))
+      jabber-show-offline-contacts nil
+      jabber-roster-show-bindings nil)
