@@ -58,6 +58,7 @@
 (global-set-key (kbd "M-s") 'move-cursor-next-pane)
 (global-set-key (kbd "M-S") 'move-cursor-previous-pane)
 (global-set-key (kbd "<f5>") 'ns-toggle-fullscreen)
+(global-set-key (kbd "<f6>") 'senny-toggle-color-theme)
 (windmove-default-keybindings) ;; Shift+direction
 
 (global-unset-key (kbd "C-/")) ; undo
@@ -106,7 +107,7 @@
 (global-set-key [C-return] 'defunkt-duplicate-line)
 (global-set-key (kbd "C-$") 'senny-kill-buffer)
 (global-set-key (kbd "C-c i") 'indent-buffer)
-(global-set-key (kbd "C-c g") 'grep)
+(global-set-key (kbd "C-c g") 'senny-grep-project)
 (global-set-key (kbd "C-x n r") 'indirect-region)
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 (global-set-key (kbd "C-h r") 'yari)
