@@ -23,10 +23,10 @@
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path vendor-dir)
 
+(load "private/libraries")
 (load "private/backup")
 
 ;; Load up ELPA, the package manager
-(require 'cl)
 (require 'package)
 (package-initialize)
 (load "private/elpa")
@@ -34,7 +34,6 @@
 (setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
 
-(load "private/libraries")
 (load "private/customize")
 (load "private/defun")
 (load "private/bindings")

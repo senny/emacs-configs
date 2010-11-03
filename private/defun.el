@@ -434,13 +434,3 @@ major mode for the newly created buffer."
                                       (symbol-name (symbol-at-point))
                                     ""))))
   (rgrep pattern "*" (textmate-project-root)))
-
-(defvar *senny-used-color-themes* '(color-theme-lazy color-theme-twilight color-theme-ruby-blue))
-(defun senny-toggle-color-theme ()
-  (interactive)
-  (when (not (boundp '*senny-toggle-color-theme-counter*))
-    (setq *senny-toggle-color-theme-counter* 0))
-  (let ((theme-number (% *senny-toggle-color-theme-counter*
-                         (length *senny-used-color-themes*))))
-    (funcall (nth theme-number *senny-used-color-themes*))
-    (incf *senny-toggle-color-theme-counter*)))

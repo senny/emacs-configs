@@ -58,7 +58,7 @@
 (global-set-key (kbd "M-s") 'move-cursor-next-pane)
 (global-set-key (kbd "M-S") 'move-cursor-previous-pane)
 (global-set-key (kbd "<f5>") 'ns-toggle-fullscreen)
-(global-set-key (kbd "<f6>") 'senny-toggle-color-theme)
+(global-set-key (kbd "<f6>") 'theme-roller-cycle)
 (windmove-default-keybindings) ;; Shift+direction
 
 (global-unset-key (kbd "C-/")) ; undo
