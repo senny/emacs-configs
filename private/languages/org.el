@@ -11,3 +11,13 @@
       (quote (:link nil :maxlevel 4 :emphasize t)))
 (setq org-clock-persist t)
 (setq org-clock-out-when-done nil)
+
+(defun default-org-mode-hook ()
+  (set-pairs '("(" "{" "[" "\""))
+  (define-key org-mode-map (kbd "C-c a") 'org-agenda)
+  (define-key org-mode-map (kbd "C-c t u") 'org-clock-update-time-maybe)
+  (define-key org-mode-map (kbd "C-c t g") 'org-clock-goto)
+  (auto-fill-mode 1)
+)
+
+(add-hook 'org-mode-hook 'default-org-mode-hook)

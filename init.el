@@ -53,7 +53,6 @@
 (load "private/misc")
 (load "private/git")
 (load "private/perspectives")
-(load "private/coding-hooks")
 
 ;; load language configurations
 (mapc #'load
