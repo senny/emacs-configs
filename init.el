@@ -45,13 +45,14 @@
 (load "private/customize")
 (load "private/defun")
 (load "private/bindings")
-(load "private/registers")
 (load "private/completion")
 (load "private/display")
 (load "private/modes")
 (load "private/misc")
-(load "private/git")
-(load "private/perspectives")
+
+(require 'flymake-cursor) ;;display error-messages without mouse
+(require 'ibuffer)
+(require 'switch-window)
 
 ;; load extensions
 (mapc #'load
