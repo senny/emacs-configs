@@ -45,9 +45,7 @@
 (load "private/customize")
 (load "private/defun")
 (load "private/bindings")
-(load "private/completion")
 (load "private/display")
-(load "private/modes")
 (load "private/misc")
 
 (require 'flymake-cursor) ;;display error-messages without mouse
