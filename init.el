@@ -34,23 +34,12 @@
 (setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
 
-;; These should be loaded on startup rather than autoloaded on demand
-;; since they are likely to be used in every session
-(require 'saveplace)
-(require 'ffap)
-(require 'uniquify)
-(require 'ansi-color)
-(require 'recentf)
-
+(load "private/libraries")
 (load "private/customize")
 (load "private/defun")
 (load "private/bindings")
 (load "private/display")
 (load "private/misc")
-
-(require 'flymake-cursor) ;;display error-messages without mouse
-(require 'ibuffer)
-(require 'switch-window)
 
 ;; load extensions
 (mapc #'load
