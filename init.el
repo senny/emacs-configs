@@ -23,7 +23,6 @@
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path vendor-dir)
 
-;; stop emacs from placing files all over the place
 (load "private/backup")
 
 ;; Load up ELPA, the package manager
@@ -53,6 +52,10 @@
 (load "private/misc")
 (load "private/git")
 (load "private/perspectives")
+
+;; load extensions
+(mapc #'load
+      (directory-files (concat private-config-dir "/extensions") t ".*elc?$"))
 
 ;; load language configurations
 (mapc #'load

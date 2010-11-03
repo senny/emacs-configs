@@ -40,49 +40,8 @@
 (vendor 'textmate)
 (textmate-mode 1)
 
-;; nxml
-(add-hook 'nxml-completion-hook 'rng-complete nil t)
-(setq rng-nxml-auto-validate-flag t)
-(add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
-(add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
-(add-to-list 'auto-mode-alist '("\\.tld$" . nxml-mode))
-
-(defun rebind-commands ()
-  (interactive)
-  (local-unset-key (kbd "C-c C-k"))
-  (local-unset-key (kbd "M-a"))
-  (local-unset-key (kbd "M-s"))
-  (local-unset-key (kbd "M-S"))
-  (local-unset-key (kbd "M-h"))
-  (local-unset-key (kbd "M-H"))
-  (local-unset-key (kbd "M-0"))
-  (local-unset-key (kbd "M-1"))
-  (local-unset-key (kbd "M-2"))
-  (local-unset-key (kbd "M-3"))
-  (local-unset-key (kbd "M-i"))
-  (local-unset-key (kbd "M-I"))
-  (local-unset-key (kbd "M-j"))
-  (local-unset-key (kbd "M-k"))
-  (local-unset-key (kbd "M-K"))
-  (local-unset-key (kbd "M-l"))
-  (local-unset-key (kbd "M-o"))
-  (local-unset-key (kbd "M-u"))
-  (local-unset-key (kbd "M-J"))
-  (local-unset-key (kbd "M-L")))
-
-(add-hook 'after-change-major-mode-hook 'rebind-commands)
-(add-hook 'org-mode-hook 'rebind-commands)
-(add-hook 'comint-mode-hook 'rebind-commands)
-(add-hook 'inf-ruby-mode-hook 'rebind-commands)
-(add-hook 'erlang-mode-hook 'rebind-commands)
-(add-hook 'diff-mode 'rebind-commands)
-
 ;;;; Flymake
 (require 'flymake-cursor) ;;display error-messages without mouse
-
-;;;; Ediff
-(setq ediff-merge-split-window-function 'split-window-horizontally)
-(setq ediff-split-window-function 'split-window-horizontally)
 
 (require 'ibuffer)
 (require 'switch-window)
