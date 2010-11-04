@@ -1,3 +1,6 @@
+;; File Mappings
+(add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
+
 ;; Hooks
 
 (defun default-css-mode-hook ()

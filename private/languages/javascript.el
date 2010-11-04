@@ -1,9 +1,10 @@
+;; File Mappings
+(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . espresso-mode))
+
 (defvar *jslint-executable* (or (executable-find "jsl")
                                 (concat dotfiles-dir "misc/jsl-0.3.0-mac/jsl")))
 
 (autoload 'espresso-mode "espresso" "Start espresso-mode" t)
-(add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
 (setq espresso-indent-level 2
       javascript-indent-level 2)
 

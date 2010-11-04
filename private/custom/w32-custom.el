@@ -20,8 +20,7 @@
  '(jde-jdk (quote ("1.4.2_16")))
  '(jde-jdk-registry (quote (("1.6.0_06" . "C:\\Program Files\\Java\\jdk1.6.0_06") ("1.5.0_15" . "C:\\Program Files\\Java\\jdk1.5.0_15") ("1.4.2_16" . "C:\\Program Files\\Java\\j2sdk1.4.2_16"))))
  '(load-home-init-file t t)
- '(org-agenda-files (quote ("~/tasks/work.org")))
- '(recentf-max-saved-items 200))
+ '(org-agenda-files (quote ("~/tasks/work.org"))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.

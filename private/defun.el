@@ -1,20 +1,5 @@
 (defvar *senny-main-mode* nil)
 
-;; for loading libraries in from the vendor directory
-(defun vendor (library)
-  (let* ((file (symbol-name library))
-         (normal (concat dotfiles-dir "vendor/" file))
-         (suffix (concat normal ".el")))
-    (cond
-     ((file-directory-p normal)
-      (add-to-list 'load-path normal)
-      (require library))
-     ((file-directory-p suffix)
-      (add-to-list 'load-path suffix)
-      (require library))
-     ((file-exists-p suffix)
-      (require library)))))
-
 (defun senny-mac-use-shell-path ()
   (let ((path-from-shell
          (replace-regexp-in-string
@@ -374,13 +359,6 @@ major mode for the newly created buffer."
   (byte-recompile-directory dotfiles-dir 0)
   (byte-recompile-directory private-config-dir 0)
   (byte-recompile-directory (concat dotfiles-dir "vendor/") 0))
-
-(defun recentf-ido-find-file ()
-  "Find a recent file using ido."
-  (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
 
 (defun view-url ()
   "Open a new buffer containing the contents of URL."

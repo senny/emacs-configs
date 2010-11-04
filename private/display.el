@@ -4,7 +4,13 @@
   (tooltip-mode -1)
   (mouse-wheel-mode t))
 
-(setq use-dialog-box nil)
+(setq use-dialog-box nil
+      visible-bell t
+      echo-keystrokes 0.1
+      inhibit-startup-message t
+      truncate-partial-width-windows nil)
+
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; start maximized
 (vendor 'maxframe)
@@ -33,5 +39,6 @@
 (setq-default cursor-type '(bar . 2))
 (setq-default indicate-empty-lines t)
 
+;; theme-roller.el setup
 (vendor 'theme-roller)
-(color-theme-lazy)
+(theme-roller-activate)
