@@ -57,6 +57,11 @@ Has no effect when `persp-show-modestring' is nil."
   (interactive)
   (senny-persp "@Emacs"))
 
+(defun senny-persp/org ()
+  (interactive)
+  (senny-persp "@org"
+               (find-file (first org-agenda-files))))
+
 (defun senny-persp/main ()
   (interactive)
   (senny-persp "main"))
