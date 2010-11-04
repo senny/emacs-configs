@@ -16,7 +16,6 @@
  '(ns-alternate-modifier (quote none))
  '(ns-command-modifier (quote meta))
  '(ns-pop-up-frames nil)
- '(org-agenda-files (quote ("~/org/work.org")))
  '(ruby-use-encoding-map t)
  '(sh-basic-offset 2)
  '(speedbar-use-images nil))
