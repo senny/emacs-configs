@@ -19,3 +19,6 @@
 [submodule "vendor/cucumber.el"]
 	path = vendor/cucumber.el
 	url = http://github.com/michaelklishin/cucumber.el.git
+[submodule "vendor/textmate.el"]
+	path = vendor/textmate.el
+	url = https://github.com/defunkt/textmate.el.git
