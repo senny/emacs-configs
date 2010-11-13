@@ -36,6 +36,16 @@
   (interactive)
   (ruby-send-region-and-go (point-min) (point-max)))
 
+(defun ruby-interpolate ()
+  "In a double quoted string, interpolate."
+  (interactive)
+  (insert "#")
+  (when (and
+         (looking-back "\".*")
+         (looking-at ".*\""))
+    (insert "{}")
+    (backward-char 1)))
+
 ;;;; Flymake
 (eval-after-load 'ruby-mode
   '(progn
@@ -95,6 +105,7 @@
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
      (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)
      (define-key ruby-mode-map (kbd "C-c l") "lambda")
+     (define-key ruby-mode-map (kbd "#") 'ruby-interpolate)
 
      ;; fix syntax highlighting for Cucumber Step Definition regexps
      (add-to-list 'ruby-font-lock-syntactic-keywords
