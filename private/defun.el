@@ -41,7 +41,7 @@
                                                   (apply 'append (mapcar (lambda (base)
                                                                            (mapcar (lambda (file) (concat base file))
                                                                                    (directory-files (concat dotfiles-dir base) nil "^[^.]")))
-                                                                         '("private/" "private/languages/" "private/custom/" "private/extensions/")))
+                                                                         '("private/" "private/languages/" "private/custom/" "private/extensions/" "private/platforms/")))
                                                   (directory-files dotfiles-dir nil "^[^.]"))))))
 
 (defun senny-ido-find-project ()

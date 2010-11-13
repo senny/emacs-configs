@@ -50,6 +50,12 @@
 (global-set-key (kbd "M-3") 'split-window-horizontally)
 (global-set-key (kbd "M-4") 'balance-windows)
 (global-set-key (kbd "M-5") 'delete-other-windows)
+;; TODO: bind windmove keys
+;; (global-set-key (kbd "A-i") 'windmove-up)
+;; (global-set-key (kbd "A-l") 'windmove-right)
+;; (global-set-key (kbd "A-k") 'windmove-down)
+;; (global-set-key (kbd "A-j") 'windmove-left)
+
 
 (global-unset-key (kbd "M-x")) ; execute-extended-command
 (global-set-key (kbd "M-a") 'execute-extended-command)
