@@ -15,15 +15,22 @@
 
 (setq mac-emulate-three-button-mouse nil)
 
-;; (vendor 'growl)
-(defun senny-open-file-browser (directory)
+(defun platform-open-file-browser (directory)
   (interactive (list (file-name-directory (or (buffer-file-name) "~/"))))
   (shell-command (concat "open " directory)))
 
 ;;TODO: change the working directory of the new Terminal to the current directory.
-(defun senny-open-terminal (directory)
+(defun platform-open-terminal (directory)
   (interactive (list (file-name-directory (or (buffer-file-name) "~/"))))
   (shell-command (concat "open -a Terminal /bin/zsh")))
+
+(defun mac-use-shell-path ()
+  (let ((path-from-shell
+         (replace-regexp-in-string
+          "[[:space:]\n]*$" ""
+          (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
 
 ;; Platform-specific stuff
 (when (eq system-type 'darwin)
