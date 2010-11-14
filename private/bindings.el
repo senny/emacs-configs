@@ -61,6 +61,10 @@
 (global-set-key (kbd "M-a") 'execute-extended-command)
 (global-set-key (kbd "M-e") 'shell-command)
 
+(global-set-key (kbd "C-d") 'windmove-right)
+(global-set-key (kbd "C-s") 'windmove-down)
+(global-set-key (kbd "C-a") 'windmove-left)
+(global-set-key (kbd "C-w") 'windmove-up)
 (global-set-key (kbd "M-s") 'move-cursor-next-pane)
 (global-set-key (kbd "M-S") 'move-cursor-previous-pane)
 (global-set-key (kbd "<f5>") 'ns-toggle-fullscreen)
@@ -139,8 +143,8 @@
 
 ;; Use regex searches by default.
 (global-unset-key (kbd "C-M-r")) ;; isearch-backwards
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-d") 'isearch-backward-regexp)
+(global-set-key (kbd "M-f") 'isearch-forward-regexp)
+(global-set-key (kbd "M-F") 'isearch-backward-regexp)
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)
 
 ;; File finding
