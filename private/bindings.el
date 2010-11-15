@@ -50,17 +50,15 @@
 (global-set-key (kbd "M-3") 'split-window-horizontally)
 (global-set-key (kbd "M-4") 'balance-windows)
 (global-set-key (kbd "M-5") 'delete-other-windows)
-;; TODO: bind windmove keys
-;; (global-set-key (kbd "A-i") 'windmove-up)
-;; (global-set-key (kbd "A-l") 'windmove-right)
-;; (global-set-key (kbd "A-k") 'windmove-down)
-;; (global-set-key (kbd "A-j") 'windmove-left)
-
 
 (global-unset-key (kbd "M-x")) ; execute-extended-command
 (global-set-key (kbd "M-a") 'execute-extended-command)
 (global-set-key (kbd "M-e") 'shell-command)
 
+(global-unset-key (kbd "C-d"))
+(global-unset-key (kbd "C-w"))
+(global-unset-key (kbd "C-s"))
+(global-unset-key (kbd "C-a"))
 (global-set-key (kbd "C-d") 'windmove-right)
 (global-set-key (kbd "C-s") 'windmove-down)
 (global-set-key (kbd "C-a") 'windmove-left)
@@ -79,7 +77,6 @@
 (global-set-key (kbd "M-SPC") 'set-mark-command)
 (global-set-key (kbd "M-S-SPC") 'mark-paragraph)
 
-(global-unset-key (kbd "C-w")) ; kill-region
 (global-unset-key (kbd "M-w")) ; kill-ring-save
 (global-unset-key (kbd "C-y")) ; yank
 (global-unset-key (kbd "M-y")) ; yank-pop
@@ -94,8 +91,6 @@
 (global-unset-key (kbd "C-x C-w")) ; write-file
 (global-set-key (kbd "C-o") 'find-file)
 (global-set-key (kbd "C-S-o") 'senny-open-file-at-point)
-(global-set-key (kbd "C-w") 'close-current-buffer)
-(global-set-key (kbd "C-w") 'close-current-buffer)
 (global-set-key (kbd "C-S-n") 'write-file)
 (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
 
