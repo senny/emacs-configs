@@ -60,7 +60,7 @@
 (global-unset-key (kbd "C-s"))
 (global-unset-key (kbd "C-a"))
 (global-set-key (kbd "C-d") 'windmove-right)
-(global-set-key (kbd "C-s") 'windmove-down)
+;; (global-set-key (kbd "C-s") 'windmove-down)
 (global-set-key (kbd "C-a") 'windmove-left)
 (global-set-key (kbd "C-w") 'windmove-up)
 (global-set-key (kbd "M-s") 'move-cursor-next-pane)
@@ -138,8 +138,8 @@
 
 ;; Use regex searches by default.
 (global-unset-key (kbd "C-M-r")) ;; isearch-backwards
-(global-set-key (kbd "M-f") 'isearch-forward-regexp)
-(global-set-key (kbd "M-F") 'isearch-backward-regexp)
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-s") 'isearch-backward-regexp)
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)
 
 ;; File finding
