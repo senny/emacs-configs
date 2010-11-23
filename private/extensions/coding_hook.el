@@ -16,8 +16,8 @@
   (setq save-place t))
 
 (defun turn-on-whitespace ()
-  (setq whitespace-line-column 80
-        whitespace-style '(tabs trailing lines-tail))
+  (set (make-local-variable 'whitespace-line-column) 80)
+  (set (make-local-variable 'whitespace-style) '(tabs trailing lines-tail face))
   (whitespace-mode t))
 
 (defun turn-on-paredit ()
