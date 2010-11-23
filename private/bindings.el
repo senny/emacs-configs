@@ -60,14 +60,13 @@
 (global-unset-key (kbd "C-s"))
 (global-unset-key (kbd "C-a"))
 (global-set-key (kbd "C-d") 'windmove-right)
-;; (global-set-key (kbd "C-s") 'windmove-down)
+(global-set-key (kbd "C-s") 'windmove-down)
 (global-set-key (kbd "C-a") 'windmove-left)
 (global-set-key (kbd "C-w") 'windmove-up)
 (global-set-key (kbd "M-s") 'move-cursor-next-pane)
 (global-set-key (kbd "M-S") 'move-cursor-previous-pane)
 (global-set-key (kbd "<f5>") 'ns-toggle-fullscreen)
 (global-set-key (kbd "<f6>") 'theme-roller-cycle)
-(windmove-default-keybindings) ;; Shift+direction
 
 (global-unset-key (kbd "C-/")) ; undo
 (global-unset-key (kbd "C-_")) ; undo
@@ -138,8 +137,7 @@
 
 ;; Use regex searches by default.
 (global-unset-key (kbd "C-M-r")) ;; isearch-backwards
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-s") 'isearch-backward-regexp)
+(global-set-key (kbd "C-f") 'isearch-forward-regexp)
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)
 
 ;; File finding
