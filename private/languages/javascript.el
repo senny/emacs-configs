@@ -6,7 +6,8 @@
 
 (autoload 'espresso-mode "espresso" "Start espresso-mode" t)
 (setq espresso-indent-level 2
-      javascript-indent-level 2)
+      javascript-indent-level 2
+      espresso-auto-indent-flag nil)
 
 (eval-after-load 'mode-compile
   '(progn
