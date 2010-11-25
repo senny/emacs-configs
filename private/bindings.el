@@ -106,7 +106,6 @@
 (global-set-key (kbd "C-x p") 'senny-ido-find-project)
 (global-set-key (kbd "C-x w") 'senny-ispell-buffer)
 (global-set-key (kbd "C-c p") 'senny-ido-find-config)
-(global-set-key (kbd "C-f p") 'senny-open-task-file)
 (global-set-key (kbd "M-r") 'replace-string)
 (global-set-key [C-return] 'defunkt-duplicate-line)
 (global-set-key (kbd "C-$") 'senny-kill-buffer)
@@ -162,6 +161,7 @@
 (define-key isearch-mode-map (kbd "M-l") 'isearch-yank-char)
 (define-key isearch-mode-map (kbd "M-j") 'isearch-delete-char)
 (define-key isearch-mode-map (kbd "M-u") 'isearch-delete-char)
+(define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
 ;; TODO: find a suitable binding to use the search ring
 ;; (define-key isearch-mode-map (kbd "C-i") 'isearch-ring-retreat)
 ;; (define-key isearch-mode-map (kbd "C-k") 'isearch-ring-advance)
