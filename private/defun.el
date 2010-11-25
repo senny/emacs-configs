@@ -93,7 +93,7 @@
                                                     (shell-command-to-string
                                                      (concat
                                                       "find \"" directory
-                                                      "\" -type f | grep -v \"/.git/\""))))))))
+                                                      "\" -type f | grep -v \"/.git/\" | grep -v \"/.yardoc/\""))))))))
 
 (defun url-fetch-into-buffer (url)
   (interactive "sURL:")
