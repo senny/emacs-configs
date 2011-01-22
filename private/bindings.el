@@ -28,6 +28,7 @@
 (global-set-key (kbd "M-O") 'forward-paragraph)
 (global-set-key (kbd "M-C-o") 'forward-paragraph)
 (global-set-key (kbd "M-C-u") 'backward-paragraph)
+(global-set-key (kbd "M-b") 'pop-to-mark-command)
 
 (global-unset-key (kbd "C-<backspace>")) ; backward-kill-word
 (global-unset-key (kbd "M-d")) ; kill-word
@@ -83,7 +84,6 @@
 (global-set-key (kbd "M-c") 'kill-ring-save)
 (global-set-key (kbd "M-v") 'yank)
 (global-set-key (kbd "M-V") 'yank-pop)
-(global-set-key (kbd "M-b") 'browse-kill-ring)
 
 (global-unset-key (kbd "C-x C-f")) ; find-file
 (global-unset-key (kbd "C-x h")) ; mark-whole-buffer
