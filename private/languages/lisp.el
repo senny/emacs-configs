@@ -70,9 +70,7 @@
 ;; Hooks
 (defun default-lisp-mode-hook ()
   (set-pairs '("(" "{" "[" "\""))
-  (setq ac-sources '(ac-source-symbols ac-source-emacs-lisp-features ac-source-dictionary))
-  (auto-complete-mode t)
-  )
+  (setq ac-sources '(ac-source-symbols ac-source-emacs-lisp-features ac-source-dictionary)))
 
 (add-hook 'lisp-mode-hook 'default-lisp-mode-hook )
 (add-hook 'lisp-interaction-mode-hook 'default-lisp-mode-hook )

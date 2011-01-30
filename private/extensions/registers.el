@@ -14,7 +14,6 @@
   (set-register (car r) (cadr r)))
 
 ;;;; Better Registers
-(require 'better-registers)
-(better-registers t)
-(better-registers-install-save-registers-hook)
-(load better-registers-save-file)
+;;(better-registers t)
+;;(better-registers-install-save-registers-hook)
+;;(load better-registers-save-file)

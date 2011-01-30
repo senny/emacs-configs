@@ -17,6 +17,7 @@
  '(ns-command-modifier (quote meta))
  '(ns-pop-up-frames nil)
  '(ruby-use-encoding-map t)
+ '(safe-local-variable-values (quote ((encoding . utf-8) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby"))))
  '(sh-basic-offset 2)
  '(speedbar-use-images nil))
 (custom-set-faces
