@@ -20,9 +20,3 @@
       (require library))
      ((file-exists-p suffix)
       (require library)))))
-
-;; required packages
-(vendor 'flymake-cursor) ;;display error-messages without mouse
-(vendor 'ibuffer)
-(vendor 'switch-window)
-(vendor 'pastie)

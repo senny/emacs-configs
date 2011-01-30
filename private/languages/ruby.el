@@ -124,12 +124,6 @@
              (delete-region (point-min) (point-max))))))
      (ad-activate 'ruby-do-run-w/compilation)))
 
-(eval-after-load 'rspec-mode
-  '(progn
-     (define-key ruby-mode-map (kbd "C-c , o") 'senny-open-spec-other-buffer)
-     (define-key ruby-mode-map (kbd "C-c , ,") 'senny-open-spec-other-buffer)))
-
-
 ;; Rinari (Minor Mode for Ruby On Rails)
 (setq rinari-major-modes
       (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook

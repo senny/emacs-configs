@@ -1,11 +1,9 @@
 (defvar elpa-packages (list 'idle-highlight
-                            'yasnippet-bundle
                             'ruby-mode
                             'ruby-electric
                             'inf-ruby
                             'css-mode
                             'yaml-mode
-                            'magit
                             'gist
                             'ruby-compilation
                             'rinari

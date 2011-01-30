@@ -26,13 +26,13 @@
 (load "private/libraries")
 (load "private/backup")
 
-;; Load up ELPA, the package manager
-(require 'package)
-(package-initialize)
-(load "private/elpa")
+(cond
+ ((string-match "nt" system-configuration)
+  (load "private/platforms/windows"))
+ ((string-match "apple" system-configuration)
+  (load "private/platforms/mac")))
 
-(setq autoload-file (concat dotfiles-dir "loaddefs.el"))
-(setq package-user-dir (concat dotfiles-dir "elpa"))
+(load "private/el-get-sources")
 
 (load "private/customize")
 (load "private/defun")
@@ -47,12 +47,6 @@
 ;; load language configurations
 (mapc #'load
       (directory-files (concat private-config-dir "/languages") t ".*elc?$"))
-
-(cond
- ((string-match "nt" system-configuration)
-  (load "private/platforms/windows"))
- ((string-match "apple" system-configuration)
-  (load "private/platforms/mac")))
 
 ;; You can keep system- or user-specific customizations here
 (setq system-specific-config (concat dotfiles-dir "machines/" system-name ".el")

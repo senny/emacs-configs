@@ -17,9 +17,6 @@
 (global-set-key (kbd "M-J") 'beginning-of-line)
 (global-set-key (kbd "M-C-j") 'beginning-of-line)
 
-(global-set-key [\M-down] 'move-text-down)
-(global-set-key [\M-up] 'move-text-up)
-
 (global-unset-key (kbd "M-b")) ; backward-word
 (global-unset-key (kbd "M-f")) ; forward-word
 (global-set-key (kbd "M-u") 'backward-word)
