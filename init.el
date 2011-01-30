@@ -32,13 +32,13 @@
  ((string-match "apple" system-configuration)
   (load "private/platforms/mac")))
 
-(load "private/el-get-sources")
-
 (load "private/customize")
 (load "private/defun")
 (load "private/bindings")
 (load "private/display")
 (load "private/misc")
+
+(load "private/el-get-init")
 
 ;; load extensions
 (mapc #'load
