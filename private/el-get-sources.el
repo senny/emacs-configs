@@ -9,7 +9,10 @@
         erc-highlight-nicknames
         java-mode-indent-annotations
         flymake-point
-        switch-window
+        ;; switch-window
+        haml-mode
+        sass-mode
+        yari
 
         senny-textmate
         senny-ido-hacks
@@ -35,10 +38,6 @@
         (:name ruby-mode        :type elpa)
         (:name ruby-compilation :type elpa)
         (:name inf-ruby         :type elpa)
-        (:name css-mode         :type elpa)
-        (:name haml-mode        :type elpa)
-        (:name sass-mode        :type elpa)
-        (:name yari             :type elpa)
 
         ))
 
