@@ -69,5 +69,4 @@
   (add-to-list 'ac-sources 'ac-source-yasnippet))
 
 (add-hook 'js-mode-hook 'default-javascript-mode-hook)
-(add-hook 'js-mode-hook 'moz-minor-mode)
 (add-hook 'js-mode-hook 'run-coding-hook)
