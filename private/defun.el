@@ -1,5 +1,6 @@
 (defvar *senny-main-mode* nil)
 
+(set-default 'senny-completion-function 'auto-complete)
 (defun senny-complete ()
   (interactive)
   (if senny-completion-function
