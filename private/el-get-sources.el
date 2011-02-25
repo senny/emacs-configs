@@ -35,6 +35,7 @@
         senny-markdown-mode
         senny-rhtml-mode
         senny-cucumber
+        senny-popwin
 
         (:name idle-highlight   :type elpa)
         (:name ruby-mode        :type elpa)
