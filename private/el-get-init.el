@@ -10,3 +10,7 @@
      (end-of-buffer)
      (eval-print-last-sexp)
      (load "private/el-get-sources"))))
+
+(setq package-archives
+      '(("original" . "http://tromey.com/elpa/")
+        ("gnu" . "http://elpa.gnu.org/packages/")))
