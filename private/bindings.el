@@ -77,10 +77,12 @@
 (global-unset-key (kbd "M-w")) ; kill-ring-save
 (global-unset-key (kbd "C-y")) ; yank
 (global-unset-key (kbd "M-y")) ; yank-pop
+(global-unset-key (kbd "C-r")) ; yank-pop
 (global-set-key (kbd "M-x") 'kill-region)
 (global-set-key (kbd "M-c") 'kill-ring-save)
 (global-set-key (kbd "M-v") 'yank)
 (global-set-key (kbd "M-V") 'yank-pop)
+(global-set-key (kbd "C-r d") 'kill-rectangle)
 
 (global-unset-key (kbd "C-x C-f")) ; find-file
 (global-unset-key (kbd "C-x h")) ; mark-whole-buffer
