@@ -2,6 +2,8 @@
 
 (setq el-get-sources
       '(el-get
+        (:name css-mode   :type elpa)
+
         gist
         yaml-mode
         rinari
@@ -9,9 +11,10 @@
         erc-highlight-nicknames
         java-mode-indent-annotations
         flymake-point
-        ;; switch-window
+        switch-window
         haml-mode
         sass-mode
+        scss-mode
         yari
         rvm
         theme-roller
@@ -29,7 +32,6 @@
         senny-browse-kill-ring
         senny-browse-kill-ring-plus
         senny-better-registers
-        senny-ert
         senny-csv-mode
         senny-textile-mode
         senny-markdown-mode
@@ -37,6 +39,7 @@
         senny-cucumber
         senny-popwin
         senny-showoff-mode
+        senny-html5
 
         (:name idle-highlight   :type elpa)
         (:name ruby-mode        :type elpa)
