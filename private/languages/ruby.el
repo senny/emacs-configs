@@ -132,7 +132,6 @@
 
 ;; Hooks
 (defun default-ruby-mode-hook ()
-  (ruby-electric-mode t)
   (set-pairs '("(" "{" "[" "\"" "\'" "|"))
 
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
