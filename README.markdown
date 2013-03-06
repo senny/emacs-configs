@@ -1,3 +1,3 @@
-## I abandoned my Emacs configurations in favor of e-max (https://github.com/senny/e-max)
+## I abandoned my Emacs configurations in favor of cabbage (https://github.com/senny/cabbage)
 
-Please have a look at e-max and try it out!
+Please have a look at cabbage and try it out!
